@@ -29,11 +29,28 @@ function displayTodos(todos) {
   //      cream un element (li-uri)
   //      dam si continutul li-ului
   //      trebuie sa facem append la list cu li-ul
-  for (let i = 0; i < todos.length; i++) {
-    const item = todos[i];
+  // for (let i = 0; i < todos.length; i++) {
+  //   const item = todos[i];
+  for (const item of todos) {
+    const listItem = document.createElement('li');
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input');
 
-    const itemElem = document.createElement('li');
-    itemElem.innerText = item.title;
-    list.append(itemElem);
+    checkbox.type = 'checkbox';
+    // if (item.completed) {
+    //   checkbox.checked = true;
+    //   // label.classList.add('done');
+    // }
+
+    label.htmlFor = 'todo' + item.id;
+    checkbox.id = 'todo' + item.id;
+
+    checkbox.checked = item.completed;
+    // label.classList.add(item.completed ? 'done' : 'nothing');
+
+    label.innerText = item.title;
+    listItem.prepend(checkbox);
+    listItem.append(label);
+    list.append(listItem);
   }
 }
