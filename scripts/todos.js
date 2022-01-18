@@ -49,9 +49,34 @@ function displayTodos(todos) {
     checkbox.classList.add('todo-check');
     // label.classList.add(item.completed ? 'done' : 'nothing');
 
+    checkbox.dataset.todoId = item.id;
+    checkbox.addEventListener('change', toggleCompleted);
+
     label.innerText = item.title;
     listItem.prepend(checkbox);
     listItem.append(label);
     list.append(listItem);
   }
+}
+
+function toggleCompleted(e) {
+  const todoId = e.target.dataset.todoId;
+  const todoCompleted = e.target.checked;
+  // console.log(todoCompleted);
+  // Destructuring assignment
+  // const { todoId } = e.target.dataset;
+
+  // Template literal: `${baseUrl}/todos/${todoId}`
+  // Interpolation (puting variables inside the template literal)
+  fetch(`${baseUrl}/todos/${todoId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      completed: todoCompleted,
+    }),
+  })
+    .then(handleResponse)
+    .then(console.log);
 }
