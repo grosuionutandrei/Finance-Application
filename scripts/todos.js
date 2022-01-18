@@ -46,6 +46,7 @@ function displayTodos(todos) {
     checkbox.id = 'todo' + item.id;
 
     checkbox.checked = item.completed;
+    checkbox.classList.add('todo-check');
     // label.classList.add(item.completed ? 'done' : 'nothing');
 
     label.innerText = item.title;

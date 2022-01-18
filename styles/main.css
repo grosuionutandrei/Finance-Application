@@ -4,6 +4,6 @@
 }
 
 .done,
-[type='checkbox']:checked + label {
+.todo-check:checked + label {
   text-decoration: line-through;
 }
