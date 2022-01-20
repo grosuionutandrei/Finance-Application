@@ -1,9 +1,0 @@
-.todo-list {
-  list-style: none;
-  padding: 0;
-}
-
-.done,
-.todo-check:checked + label {
-  text-decoration: line-through;
-}
