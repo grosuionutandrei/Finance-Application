@@ -74,4 +74,110 @@ func1(14);
 // Lexical this (for arrow functions and bind)
 person1.weirdThis();
 
+// const arr = [1, 2, 4, 5];
+// console.log(arr);
+
 // 4. Established at the time of the function definition, more specifically Constructor functions
+// Number('2');
+// const str = new String('Paul');
+// console.log(str, str.toString());
+// Boolean();
+// Date();
+
+function Person(fName, lName, weight, height) {
+  this.firstName = fName;
+  this.lastName = lName;
+  this.weight = weight;
+  this.height = height;
+  this.arrFct = () => console.log(this);
+}
+
+Person.prototype.calculateBmi = function () {
+  return (this.weight / this.height ** 2).toFixed(2);
+};
+
+Person.prototype.aFct = () => console.log(this);
+
+Person.astaEStatica = 'statica';
+
+const person2 = new Person('Ionut', 'Borcescu', 100, 1.75);
+const person3 = new Person('Florentina', 'Popescu', 50, 1.68);
+
+person3.aFct();
+class Employee extends Person {
+  // Private Property
+  #chestiaMeaSecreta = 'secrettt';
+
+  // Public Property
+  nuEPrivata = 100;
+
+  // Static Propery
+  static test = 'test';
+
+  constructor(fName, lName, w, h, salary) {
+    super(fName, lName, w, h);
+    this.salary = salary;
+  }
+
+  getSalaryInRon() {
+    return this.salary * 5 + 'RON';
+  }
+
+  toString() {
+    return `This is the employee '${this.firstName} ${this.lastName}'`;
+  }
+
+  getSecret() {
+    return this.#chestiaMeaSecreta;
+  }
+
+  arrowFunc = () => console.log('This is: ', this);
+}
+
+const employee1 = new Employee('Alexandru', 'Albulescu', 100, 2.05, 2000);
+console.log(
+  employee1.getSecret(),
+  employee1.nuEPrivata,
+  Employee.test,
+  Person.astaEStatica
+);
+
+const a = employee1.arrFct;
+
+a();
+
+// Spread Operator
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const arr3 = [...arr1, ...arr2];
+
+function arrTest(a, b, c) {
+  console.log({ a, b, c }, arguments);
+}
+// arrTest(...arr1)
+// const persone1Clone = person1;
+
+// persone1Clone.firstName = 'Cornel';
+
+function objTest(o) {
+  // const newO = Object.assign({}, o);
+  const newO = { ...o };
+  newO.firstName = 'Whatever';
+
+  console.log(newO);
+}
+objTest(person1);
+
+console.log(person1.firstName);
+
+// Rest operator / rest parameter
+function fct1(a, b, c, ...altele) {
+  console.log({ a, b, c, altele }, arguments);
+}
+
+fct1(1, 2, 3, 'test', {}, [5, 6, 7]);
+
+// Default parameters
+function sum(a = 1, b = 10) {
+  return a + b;
+}
