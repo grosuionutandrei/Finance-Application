@@ -10,13 +10,23 @@ class PostsView {
     for (const post of posts) {
       const title = document.createElement('dt');
       const link = document.createElement('a');
-      link.href = 'postDetails.html';
+      link.href = `postDetails.html?postId=${post.id}`;
       link.innerText = post.title;
       title.append(link);
       const author = document.createElement('dd');
-      author.innerText = post.userId;
+      author.innerText = `Author: ${post.user.name}`;
 
       this.listOutputElem.append(title, author);
     }
+  }
+
+  populatePostDetails(post) {
+    const titleElem = document.querySelector('[data-post-title]');
+    const contentElem = document.querySelector('[data-post-content]');
+    const authorElem = document.querySelector('[data-post-author]');
+
+    titleElem.innerText = post.title;
+    contentElem.innerText = post.body;
+    authorElem.innerHTML = '&mdash; by ' + post.user.name;
   }
 }
