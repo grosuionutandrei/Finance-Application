@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OOP</title>
 
-    <script src="scripts/main.js" defer></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/posts.model.js"></script>
+    <script src="scripts/posts.view.js"></script>
+    <script src="scripts/posts.controller.js"></script>
   </head>
-  <body></body>
+  <body>
+    <h1>MVC - Model View Controller</h1>
+    <h2>Posts</h2>
+    <dl data-posts-list></dl>
+
+    <script>
+      const postsCtrl = new PostsController();
+      postsCtrl.postsList();
+    </script>
+  </body>
 </html>

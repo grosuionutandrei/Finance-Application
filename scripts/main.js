@@ -92,6 +92,10 @@ function Person(fName, lName, weight, height) {
   this.arrFct = () => console.log(this);
 }
 
+Person.prototype.getFullName = function () {
+  return this.firstName + ' ' + this.lastName;
+};
+
 Person.prototype.calculateBmi = function () {
   return (this.weight / this.height ** 2).toFixed(2);
 };
@@ -131,6 +135,25 @@ class Employee extends Person {
     return this.#chestiaMeaSecreta;
   }
 
+  // Getters and setters
+  get fullName() {
+    return super.getFullName();
+    // return this.firstName + ' ' + this.lastName;
+  }
+
+  set fullName(value) {
+    // const splitName = value.split(' ');
+    // this.firstName = splitName[0];
+    // this.lastName = splitName[1];
+
+    // // Array destructuring
+    // const [firstName, lastName] = value.split(' ');
+    // this.firstName = firstName;
+    // this.lastName = lastName;
+
+    [this.firstName, this.lastName] = value.split(' ');
+  }
+
   arrowFunc = () => console.log('This is: ', this);
 }
 
@@ -143,7 +166,9 @@ console.log(
 );
 
 const a = employee1.arrFct;
-
+console.log(employee1.fullName);
+employee1.fullName = 'Anca Scutaru';
+console.log(employee1.lastName, employee1.firstName);
 a();
 
 // Spread Operator
@@ -181,3 +206,15 @@ fct1(1, 2, 3, 'test', {}, [5, 6, 7]);
 function sum(a = 1, b = 10) {
   return a + b;
 }
+
+// SOLID
+// Single Responsibility Principle
+// Open/Closed Principle
+// Liskov Substitution
+// Interface Segregation
+// Dependency Inversion
+
+// Inheritance vs. Composition
+// Encapsulation
+// Abstractization
+// Polimorphism
