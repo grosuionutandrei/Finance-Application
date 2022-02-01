@@ -55,13 +55,30 @@ class PostsController {
     commentsView.renderComments(comments);
   }
 
+  async editPost() {
+    const postId = this.getUrlParam('postId');
+    const post = await this.postsModel.findOne(postId);
+
+    this.postsView.initUpdateForm(post, this.updatePost.bind(this));
+  }
+
   getUrlParam(paramName) {
     const params = new URLSearchParams(location.search);
     return params.get(paramName);
   }
 
-  createPost(data) {
-    this.postsModel.create(data);
+  async createPost(data) {
+    const newPost = await this.postsModel.create(data);
+
+    const author = await this.usersModel.findOne(newPost.userId);
+    newPost.user = author;
+
+    this.postsView.appendNewPostToList(newPost);
+  }
+
+  updatePost(data) {
+    const postId = this.getUrlParam('postId');
+    this.postsModel.update(postId, data);
   }
 
   initPostList() {

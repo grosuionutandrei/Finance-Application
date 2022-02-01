@@ -19,4 +19,14 @@ class PostsModel {
       body: JSON.stringify(data),
     }).then((res) => res.json());
   }
+
+  update(id, data) {
+    return fetch(`${this.baseUrl}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
+  }
 }

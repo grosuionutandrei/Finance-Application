@@ -15,15 +15,28 @@
     <script src="scripts/posts.controller.js"></script>
   </head>
   <body>
-    <h1 data-post-title></h1>
-    <a href="editPost.html" data-edit-link>Edit this post</a>
-    <h2 data-post-author></h2>
-    <article data-post-content></article>
-    <ul data-post-comments></ul>
+    <form action="" method="PUT" data-update-form>
+      <h1 data-post-title></h1>
+      <div>
+        <label for="title">Title</label>
+        <input name="title" id="title" placeholder="Title" type="text" />
+      </div>
+      <div>
+        <label for="body">Body</label>
+        <textarea
+          name="body"
+          id="body"
+          placeholder="Type the body of the post here"
+        ></textarea>
+      </div>
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </form>
 
     <script>
       const postsCtrl = new PostsController();
-      postsCtrl.postDetails();
+      postsCtrl.editPost();
     </script>
   </body>
 </html>
