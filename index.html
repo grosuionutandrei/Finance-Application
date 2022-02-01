@@ -15,11 +15,28 @@
   <body>
     <h1>MVC - Model View Controller</h1>
     <h2>Posts</h2>
+    <form action="" method="POST" data-add-post-form>
+      <div>
+        <label for="title">Title</label>
+        <input name="title" id="title" placeholder="Title" type="text" />
+      </div>
+      <div>
+        <label for="body">Body</label>
+        <textarea
+          name="body"
+          id="body"
+          placeholder="Type the body of the post here"
+        ></textarea>
+      </div>
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </form>
     <dl data-posts-list></dl>
 
     <script>
       const postsCtrl = new PostsController();
-      postsCtrl.postsList();
+      postsCtrl.initPostList();
     </script>
   </body>
 </html>

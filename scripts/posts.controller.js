@@ -1,4 +1,4 @@
-/*
+/* 
   GET catre server ca sa luam articolele
     fetch()
 
@@ -7,7 +7,7 @@
       createElement()
         innerText pe elementul creat cu titlul
       append()
-*/
+ */
 class PostsController {
   postsModel = new PostsModel();
   postsView = new PostsView();
@@ -58,5 +58,14 @@ class PostsController {
   getUrlParam(paramName) {
     const params = new URLSearchParams(location.search);
     return params.get(paramName);
+  }
+
+  createPost(data) {
+    this.postsModel.create(data);
+  }
+
+  initPostList() {
+    this.postsList();
+    this.postsView.initAddForm(this.createPost.bind(this));
   }
 }

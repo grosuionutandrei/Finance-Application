@@ -29,4 +29,29 @@ class PostsView {
     contentElem.innerText = post.body;
     authorElem.innerHTML = '&mdash; by ' + post.user.name;
   }
+
+  initAddForm(cb) {
+    const addForm = document.querySelector('[data-add-post-form]');
+    addForm.addEventListener('submit', (e) => this.handleAddFormSubmit(e, cb));
+  }
+
+  handleAddFormSubmit(e, cb) {
+    e.preventDefault();
+
+    // destructuring assignment
+    // const {
+    //   title: { value: titlu },
+    //   body: { value: corp },
+    // } = e.target.elements;
+
+    // console.log(titlu, corp);
+
+    const data = new FormData(e.target);
+    // const [title, body] = [data.get('title'), data.get('body')];
+    const title = data.get('title');
+    const body = data.get('body');
+    const userId = 1;
+
+    cb({ title, body, userId });
+  }
 }
