@@ -1,16 +1,30 @@
+'use strict';
+
 /*** Array Functions ***/
 /*
-0. Sa se scrie o functie care primeste array-ul de mai jos ca parametru si returneaza un array de numere unde toate numerele au fost adunate cu 2
+0. Sa se scrie o functie care primeste array-ul de mai jos ca parametru si returneaza un array de numere unde toate 
+numerele au fost adunate cu 2
 */
 console.clear();
 const strArr = ['13', '2', '34', '14', '5', '86', '3.46'];
 
+function typeCastAndAdd(arr) {
+  // const plus = [];
+
+  // for(const elem of arr) {
+  //   plus.push(Number(elem) + 2);
+  // }
+  // return plus;
+
+  return arr.map((elem) => Number(elem) + 2);
+  // return arr.map(Number).map((num) => num + 2);
+}
+
 console.log('Typecast: ', typeCastAndAdd(strArr));
 
-function typeCastAndAdd(arr) {}
-
 /* 
-1. Sa se implementeze o functie care primeste un array de obiecte si un nume de cheie si returneaza un array cu toate valorile corespunzatoare cheii din obiectele din array.
+1. Sa se implementeze o functie care primeste un array de obiecte si un nume de cheie si 
+returneaza un array cu toate valorile corespunzatoare cheii din obiectele din array.
 */
 const demoArr = [
   { id: 1, color: 'red', height: 15, width: 20, distance: 10 },
@@ -21,21 +35,108 @@ const demoArr = [
   { id: 6, color: 'crimson', height: 7, width: 8, distance: 16 },
 ];
 
-function pluck(arr, key) {}
+// const obj = {
+//   id: 1,
+//   color: 'red',
+//   height: 15,
+//   width: 20,
+//   distance: 10,
+//   key: 'Paul',
+// };
+// const key = 'color';
+
+// console.log(obj[key]);
+
+function pluck(arr, key) {
+  // // key === 'color'
+  // const res = [];
+
+  // // for (let i = 0; i < arr.length; i++) {
+  // // const elem = arr[i];
+  // for (const elem of arr) {
+  //   res.push(elem[key]);
+  // }
+  // return res;
+
+  return arr.map((elem) => elem[key]);
+}
 
 console.log('Pluck: ', pluck(demoArr, 'color')); // => ['red', 'green', 'turqoize' .......];
 
 /*
-2. Sa se implementeze o functie care returneaza ariile tuturor elementelor din array-ul de mai sus, aria e inaltime * latime.
+2. Sa se implementeze o functie care returneaza ariile tuturor 
+elementelor din array-ul de mai sus, aria e inaltime * latime.
 */
 console.log('Calclulate area:', calculateArea(demoArr));
 
-function calculateArea(arr) {}
+function calculateArea(arr) {
+  // const res = [];
+
+  // // arr.forEach((elem) => {
+  // //   const area = elem.height * elem.width;
+  // //   // console.log(area);
+  // //   res.push(area);
+  // // });
+
+  // for(const elem of arr) {
+  //   const area =  elem.height * elem.width;
+  //   res.push(area);
+  // }
+
+  // return res;
+  return arr.map((elem) => elem.height * elem.width);
+}
+
+// function map(arr, func) {
+//   const res = [];
+
+//   for (const elem of arr) {
+//     res.push(func(elem));
+//   }
+
+//   return res;
+// }
+
+// console.log(map(demoArr, (elem) => elem.height * elem.width));
 
 /*
-3. Sa se scrie o functie care returneaza un subset din array-ul de mai sus unde elementele au aria mai mica sau egala cu 100
+3. Sa se scrie o functie care returneaza un subset din
+ array-ul de mai sus unde elementele au aria mai mica sau egala cu 100
+
+ [
+  { id: 3, color: 'turqoize', height: 7, width: 9, distance: 8 },
+  { id: 4, color: 'blue', height: 2, width: 3, distance: 3 },
+  { id: 5, color: 'red', height: 10, width: 10, distance: 2 },
+  { id: 6, color: 'crimson', height: 7, width: 8, distance: 16 }
+ ]
 */
-function filterArr(arr) {}
+function filterArr(arr) {
+  // const results = [];
+
+  // // for (let i = 0; i < arr.length; i++) {
+  // // const elem = arr[i];
+  // for (const elem of arr) {
+  //   const area = elem.height * elem.width;
+
+  //   if (area <= 100) {
+  //     results.push(elem);
+  //   }
+  // }
+  // return results;
+  return arr.filter((elem) => elem.height * elem.width <= 100);
+}
+
+// function filterArr2(arr) {
+//   const areas = calculateArea(arr);
+
+//   for (let i = 0; i < areas.length; i++) {
+//     const area = areas[i];
+//     if (area <= 100) {
+//       arr.splice(i, 1);
+//     }
+//   }
+//   return arr;
+// }
 
 console.log('Filter: ', filterArr(demoArr));
 
