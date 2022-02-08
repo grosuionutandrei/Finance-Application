@@ -141,48 +141,119 @@ function filterArr(arr) {
 console.log('Filter: ', filterArr(demoArr));
 
 /*
-4. Sa se implementeze o functie numita reject, care primeste un array si o functie iterator. Functia iterator primeste cate un element din array ca si parametru si trebuie sa returneze true sau false. Daca returneaza true, elementul in cauza nu va fi inclus de functia parinte in array-ul rezultat. Daca returneaza false va fi inclus.
+4. Sa se implementeze o functie numita reject, care 
+primeste un array si o functie iterator. Functia 
+iterator primeste cate un element din array ca si 
+parametru si trebuie sa returneze true sau false. 
+Daca returneaza true, elementul in cauza nu va fi 
+inclus de functia parinte in array-ul rezultat. 
+Daca returneaza false va fi inclus.
 */
-console.log(reject(demoArr, iterator)); // sa returneze un array de obiecte cu height < 10
+// console.log(reject(demoArr, iterator)); // sa returneze un array de obiecte cu height < 10
 
-function iterator(aria) {}
+function iterator(elem) {
+  return elem.height * elem.width <= 100;
+}
 
-function reject(arr, cb) {}
-console.log('Reject', reject(calculateArea(demoArr), iterator));
+function reject(arr, cb) {
+  const newArr = arr.filter((elem) => !cb(elem));
+  // const newArr = [];
+  // for (const elem of arr) {
+  //   if (cb(elem) === false) {
+  //     newArr.push(elem);
+  //   }
+  // }
+  // return newArr;
+  return newArr;
+}
+
+console.log('Reject', reject(demoArr, iterator));
 
 /*
-5. Sa se scrie o functie care returneaza elementul cu culoarea crimson
+5. Sa se scrie o functie care returneaza elementul cu 
+culoarea crimson
 */
-console.log('Find Color: ', findColor(demoArr, 'red'));
+console.log('Find Color: ', findColor(demoArr, 'crimson'));
 
-function findColor(arr, color) {}
+function findColor(arr, color) {
+  // // for (let i = 0; i < arr.length; i++) {
+  // for (const elem of arr) {
+  //   if (elem.color === color) {
+  //     return elem;
+  //   }
+  // }
+  // return undefined;
+  return arr.find((elem) => elem.color === color);
+}
 /*
-6. Sa se scrie o functie care returneaza true daca toate elementele din array au aria >= 10, false altfel.
+6. Sa se scrie o functie care returneaza true 
+daca toate elementele din array au aria >= 10, 
+false altfel.
 */
-console.log('Areas are Bigger: ', areasAreBigger(demoArr, 5));
+console.log('Areas are Bigger: ', areasAreBigger(demoArr, 7));
 
-function areasAreBigger(arr, area) {}
+function areasAreBigger(arr, area) {
+  // for (const elem of arr) {
+  //   if (elem.height * elem.width < area) {
+  //     return false;
+  //   }
+  // }
+  // return true;
+
+  return arr.every((elem) => elem.height * elem.width >= area);
+}
 
 /*
-7. Sa se scrie o functie care returneaza true daca cel putin unul din elementele array-ului are culoarea 'green';
+7. Sa se scrie o functie care returneaza true daca 
+cel putin unul din elementele array-ului are culoarea 
+'green';
 */
 console.log('At Least One: ', atLeastOneIsOfColor(demoArr, 'green'));
 
-function atLeastOneIsOfColor(arr, color) {}
+function atLeastOneIsOfColor(arr, color) {
+  // for (const elem of arr) {
+  //   if (elem.color === color) {
+  //     return true;
+  //   }
+  // }
+  // return false;
+  return arr.some((elem) => elem.color === color);
+}
 
 /*
-8. Sa se scrie o functie care returneaza distanta totala (suma distantelor elementelor)
+8. Sa se scrie o functie care returneaza distanta totala 
+(suma distantelor elementelor)
 */
 console.log('Sum of distances: ', sumOfDistances(demoArr));
 
-function sumOfDistances(arr) {}
+function sumOfDistances(arr) {
+  // let suma = 0;
+  // for (const elemnt of arr) {
+  //   suma = suma + elemnt.distance;
+  // }
+  // return suma;
+  return arr.reduce((suma, elem) => suma + elem.distance, 0);
+}
 
 /*
-9. Sa se scrie o functie care returneaza un obiect in care se numara de cate ori apare fiecare culoare in parte in array-ul de obiecte. {red: 2, blue: 1, etc...}
+9. Sa se scrie o functie care returneaza un obiect in care 
+se numara de cate ori apare fiecare culoare in parte in array-ul 
+de obiecte. {red: 2, blue: 1, etc...}
 */
 console.log('Number of colors: ', noColors(demoArr));
 
-function noColors(arr) {}
+function noColors(arr) {
+  const obj = {};
+  for (const elem of arr) {
+    if (elem.color in obj) {
+      // if (obj[elem.color]) {
+      obj[elem.color] += 1;
+    } else {
+      obj[elem.color] = 1;
+    }
+  }
+  return obj;
+}
 
 /*
 10. Sa se scrie o functie care returneaza un array cu toate elementele care au o culoare unica. Oricare element dupa primul care are o culoare care s-ar repeta nu este inclus in array.
