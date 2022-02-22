@@ -1,9 +1,5 @@
-function App({ title }) {
-  return <h1>{title}</h1>;
+import { Counter } from './features/Counter/Counter';
+
+export function App() {
+  return <Counter delta={1} initialValue={0} />;
 }
-
-//default export
-// export default App;
-
-//named exports
-export { App };
