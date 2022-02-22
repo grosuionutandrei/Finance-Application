@@ -5,6 +5,7 @@ import styles from './Counter.module.css';
 
 export function Counter({ delta, initialValue }) {
   const [counterValue, setCounterValue] = useState(initialValue);
+  const [deltaInput, setDeltaInput] = useState(delta);
   // let cls = '';
 
   function handleClick(e) {
@@ -12,10 +13,10 @@ export function Counter({ delta, initialValue }) {
 
     switch (e.target.dataset.counter) {
       case 'inc':
-        newCounterValue = counterValue + delta;
+        newCounterValue = counterValue + deltaInput;
         break;
       case 'dec':
-        newCounterValue = counterValue - delta;
+        newCounterValue = counterValue - deltaInput;
         break;
       case 'reset':
         newCounterValue = initialValue;
@@ -51,6 +52,15 @@ export function Counter({ delta, initialValue }) {
         <button id="decrement" data-counter="dec" onClick={handleClick}>
           -
         </button>
+
+        <input
+          type="number"
+          name="delta"
+          id="delta"
+          value={deltaInput}
+          onChange={(e) => setDeltaInput(Number(e.target.value))}
+        />
+
         <button id="increment" data-counter="inc" onClick={handleClick}>
           +
         </button>
