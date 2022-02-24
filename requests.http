@@ -1,0 +1,69 @@
+@baseUrl = http://localhost:3005
+
+### Get all products
+GET {{baseUrl}}/products
+
+### Get all movies, paginated
+GET {{baseUrl}}/movies?_limit=10&_page=3
+
+###Login
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "a@a.com",
+    "password": "parola"
+}
+
+### Register
+# @name register
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+    "email": "b@b.com",
+    "password": "parola",
+    "firstName": "Paul",
+    "lastName": "Negoescu"
+}
+
+### Set our authToken variable to be available on future requests
+@authToken = {{login.response.body.accessToken}}
+@userId = {{login.response.body.user.id}}
+
+### Create a product
+POST {{baseUrl}}/products
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "userId": {{userId}},
+    "name": "Samsung Galaxy S22 Ultra",
+    "description": "Best phone ever!",
+    "price": 599.99,
+    "material": "Aluminium",
+    "color": "Slate Gray",
+    "tags": [
+        "Modern",
+        "Awesome",
+        "Expensive",
+        "New"
+    ],
+    "categoryId": 2
+}
+
+### Update a product
+PATCH {{baseUrl}}/products/20
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "color": "Crimson"
+}
+
+
+### Delete a product
+DELETE {{baseUrl}}/products/21
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
