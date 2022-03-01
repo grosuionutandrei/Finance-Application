@@ -6,20 +6,6 @@
       "firstName": "Paul",
       "lastName": "Negoescu",
       "id": 1
-    },
-    {
-      "email": "p@pa.com",
-      "password": "$2a$10$kPINsn4D5fCxkdIjViqygeyHabhU8DQoAJesWcVop8yEqRyjOya5y",
-      "firstName": "Paul",
-      "lastName": "Negoescu",
-      "id": 2
-    },
-    {
-      "email": "b@b.com",
-      "password": "$2a$10$lyGgzk8lccQitVEEiCsSDuhRTk7aerP.CeNg5itWP5/o8oCOc5l8C",
-      "firstName": "Paul",
-      "lastName": "Negoescu",
-      "id": 3
     }
   ],
   "movies": [
