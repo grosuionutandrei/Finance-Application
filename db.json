@@ -6,6 +6,13 @@
       "firstName": "Paul",
       "lastName": "Negoescu",
       "id": 1
+    },
+    {
+      "email": "p@p.com",
+      "password": "$2a$10$bN2aHTng90CFf/joD8XUguGIqikMaziHMUKBZhJd27nN7y7sXH3W2",
+      "firstName": "Paul",
+      "lastName": "Negoescu",
+      "id": 2
     }
   ],
   "movies": [
@@ -39300,6 +39307,26 @@
     {
       "id": 5,
       "name": "Movies"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "Buy milk",
+      "completed": true,
+      "userId": 2
+    },
+    {
+      "id": 2,
+      "title": "Buy flowers",
+      "completed": false,
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "title": "Give flowers to wife",
+      "completed": false,
+      "userId": 2
     }
   ]
 }
