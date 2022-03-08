@@ -20,6 +20,9 @@ export function Nav() {
         <li>
           <CustomNavLink to="/todos">Todos</CustomNavLink>
         </li>
+        <li>
+          <CustomNavLink to="/movies">Movies</CustomNavLink>
+        </li>
 
         {user && (
           <li className="p-3 ml-auto">

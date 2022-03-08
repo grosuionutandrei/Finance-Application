@@ -23,11 +23,13 @@ export function Auth() {
   const isRegister = location.pathname.includes('register');
   const navigate = useNavigate();
 
+  const from = location.state?.from?.pathname || '/';
+
   useEffect(() => {
     if (token) {
-      navigate('/');
+      navigate(from);
     }
-  }, [token, navigate]);
+  }, [token, from, navigate]);
 
   function handleInputChange(e) {
     setErrors({ ...errors, [e.target.name]: '' });

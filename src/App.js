@@ -8,7 +8,11 @@ import { AuthContextProvider } from './features/Auth/Auth.context';
 
 import './App.css';
 import { Todos } from './features/Todos/Todos';
-import { TodoItem } from './features/Todos/TodoItem';
+import { AuthGuard } from './components/AuthGuard';
+import { MovieList } from './features/Movies/MovieList';
+import { MovieDetails } from './features/Movies/MovieDetails';
+import { MovieEdit } from './features/Movies/MovieEdit';
+import { MovieAdd } from './features/Movies/MovieAdd';
 
 export function App() {
   return (
@@ -24,8 +28,40 @@ export function App() {
             <Route path="weather" element={<Weather />} />
             <Route path="login" element={<Auth />} />
             <Route path="register" element={<Auth />} />
-            <Route path="todos" element={<Todos />} />
-            <Route path="todos/:todoId" element={<TodoItem />} />
+            <Route path="movies" element={<MovieList />} />
+            <Route path="movies/:movieId" element={<MovieDetails />} />
+            <Route
+              path="movies/:movieId/edit"
+              element={
+                <AuthGuard>
+                  <MovieEdit />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="movies/add"
+              element={
+                <AuthGuard>
+                  <MovieAdd />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="todos"
+              element={
+                <AuthGuard>
+                  <Todos />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="todos/:todoId"
+              element={
+                <AuthGuard>
+                  <Todos />
+                </AuthGuard>
+              }
+            />
             <Route path="comm" element={<Parent />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Route>
