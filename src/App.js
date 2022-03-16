@@ -13,6 +13,7 @@ import { MovieList } from './features/Movies/MovieList';
 import { MovieDetails } from './features/Movies/MovieDetails';
 import { MovieEdit } from './features/Movies/MovieEdit';
 import { MovieAdd } from './features/Movies/MovieAdd';
+import { LoginPage } from './mfeatures/LoginPage';
 
 export function App() {
   return (
@@ -26,8 +27,8 @@ export function App() {
               element={<Counter delta={1} initialValue={0} />}
             />
             <Route path="weather" element={<Weather />} />
-            <Route path="login" element={<Auth />} />
-            <Route path="register" element={<Auth />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<LoginPage />} />
             <Route path="movies" element={<MovieList />} />
             <Route path="movies/:movieId" element={<MovieDetails />} />
             <Route
