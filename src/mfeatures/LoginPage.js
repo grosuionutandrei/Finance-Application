@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useAuthContext } from '../features/Auth/Auth.context';
-import { Navigation } from './mcomponenets/Navigation';
 import styles from '../mcss/Navigation.module.css';
 
-export function LoginPage() {
+export function LoginPage({ error, onError }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -19,7 +18,6 @@ export function LoginPage() {
     lastName: '',
     retypePassword: '',
   });
-  const [serverError, setServerError] = useState();
   const { token, login } = useAuthContext();
   const location = useLocation();
   const isRegister = location.pathname.includes('register');
@@ -48,7 +46,7 @@ export function LoginPage() {
     }).then((res) => res.json());
 
     if (!data.accessToken) {
-      setServerError(data);
+      onError(data);
       return;
     }
 
@@ -63,7 +61,11 @@ export function LoginPage() {
     }
 
     if (!values.firstName) {
-      setErrors({ ...errors, firstName: 'You need to provide a first name.' });
+      setErrors({ ...errors, firstName: 'Please insert your first name.' });
+      hasErrors = true;
+    }
+    if (!values.lastName) {
+      setErrors({ ...errors, lastName: 'Please insert your last name.' });
       hasErrors = true;
     }
 
@@ -82,7 +84,7 @@ export function LoginPage() {
     }).then((res) => res.json());
 
     if (!data.accessToken) {
-      setServerError(data);
+      onError(data);
       return;
     }
 
@@ -102,9 +104,7 @@ export function LoginPage() {
   return (
     <form onSubmit={handleSubmit} className={styles.form_style}>
       <h1 className="text-2xl">{isRegister ? 'Register' : 'Login'}</h1>
-      {serverError && (
-        <p className="bg-red-200 text-red-900 bold p-2">{serverError}</p>
-      )}
+      {error && <p className="bg-red-200 text-red-900 bold p-2">{error}</p>}
       <div className={`my-2 ${styles.my_style}`}>
         <label htmlFor="email">Email </label>
         <input
@@ -142,8 +142,7 @@ export function LoginPage() {
             />
             {errors.retypePassword && (
               <>
-                <br />
-                {errors.retypePassword}
+                <p className={styles.error}>{errors.retypePassword}</p>
               </>
             )}
           </div>
@@ -159,8 +158,7 @@ export function LoginPage() {
             />
             {errors.firstName && (
               <>
-                <br />
-                {errors.firstName}
+                <p className={styles.error}> {errors.firstName}</p>
               </>
             )}
           </div>
@@ -174,6 +172,11 @@ export function LoginPage() {
               id="lastName"
               className="border-2 border-slate-900 p-1 text-slate-900 rounded-md"
             />
+            {errors.lastName && (
+              <>
+                <p className={styles.error}> {errors.lastName}</p>
+              </>
+            )}
           </div>
         </>
       )}
@@ -181,7 +184,7 @@ export function LoginPage() {
       <p className="my-2">
         <button
           type="submit"
-          className="rounded-md bg-slate-900 text-slate-100 py-1 px-3"
+          className={`rounded-md bg-slate-900 text-slate-100 py-2 px-2 ${styles.submitFirst}`}
         >
           {isRegister ? 'Register' : 'Login'}
         </button>

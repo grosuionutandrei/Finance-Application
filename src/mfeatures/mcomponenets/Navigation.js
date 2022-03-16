@@ -5,6 +5,7 @@ import { useState } from 'react';
 export function Navigation() {
   const [loginStyle, setLoginStyle] = useState(styles.login);
   const [registerStyle, setRegisterStyle] = useState(styles.register);
+  const [errors, setErrors] = useState();
 
   const changeClass = function cahangeClass(ele) {
     const state = ele.innerText === 'Login' ? 'Login' : 'Register';
@@ -15,15 +16,11 @@ export function Navigation() {
       setLoginStyle(styles.login);
       setRegisterStyle(styles.register_pressed);
     }
-    console.log(state);
-
-    // const sibblingButton = document.querySelector(`[data-state=${state}]`);
-    // sibblingButton.classList.remove(styles.pressed);
-    // console.log(sibblingButton.dataset.state);
   };
 
   function activateButton(e) {
     changeClass(e.target);
+    setErrors(null);
   }
   return (
     <div className={styles.login_modal}>
@@ -46,7 +43,7 @@ export function Navigation() {
         </CustomNavLink>
       </nav>
 
-      <LoginPage />
+      <LoginPage error={errors} onError={(value) => setErrors(value)} />
     </div>
   );
 }

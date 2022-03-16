@@ -13,6 +13,13 @@
       "firstName": "Paul",
       "lastName": "Negoescu",
       "id": 2
+    },
+    {
+      "email": "test@yahoo.com",
+      "password": "$2a$10$pP.Cssgck0ywblRo3MrMMeTivx/4h9kUTEUSFTk3284OFZcisUZeW",
+      "firstName": "Grosu",
+      "lastName": "Ionut",
+      "id": 3
     }
   ],
   "movies": [
@@ -39068,7 +39075,13 @@
       "price": "207.00",
       "material": "Frozen",
       "color": "gold",
-      "tags": ["Small", "Licensed", "Tasty", "Intelligent", "Gorgeous"],
+      "tags": [
+        "Small",
+        "Licensed",
+        "Tasty",
+        "Intelligent",
+        "Gorgeous"
+      ],
       "categoryId": 2
     },
     {
@@ -39079,7 +39092,13 @@
       "price": "994.00",
       "material": "Plastic",
       "color": "olive",
-      "tags": ["Practical", "Handcrafted", "Generic", "Gorgeous", "Licensed"],
+      "tags": [
+        "Practical",
+        "Handcrafted",
+        "Generic",
+        "Gorgeous",
+        "Licensed"
+      ],
       "categoryId": 4
     },
     {
@@ -39090,7 +39109,9 @@
       "price": "583.00",
       "material": "Granite",
       "color": "teal",
-      "tags": ["Fantastic"],
+      "tags": [
+        "Fantastic"
+      ],
       "categoryId": 3
     },
     {
@@ -39101,7 +39122,13 @@
       "price": "328.00",
       "material": "Soft",
       "color": "azure",
-      "tags": ["Small", "Sleek", "Generic", "Incredible", "Intelligent"],
+      "tags": [
+        "Small",
+        "Sleek",
+        "Generic",
+        "Incredible",
+        "Intelligent"
+      ],
       "categoryId": 5
     },
     {
@@ -39129,7 +39156,11 @@
       "price": "813.00",
       "material": "Steel",
       "color": "gold",
-      "tags": ["Unbranded", "Rustic", "Ergonomic"],
+      "tags": [
+        "Unbranded",
+        "Rustic",
+        "Ergonomic"
+      ],
       "categoryId": 1
     },
     {
@@ -39140,7 +39171,11 @@
       "price": "977.00",
       "material": "Wooden",
       "color": "fuchsia",
-      "tags": ["Fantastic", "Handcrafted", "Small"],
+      "tags": [
+        "Fantastic",
+        "Handcrafted",
+        "Small"
+      ],
       "categoryId": 4
     },
     {
@@ -39151,7 +39186,11 @@
       "price": "236.00",
       "material": "Frozen",
       "color": "gold",
-      "tags": ["Intelligent", "Generic", "Rustic"],
+      "tags": [
+        "Intelligent",
+        "Generic",
+        "Rustic"
+      ],
       "categoryId": 1
     },
     {
@@ -39162,7 +39201,13 @@
       "price": "340.00",
       "material": "Granite",
       "color": "grey",
-      "tags": ["Refined", "Unbranded", "Rustic", "Tasty", "Handmade"],
+      "tags": [
+        "Refined",
+        "Unbranded",
+        "Rustic",
+        "Tasty",
+        "Handmade"
+      ],
       "categoryId": 3
     },
     {
@@ -39173,7 +39218,9 @@
       "price": "396.00",
       "material": "Granite",
       "color": "yellow",
-      "tags": ["Awesome"],
+      "tags": [
+        "Awesome"
+      ],
       "categoryId": 1
     },
     {
@@ -39184,7 +39231,13 @@
       "price": "387.00",
       "material": "Soft",
       "color": "plum",
-      "tags": ["Small", "Tasty", "Practical", "Sleek", "Refined"],
+      "tags": [
+        "Small",
+        "Tasty",
+        "Practical",
+        "Sleek",
+        "Refined"
+      ],
       "categoryId": 1
     },
     {
@@ -39195,7 +39248,9 @@
       "price": "46.00",
       "material": "Fresh",
       "color": "tan",
-      "tags": ["Licensed"],
+      "tags": [
+        "Licensed"
+      ],
       "categoryId": 3
     },
     {
@@ -39206,7 +39261,13 @@
       "price": "225.00",
       "material": "Concrete",
       "color": "lime",
-      "tags": ["Gorgeous", "Gorgeous", "Fantastic", "Ergonomic", "Handcrafted"],
+      "tags": [
+        "Gorgeous",
+        "Gorgeous",
+        "Fantastic",
+        "Ergonomic",
+        "Handcrafted"
+      ],
       "categoryId": 4
     },
     {
@@ -39217,7 +39278,11 @@
       "price": "453.00",
       "material": "Soft",
       "color": "grey",
-      "tags": ["Gorgeous", "Refined", "Generic"],
+      "tags": [
+        "Gorgeous",
+        "Refined",
+        "Generic"
+      ],
       "categoryId": 3
     },
     {
@@ -39228,7 +39293,9 @@
       "price": "715.00",
       "material": "Metal",
       "color": "teal",
-      "tags": ["Unbranded"],
+      "tags": [
+        "Unbranded"
+      ],
       "categoryId": 3
     },
     {
@@ -39239,7 +39306,13 @@
       "price": "2.00",
       "material": "Frozen",
       "color": "orange",
-      "tags": ["Tasty", "Licensed", "Rustic", "Small", "Awesome"],
+      "tags": [
+        "Tasty",
+        "Licensed",
+        "Rustic",
+        "Small",
+        "Awesome"
+      ],
       "categoryId": 3
     },
     {
@@ -39250,7 +39323,12 @@
       "price": "345.00",
       "material": "Steel",
       "color": "black",
-      "tags": ["Gorgeous", "Handmade", "Small", "Handmade"],
+      "tags": [
+        "Gorgeous",
+        "Handmade",
+        "Small",
+        "Handmade"
+      ],
       "categoryId": 5
     },
     {
@@ -39261,7 +39339,10 @@
       "price": "878.00",
       "material": "Rubber",
       "color": "orchid",
-      "tags": ["Intelligent", "Tasty"],
+      "tags": [
+        "Intelligent",
+        "Tasty"
+      ],
       "categoryId": 4
     },
     {
@@ -39272,7 +39353,10 @@
       "price": "963.00",
       "material": "Soft",
       "color": "tan",
-      "tags": ["Rustic", "Ergonomic"],
+      "tags": [
+        "Rustic",
+        "Ergonomic"
+      ],
       "categoryId": 2
     },
     {
@@ -39283,7 +39367,9 @@
       "price": "534.00",
       "material": "Concrete",
       "color": "cyan",
-      "tags": ["Fantastic"],
+      "tags": [
+        "Fantastic"
+      ],
       "categoryId": 5
     }
   ],
