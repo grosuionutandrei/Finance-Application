@@ -12,18 +12,8 @@ export function Nav() {
           </CustomNavLink>
         </li>
         <li>
-          <CustomNavLink to="/counter">Counter</CustomNavLink>
-        </li>
-        <li>
-          <CustomNavLink to="/weather">Weather</CustomNavLink>
-        </li>
-        <li>
-          <CustomNavLink to="/todos">Todos</CustomNavLink>
-        </li>
-        <li>
           <CustomNavLink to="/crypto">Crypto</CustomNavLink>
         </li>
-
         {user && (
           <li className="p-3 ml-auto">
             Welcome, <strong>{user.firstName}! </strong>

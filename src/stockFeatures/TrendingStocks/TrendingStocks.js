@@ -52,7 +52,7 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    getData();
+    // getData();
   }, []);
 
   if (!trending || !trendDetails.data) {

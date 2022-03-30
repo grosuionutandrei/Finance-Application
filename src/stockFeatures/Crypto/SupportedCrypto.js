@@ -4,8 +4,13 @@ import styles from '../../mcss/Crypto.module.css';
 import { handleResponse } from '../HomePage/HomePage';
 import { Pagination } from '../Crypto/Pagination';
 import { CryptoDetailsSmall } from './CryptoDetails';
+import {
+  convertEpochToDate,
+  lastYearEpoch,
+  thisYearEpoch,
+} from '../../stockComponents/Date';
 export function SupportedCrypto({ exchanges, autocompleteData }) {
-  const initialExchange = 'GEMINI';
+  const initialExchange = 'BINANCE';
   const [selOption, setSelOption] = useState({
     exchange: initialExchange,
   });
@@ -15,7 +20,17 @@ export function SupportedCrypto({ exchanges, autocompleteData }) {
   });
   const [cryptoPerPage] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
- 
+  const toData = thisYearEpoch();
+  const fromData = lastYearEpoch();
+  const [candleData, setCandleData] = useState({
+    x: '',
+    open: '',
+    close: '',
+    high: '',
+    low: '',
+  });
+
+  const [candleClass, setCandleClass] = useState('');
 
   // get the suported crypto data;
   useEffect(() => {
@@ -34,37 +49,60 @@ export function SupportedCrypto({ exchanges, autocompleteData }) {
     getCryptoData();
   }, [selOption]);
 
+  useEffect(() => {
+    async function getCandleData() {
+      const candleDataContainer = [];
+      const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      for (const item of crypto) {
+        const symbol = item.symbol.toUpperCase();
 
-//  get candle data
-  async function getTrendDetails(trending) {
-    const tempPromises = [];
-    for (const trend of trending[0]) {
-      tempPromises.push(
-        await fetch(
-          `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c8p0kuaad3id3q613c3g`
-        ).then((res) => res.json())
+        const data = await fetch(
+          `https://finnhub.io/api/v1/crypto/candle?symbol=${selOption.exchange}:${symbol}&resolution=M&from=${fromData}&to=${toData}&token=c8p0kuaad3id3q613c3g`
+        ).then((res) => res.json());
+        candleDataContainer.push(data);
+        await delay(Math.floor(1000 / 3));
+      }
+
+      const data = await Promise.allSettled(candleDataContainer).then((elems) =>
+        elems.map((elem) => elem.value)
       );
+      console.log(data);
+      setCandleData({
+        ...candleData,
+        x: new Date(convertEpochToDate(data.t)),
+        open: data.o,
+        close: data.c,
+        high: data.h,
+        low: data.l,
+      });
     }
+    // getCandleData();
+  }, []);
 
-    const data = await Promise.allSettled(tempPromises).then((elems) =>
-      elems.map((elem) => elem.value)
-    );
-    setTrendDetails({ ...trendDetails, data: data, trending: trending });
-  }
+  //  get candle data
 
-  const getData = () => {
-    Promise.all([getTrending()]).then((results) => {
-      getTrendDetails(results[0]);
-    });
-  };
-  getData();
-}, []);
+  //   async function getTrendDetails(trending) {
+  //     const tempPromises = [];
+  //     for (const trend of trending[0]) {
+  //       tempPromises.push(
+  //         await fetch(
+  //           `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c8p0kuaad3id3q613c3g`
+  //         ).then((res) => res.json())
+  //       );
+  //     }
 
+  //     setTrendDetails({ ...trendDetails, data: data, trending: trending });
+  //   }
 
+  //   const getData = () => {
+  //     Promise.all([getTrending()]).then((results) => {
+  //       getTrendDetails(results[0]);
+  //     });
+  //   };
+  //   getData();
+  // }, []);
 
-
-
-  if (!crypto) {
+  if (!crypto || !candleData) {
     return <Loading />;
   }
 
@@ -90,7 +128,12 @@ export function SupportedCrypto({ exchanges, autocompleteData }) {
         <p>Descritpion: {elem.description}</p>
         <p>Display symbol: {elem.displaySymbol}</p>
         <p>Symbol: {elem.symbol}</p>
-        <CryptoDetailsSmall />
+        <div
+          className={styles[candleClass]}
+          onClick={() => setCandleClass('candleAllScren')}
+        >
+          <CryptoDetailsSmall />
+        </div>
       </div>
     ));
   };
