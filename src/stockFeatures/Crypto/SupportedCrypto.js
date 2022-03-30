@@ -49,57 +49,39 @@ export function SupportedCrypto({ exchanges, autocompleteData }) {
     getCryptoData();
   }, [selOption]);
 
-  useEffect(() => {
-    async function getCandleData() {
-      const candleDataContainer = [];
-      const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-      for (const item of crypto) {
-        const symbol = item.symbol.toUpperCase();
+  // Aceasta metoda aduce candle data de la server pentru toate elementele din suported crypto ,
+  // din cauza limitarii la 60 de requesturi pe secunda trebuie sa renunt la idee,
+  // ar functiona  daca voi implementa sa se faca requesturile atunci cand se schimba pagina pentru
+  // elementele din pagina respectiva
 
-        const data = await fetch(
-          `https://finnhub.io/api/v1/crypto/candle?symbol=${selOption.exchange}:${symbol}&resolution=M&from=${fromData}&to=${toData}&token=c8p0kuaad3id3q613c3g`
-        ).then((res) => res.json());
-        candleDataContainer.push(data);
-        await delay(Math.floor(1000 / 3));
-      }
+  // useEffect(() => {
+  //   async function getCandleData() {
+  //     const candleDataContainer = [];
+  //     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  //     for (const item of crypto) {
+  //       const symbol = item.symbol.toUpperCase();
 
-      const data = await Promise.allSettled(candleDataContainer).then((elems) =>
-        elems.map((elem) => elem.value)
-      );
-      console.log(data);
-      setCandleData({
-        ...candleData,
-        x: new Date(convertEpochToDate(data.t)),
-        open: data.o,
-        close: data.c,
-        high: data.h,
-        low: data.l,
-      });
-    }
-    // getCandleData();
-  }, []);
-
-  //  get candle data
-
-  //   async function getTrendDetails(trending) {
-  //     const tempPromises = [];
-  //     for (const trend of trending[0]) {
-  //       tempPromises.push(
-  //         await fetch(
-  //           `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c8p0kuaad3id3q613c3g`
-  //         ).then((res) => res.json())
-  //       );
+  //       const data = await fetch(
+  //         `https://finnhub.io/api/v1/crypto/candle?symbol=${selOption.exchange}:${symbol}&resolution=M&from=${fromData}&to=${toData}&token=c8p0kuaad3id3q613c3g`
+  //       ).then((res) => res.json());
+  //       candleDataContainer.push(data);
+  //       await delay(Math.floor(1000 / 3));
   //     }
 
-  //     setTrendDetails({ ...trendDetails, data: data, trending: trending });
-  //   }
-
-  //   const getData = () => {
-  //     Promise.all([getTrending()]).then((results) => {
-  //       getTrendDetails(results[0]);
+  //     const data = await Promise.allSettled(candleDataContainer).then((elems) =>
+  //       elems.map((elem) => elem.value)
+  //     );
+  //     console.log(data);
+  //     setCandleData({
+  //       ...candleData,
+  //       x: new Date(convertEpochToDate(data.t)),
+  //       open: data.o,
+  //       close: data.c,
+  //       high: data.h,
+  //       low: data.l,
   //     });
-  //   };
-  //   getData();
+  //   }
+  //   // getCandleData();
   // }, []);
 
   if (!crypto || !candleData) {
