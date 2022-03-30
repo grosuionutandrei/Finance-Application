@@ -1,0 +1,6 @@
+.containerOutlet {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: center;
+}

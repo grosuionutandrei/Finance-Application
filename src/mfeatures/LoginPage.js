@@ -18,7 +18,7 @@ export function LoginPage({ error, onError }) {
     lastName: '',
     retypePassword: '',
   });
-  const { token, login } = useAuthContext();
+  const { token, login, trackList } = useAuthContext();
   const location = useLocation();
   const isRegister = location.pathname.includes('register');
   const navigate = useNavigate();
@@ -36,6 +36,19 @@ export function LoginPage({ error, onError }) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
+  async function getTrackedItems(userId, userToken) {
+    const trackedItems = await fetch(
+      `http://localhost:3005/trackedItems/?userId=${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    ).then((res) => res.json());
+    console.log(trackedItems);
+    trackList(trackedItems);
+  }
+
   async function handleLogin() {
     const data = await fetch('http://localhost:3005/login', {
       method: 'POST',
@@ -49,7 +62,7 @@ export function LoginPage({ error, onError }) {
       onError(data);
       return;
     }
-
+    await getTrackedItems(data.user.id, data.accessToken);
     login(data);
   }
 

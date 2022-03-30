@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+.trendingContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3px;
+  width: 960px;
+}
+.details_stock {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 5px 5px;
+  width: 900px;
+}
+.details_stock > p {
+  margin: 0px 5px 0px 5px;
+  padding: 5px 5px;
+  width: 200px;
+  text-align: center;
+}
+.details_container {
+  width: 960px;
+  display: flex;
+  flex-direction: column wrap;
+  justify-items: center;
+  align-items: center;
+}
+
+.prices {
+  width: 960px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: center;
+}

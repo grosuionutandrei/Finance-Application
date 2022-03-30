@@ -2,5 +2,7 @@
   "/users*": "/600/users$1",
   "/movies*": "/664/movies$1",
   "/products*": "/664/products$1",
-  "/todos*": "/600/todos$1"
+  "/todos*": "/600/todos$1",
+  "/exchanges*": "/664/exchanges$1",
+  "/trackedItems*": "/600/trackedItems$1"
 }

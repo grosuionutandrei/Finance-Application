@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './features/Home/Home';
 import { Counter } from './features/Counter/Counter';
 import { Weather } from './features/Weather/Weather';
-import { Auth } from './features/Auth/Auth';
+import { Crypto } from './stockFeatures/Crypto/Crypto';
 import { Parent } from './features/Communication/Parent';
 import { AuthContextProvider } from './features/Auth/Auth.context';
 
@@ -14,6 +14,7 @@ import { MovieDetails } from './features/Movies/MovieDetails';
 import { MovieEdit } from './features/Movies/MovieEdit';
 import { MovieAdd } from './features/Movies/MovieAdd';
 import { LoginPage } from './mfeatures/LoginPage';
+import { HomePage } from './stockFeatures/HomePage/HomePage';
 
 export function App() {
   return (
@@ -21,12 +22,15 @@ export function App() {
       <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Home />}>
-            <Route path="" element={<h1 className="text-2xl">Homepage</h1>} />
+            <Route path="" element={<HomePage />} />
             <Route
               path="counter"
               element={<Counter delta={1} initialValue={0} />}
             />
+
             <Route path="weather" element={<Weather />} />
+
+            <Route path="crypto" element={<Crypto />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<LoginPage />} />
             <Route path="movies" element={<MovieList />} />

@@ -1,0 +1,114 @@
+.autocomplete {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4px;
+  width: 960px;
+  height: fit-content;
+  border: 1px solid blue;
+  cursor: none;
+  pointer-events: none;
+  z-index: 10;
+  background-color: #3e7cb1ff;
+}
+.autocompleteOption {
+  border: 1px solid black;
+  width: 470px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #ffd8b7;
+  font-family: 'robot' sans-serif;
+  font-weight: 300;
+}
+.sugestionsShow {
+  text-transform: capitalize;
+  color: #f17300ff;
+}
+
+.autocompleteOption > p {
+  width: 100px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.autocompleteOption > p[data-symbol=''] {
+  padding: 5px 5px;
+  pointer-events: all;
+  cursor: pointer;
+  overflow: initial;
+  text-overflow: initial;
+}
+
+p[data-symbol='']:hover {
+  border-radius: 25%;
+  color: #007ef1;
+}
+
+.none {
+  display: none;
+}
+.searchInput {
+  padding: 5px 5px;
+  border: 1px solid #f17300ff;
+  text-align: center;
+  width: 500px;
+  margin-right: -62px;
+  margin-left: -62px;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+}
+.form_container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 960px;
+}
+
+.form_container > button[type='submit'] {
+  text-align: center;
+  font-family: 'Roboto' sans-serif;
+  font-size: large;
+  font-weight: 400;
+  background-color: #054a91ff;
+  color: #ffd8b7;
+  padding: 5px 5px;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+}
+.buttonDisabled {
+  order: -1;
+  height: 38px;
+  width: 64px;
+  background-color: #054a91ff;
+  background-color: #054a91ff;
+  color: #054a91ff;
+  border-top-left-radius: 20%;
+  border-bottom-left-radius: 20%;
+  z-index: 3;
+}
+.buttonDisabledRight {
+  order: 1;
+  height: 38px;
+  width: 64px;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  background-color: #054a91ff;
+  z-index: 3;
+}
+
+.buttonEnabledRight {
+  order: 1;
+  height: 38px;
+  width: 64px;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  background-color: #054a91ff;
+  z-index: 3;
+  color: #f17300ff;
+}

@@ -21,7 +21,7 @@ export function Nav() {
           <CustomNavLink to="/todos">Todos</CustomNavLink>
         </li>
         <li>
-          <CustomNavLink to="/movies">Movies</CustomNavLink>
+          <CustomNavLink to="/crypto">Crypto</CustomNavLink>
         </li>
 
         {user && (

@@ -1,6 +1,6 @@
-import { CustomNavLink } from './CustomNavLink';
-import styles from '../../mcss/Navigation.module.css';
-import { LoginPage } from '../LoginPage';
+import { CustomNavLink } from '../mfeatures/mcomponenets/CustomNavLink';
+import styles from '../mcss/Navigation.module.css';
+import { LoginPage } from '../mfeatures/LoginPage';
 import { useState } from 'react';
 export function Navigation() {
   const [loginStyle, setLoginStyle] = useState(styles.login);

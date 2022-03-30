@@ -39414,5 +39414,309 @@
       "completed": false,
       "userId": 2
     }
+  ],
+  "exchanges": [
+    {
+      "code": "AS",
+      "name": "NYSE EURONEXT - EURONEXT AMSTERDAM"
+    },
+    {
+      "code": "AT",
+      "name": "ATHENS EXCHANGE S.A. CASH MARKET"
+    },
+    {
+      "code": "AX",
+      "name": "ASX - ALL MARKETS"
+    },
+    {
+      "code": "BA",
+      "name": "BOLSA DE COMERCIO DE BUENOS AIRES"
+    },
+    {
+      "code": "BC",
+      "name": "BOLSA DE VALORES DE COLOMBIA"
+    },
+    {
+      "code": "BD",
+      "name": "BUDAPEST STOCK EXCHANGE"
+    },
+    {
+      "code": "BE",
+      "name": "BOERSE BERLIN"
+    },
+    {
+      "code": "BK",
+      "name": "STOCK EXCHANGE OF THAILAND"
+    },
+    {
+      "code": "BO",
+      "name": "BSE LTD"
+    },
+    {
+      "code": "BR",
+      "name": "NYSE EURONEXT - EURONEXT BRUSSELS"
+    },
+    {
+      "code": "CA",
+      "name": "Egyptian Stock Exchange"
+    },
+    {
+      "code": "CN",
+      "name": "CANADIAN NATIONAL STOCK EXCHANGE"
+    },
+    {
+      "code": "CO",
+      "name": "OMX NORDIC EXCHANGE COPENHAGEN A/S"
+    },
+    {
+      "code": "CR",
+      "name": "CARACAS STOCK EXCHANGE"
+    },
+    {
+      "code": "DB",
+      "name": "DUBAI FINANCIAL MARKET"
+    },
+    {
+      "code": "DE",
+      "name": "XETRA"
+    },
+    {
+      "code": "DU",
+      "name": "BOERSE DUESSELDORF"
+    },
+    {
+      "code": "F",
+      "name": "DEUTSCHE BOERSE AG"
+    },
+    {
+      "code": "HE",
+      "name": "NASDAQ OMX HELSINKI LTD"
+    },
+    {
+      "code": "HK",
+      "name": "HONG KONG EXCHANGES AND CLEARING LTD"
+    },
+    {
+      "code": "HM",
+      "name": "HANSEATISCHE WERTPAPIERBOERSE HAMBURG"
+    },
+    {
+      "code": "IC",
+      "name": "NASDAQ OMX ICELAND"
+    },
+    {
+      "code": "IR",
+      "name": "IRISH STOCK EXCHANGE - ALL MARKET"
+    },
+    {
+      "code": "IS",
+      "name": "BORSA ISTANBUL"
+    },
+    {
+      "code": "JK",
+      "name": "INDONESIA STOCK EXCHANGE"
+    },
+    {
+      "code": "JO",
+      "name": "JOHANNESBURG STOCK EXCHANGE"
+    },
+    {
+      "code": "KL",
+      "name": "BURSA MALAYSIA"
+    },
+    {
+      "code": "KQ",
+      "name": "KOREA EXCHANGE (KOSDAQ)"
+    },
+    {
+      "code": "KS",
+      "name": "KOREA EXCHANGE (STOCK MARKET)"
+    },
+    {
+      "code": "L",
+      "name": "LONDON STOCK EXCHANGE"
+    },
+    {
+      "code": "LN",
+      "name": "Euronext London"
+    },
+    {
+      "code": "LS",
+      "name": "NYSE EURONEXT - EURONEXT LISBON"
+    },
+    {
+      "code": "MC",
+      "name": "BOLSA DE MADRID"
+    },
+    {
+      "code": "ME",
+      "name": "MOSCOW EXCHANGE"
+    },
+    {
+      "code": "MI",
+      "name": "Italian Stock Exchange"
+    },
+    {
+      "code": "MU",
+      "name": "BOERSE MUENCHEN"
+    },
+    {
+      "code": "MX",
+      "name": "BOLSA MEXICANA DE VALORES (MEXICAN STOCK EXCHANGE)"
+    },
+    {
+      "code": "NE",
+      "name": "AEQUITAS NEO EXCHANGE"
+    },
+    {
+      "code": "NL",
+      "name": "Nigerian Stock Exchange"
+    },
+    {
+      "code": "NS",
+      "name": "NATIONAL STOCK EXCHANGE OF INDIA"
+    },
+    {
+      "code": "NZ",
+      "name": "NEW ZEALAND EXCHANGE LTD"
+    },
+    {
+      "code": "OL",
+      "name": "OSLO BORS ASA"
+    },
+    {
+      "code": "PA",
+      "name": "NYSE EURONEXT - MARCHE LIBRE PARIS"
+    },
+    {
+      "code": "PM",
+      "name": "Philippine Stock Exchange"
+    },
+    {
+      "code": "PR",
+      "name": "PRAGUE STOCK EXCHANGE"
+    },
+    {
+      "code": "QA",
+      "name": "QATAR EXCHANGE"
+    },
+    {
+      "code": "RG",
+      "name": "NASDAQ OMX RIGA"
+    },
+    {
+      "code": "SA",
+      "name": "Brazil Bolsa - Sao Paolo"
+    },
+    {
+      "code": "SG",
+      "name": "BOERSE STUTTGART"
+    },
+    {
+      "code": "SI",
+      "name": "SINGAPORE EXCHANGE"
+    },
+    {
+      "code": "SN",
+      "name": "SANTIAGO STOCK EXCHANGE"
+    },
+    {
+      "code": "SR",
+      "name": "SAUDI STOCK EXCHANGE"
+    },
+    {
+      "code": "SS",
+      "name": "SHANGHAI STOCK EXCHANGE"
+    },
+    {
+      "code": "ST",
+      "name": "NASDAQ OMX NORDIC STOCKHOLM"
+    },
+    {
+      "code": "SW",
+      "name": "SWISS EXCHANGE"
+    },
+    {
+      "code": "SZ",
+      "name": "SHENZHEN STOCK EXCHANGE"
+    },
+    {
+      "code": "T",
+      "name": "OKYO STOCK EXCHANGE-TOKYO PRO MARKET"
+    },
+    {
+      "code": "TA",
+      "name": "TEL AVIV STOCK EXCHANGE"
+    },
+    {
+      "code": "TL",
+      "name": "NASDAQ OMX TALLINN"
+    },
+    {
+      "code": "TO",
+      "name": "TORONTO STOCK EXCHANGE"
+    },
+    {
+      "code": "TW",
+      "name": "TAIWAN STOCK EXCHANGE"
+    },
+    {
+      "code": "TWO",
+      "name": "TPEx"
+    },
+    {
+      "code": "US",
+      "name": "US exchanges (NYSE, Nasdaq)"
+    },
+    {
+      "code": "VT",
+      "name": "SX VENTURE EXCHANGE - NEX"
+    },
+    {
+      "code": "VI",
+      "name": "Vienna Stock Exchange"
+    },
+    {
+      "code": "VN",
+      "name": "Vietnam exchanges including HOSE HNX and UPCOM"
+    },
+    {
+      "code": "VS",
+      "name": "NASDAQ OMX VILNIUS"
+    },
+    {
+      "code": "WA",
+      "name": "WARSAW STOCK EXCHANGE/EQUITIES/MAIN MARKET"
+    },
+    {
+      "code": "HA",
+      "name": "Hanover Stock Exchange"
+    },
+    {
+      "code": "S",
+      "name": "DEUTSCHE BOERSE Stoxx"
+    },
+    {
+      "code": "TG",
+      "name": "DEUTSCHE BOERSE TradeGate"
+    },
+    {
+      "code": "SC",
+      "name": "BOERSE_FRANKFURT_ZERTIFIKATE"
+    }
+  ],
+  "trackedItems": [
+    {
+      "id": 1,
+      "userId": 1,
+      "items": [
+        "ana",
+        "BTC-USD",
+        "BRK-A",
+        "SWN",
+        "CLVR",
+        "DOGE-USD"
+      ]
+    }
   ]
 }

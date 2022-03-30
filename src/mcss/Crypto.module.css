@@ -1,0 +1,44 @@
+.crypto_container {
+  margin-top: 50px;
+  width: 960px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.individual_crypto {
+  width: 960px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #054a91ff;
+  color: #f17300ff;
+  gap: 2px;
+}
+.individual_crypto > p {
+  width: calc(900px / 7);
+  font-family: 'Robot' sans-serif;
+  font-weight: 400;
+  font-size: large;
+}
+.ul_container {
+  width: 960px;
+  height: 50px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+.li_elem {
+  cursor: pointer;
+  padding: 3px 3px;
+  width: 25px;
+  border: 1px solid #054a91ff;
+  text-align: center;
+}
+.li_elem:active {
+  background-color: #054a91ff;
+}
