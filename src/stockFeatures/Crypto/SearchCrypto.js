@@ -6,22 +6,21 @@ import { SupportedCrypto } from './SupportedCrypto';
 import { handleResponse } from '../HomePage/HomePage';
 import { AutocompleteCrypto } from './AutocompleteCrypto';
 import { CryptoDetailsLarge } from '../Crypto/CryptoDetails';
+import { dateToEpoch } from '../../stockComponents/Date';
 
 export function Search({ exchanges }) {
   const [sugestions, setSugestions] = useState(null);
   const [rendersugestions, setRenderSugestions] = useState(false);
-  const [stockDetails, setStockDetails] = useState(null);
+  const [cryptoDetails, setCryptoDetails] = useState(null);
   const [atcContainer, setAtcContainer] = useState('none');
   const [showSugestions, setShowSugestions] = useState('none');
+  // used to render or not componenet cryptoDetails
   const [showResults, setShowResults] = useState('none');
   const [cryptoData, setCryptoData] = useState(null);
+  const [autoCompleteData, setAutocopmleteData] = useState(null);
   const [queryC, setQueryC] = useState('');
+
   const timeFrames = [
-    { symbol: 1, val: '1 day' },
-    { symbol: 5, val: '5 days' },
-    { symbol: 15, val: '15 days' },
-    { symbol: 30, val: '30 days' },
-    { symbol: 60, val: '60 days' },
     { symbol: 'D', val: 'Daily' },
     { symbol: 'W', val: 'Weekly' },
     { symbol: 'M', val: 'Monthly' },
@@ -29,7 +28,6 @@ export function Search({ exchanges }) {
   const [form, setForm] = useState({
     startDate: '',
     endDate: '',
-    exchange: '',
     timeFrames: '',
   });
 
@@ -43,7 +41,6 @@ export function Search({ exchanges }) {
     noQuery: '',
     startDate: '',
     endDate: '',
-    exchange: '',
     timeFrames: '',
   });
 
@@ -84,41 +81,14 @@ export function Search({ exchanges }) {
       return;
     }
     if (e.target.value.length > 0) {
-      async function getAutoCompleteData() {
-        try {
-          const sugestions = await fetch(
-            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c8p0kuaad3id3q613c3g`
-          ).then((res) => handleResponse(res));
-
-          if (sugestions.count === 0) {
-            setSugestions({
-              count: 0,
-              result: [
-                {
-                  symbol: 'No data',
-                  description: 'No data ',
-                  type: 'N/A',
-                },
-                {
-                  symbol: 'Not available',
-                  description: 'No data ',
-                  type: 'N/A',
-                },
-              ],
-            });
-            return;
-          }
-          setSugestions(sugestions);
-        } catch (eror) {
-          setErrorsCryptoServer({
-            ...errorsCryptoServer,
-            serverError: sugestions,
-          });
-        }
-      }
-
       const callBack = () => {
-        getAutoCompleteData();
+        console.log(e.target.value);
+        console.log(autoCompleteData.length);
+        setSugestions(
+          autoCompleteData.filter((elem) =>
+            elem.symbol.toLowerCase().includes(e.target.value.toLowerCase())
+          )
+        );
         setRenderSugestions(true);
       };
       setTimeout(callBack, 0);
@@ -129,7 +99,7 @@ export function Search({ exchanges }) {
     setShowResults('none');
 
     // de modificat
-    setStockDetails(null);
+    setCryptoDetails(null);
   }
 
   function setFormValues(e) {
@@ -141,10 +111,14 @@ export function Search({ exchanges }) {
     });
   }
 
-  async function getCryptoData2() {
+  async function getCryptoData() {
     try {
       const data = await fetch(
-        `https://finnhub.io/api/v1/crypto/candle?symbol=BINANCE:BTCUSDT&resolution=W&from=1572651390&to=1575243390&token=c8p0kuaad3id3q613c3g`
+        `https://finnhub.io/api/v1/crypto/candle?symbol=${queryC}&resolution=${
+          form.timeFrames
+        }&from=${dateToEpoch(form.startDate)}&to=${dateToEpoch(
+          form.endDate
+        )}&token=c8p0kuaad3id3q613c3g`
       ).then((res) => handleResponse(res));
       setCryptoData(data);
     } catch (error) {
@@ -174,14 +148,6 @@ export function Search({ exchanges }) {
       setInputErrors({ ...inputErrors, endDate: 'Please select end date' });
       return;
     }
-
-    if (!form.exchange) {
-      setInputErrors({
-        ...inputErrors,
-        exchange: 'Please select exchange house',
-      });
-      return;
-    }
     if (!form.timeFrames) {
       setInputErrors({
         ...inputErrors,
@@ -190,9 +156,18 @@ export function Search({ exchanges }) {
       return;
     }
 
+    if (dateToEpoch(form.startDate) > dateToEpoch(form.endDate)) {
+      setInputErrors({
+        ...inputErrors,
+        endDate: 'End date must to be bigger then start date',
+      });
+      return;
+    }
+
     console.dir(form);
-    await getCryptoData2();
+    await getCryptoData();
     console.dir(inputErrors, 'from  handker');
+
     setShowResults('details_container');
     localStorage.setItem('searchedCrypto', JSON.stringify(queryC));
     setForm({
@@ -204,8 +179,9 @@ export function Search({ exchanges }) {
     });
     setQueryC('');
     setRenderSugestions(false);
+    setCryptoDetails('show_details');
   }
-
+  console.dir(cryptoData);
   return (
     <>
       <form className={formStyle.form_container_style} onSubmit={getCrypto}>
@@ -243,7 +219,7 @@ export function Search({ exchanges }) {
           ></input>
         </label>
 
-        <label
+        {/* <label
           className="text-blue-700 text-l font-semibold"
           htmlFor="exchange"
         >
@@ -257,7 +233,7 @@ export function Search({ exchanges }) {
           >
             {options()}
           </select>
-        </label>
+        </label> */}
 
         <label
           className="text-blue-700 text-l font-semibold"
@@ -286,13 +262,9 @@ export function Search({ exchanges }) {
       {inputErrors.endDate && (
         <p className={formStyle.error}>{inputErrors.endDate}</p>
       )}
-      {inputErrors.exchange && (
-        <p className={formStyle.error}>{inputErrors.exchange}</p>
-      )}
       {inputErrors.timeFrames && (
         <p className={formStyle.error}>{inputErrors.timeFrames}</p>
       )}
-
       {errorsCryptoServer.noDescription && (
         <p className={formStyle.error}>{errorsCryptoServer.noDescription}</p>
       )}
@@ -302,7 +274,7 @@ export function Search({ exchanges }) {
       )}
       {rendersugestions && (
         <>
-          <p className={styles[showSugestions]}>results</p>
+          <p className={styles[showSugestions]}>select from list</p>
           <div className={styles[atcContainer]}>
             <AutocompleteCrypto
               data={sugestions}
@@ -320,16 +292,21 @@ export function Search({ exchanges }) {
         {errorsCryptoServer.serverError && (
           <p className={styles.error}>{formStyle.serverError}</p>
         )}
+
         <CryptoDetailsLarge
-          parameter={stockDetails}
-          setShow={(value) => setShowResults(value)}
-          show={showResults}
-          details={cryptoData}
+          setShow={(value) => setCryptoDetails(value)}
+          show={cryptoDetails}
+          data={cryptoData}
           errors={errorsCryptoServer}
         />
       </div>
 
-      <SupportedCrypto exchanges={exchanges}></SupportedCrypto>
+      <SupportedCrypto
+        exchanges={exchanges}
+        setAutocompleteData={(value) => setAutocopmleteData(value)}
+        changeExchange={form.exchange}
+      ></SupportedCrypto>
+      <p style={{ height: '300px' }}>Ana are mere </p>
     </>
   );
 }

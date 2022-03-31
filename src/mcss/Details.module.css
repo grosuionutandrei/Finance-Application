@@ -91,3 +91,10 @@ p[data-close='close'] {
   flex-grow: 2;
   text-align: center;
 }
+
+.show_details {
+  display: block;
+  width: 960px;
+  height: 400px;
+  background-color: aquamarine;
+}

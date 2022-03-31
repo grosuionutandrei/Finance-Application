@@ -9,7 +9,7 @@ import {
   lastYearEpoch,
   thisYearEpoch,
 } from '../../stockComponents/Date';
-export function SupportedCrypto({ exchanges, autocompleteData }) {
+export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   const initialExchange = 'BINANCE';
   const [selOption, setSelOption] = useState({
     exchange: initialExchange,
@@ -41,6 +41,7 @@ export function SupportedCrypto({ exchanges, autocompleteData }) {
         ).then((res) => handleResponse(res));
 
         setCrypto(data);
+        setAutocompleteData(data);
       } catch (error) {
         console.log(error);
         setErrors('An error has occured please try again later');

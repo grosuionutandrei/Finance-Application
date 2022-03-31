@@ -35,14 +35,17 @@
 }
 
 .button_enabled_right {
-  background-color: #054a91ff;
   padding: 5px 5px;
   text-align: center;
-  font-family: 'Roboto' sans-serif;
   font-size: larger;
   font-weight: 400;
   color: #f17300ff;
   margin-left: 60px;
+  border-radius: 10%;
+}
+
+.button_enabled_right:hover {
+  background-color: #054a91ff;
 }
 
 .error {

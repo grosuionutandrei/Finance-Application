@@ -29,16 +29,19 @@
 }
 
 .autocompleteOption > p {
+  padding: 5px 5px;
   width: 100px;
   height: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 .autocompleteOption > p[data-symbol=''] {
   padding: 5px 5px;
   pointer-events: all;
   cursor: pointer;
   overflow: initial;
+  text-align: center;
   text-overflow: initial;
 }
 

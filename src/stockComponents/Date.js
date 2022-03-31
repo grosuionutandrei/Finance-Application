@@ -28,3 +28,8 @@ export function convertEpochToDate(epoch) {
   }
   return temp;
 }
+
+export function dateToEpoch(date) {
+  const toConvert = new Date(date);
+  return Math.floor(toConvert.valueOf() / 1000);
+}
