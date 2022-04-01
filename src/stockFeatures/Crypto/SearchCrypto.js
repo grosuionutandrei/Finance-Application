@@ -6,20 +6,22 @@ import { SupportedCrypto } from './SupportedCrypto';
 import { handleResponse } from '../HomePage/HomePage';
 import { AutocompleteCrypto } from './AutocompleteCrypto';
 import { CryptoDetailsLarge } from '../Crypto/CryptoDetails';
-import { dateToEpoch } from '../../stockComponents/Date';
+import { dateToEpoch, isDateInFuture } from '../../stockComponents/Date';
 
 export function Search({ exchanges }) {
   const [sugestions, setSugestions] = useState(null);
   const [rendersugestions, setRenderSugestions] = useState(false);
-  const [cryptoDetails, setCryptoDetails] = useState(null);
+
   const [atcContainer, setAtcContainer] = useState('none');
   const [showSugestions, setShowSugestions] = useState('none');
   // used to render or not componenet cryptoDetails
-  const [showResults, setShowResults] = useState('none');
+  const [cryptoDetails, setCryptoDetails] = useState(null);
   const [cryptoData, setCryptoData] = useState(null);
   const [autoCompleteData, setAutocopmleteData] = useState(null);
   const [queryC, setQueryC] = useState('');
 
+  // time Frames for crypto
+  const initialTimeFrame = 'D';
   const timeFrames = [
     { symbol: 'D', val: 'Daily' },
     { symbol: 'W', val: 'Weekly' },
@@ -28,7 +30,7 @@ export function Search({ exchanges }) {
   const [form, setForm] = useState({
     startDate: '',
     endDate: '',
-    timeFrames: '',
+    timeFrame: initialTimeFrame,
   });
 
   const [errorsCryptoServer, setErrorsCryptoServer] = useState({
@@ -41,7 +43,7 @@ export function Search({ exchanges }) {
     noQuery: '',
     startDate: '',
     endDate: '',
-    timeFrames: '',
+    timeFrame: '',
   });
 
   //   options for timeframes input
@@ -49,15 +51,6 @@ export function Search({ exchanges }) {
     return timeFrames.map((elem) => (
       <option key={elem.symbol} value={elem.symbol}>
         {elem.val}
-      </option>
-    ));
-  };
-
-  //   options for select input
-  const options = () => {
-    return exchanges.map((elem) => (
-      <option key={elem} value={elem}>
-        {elem}
       </option>
     ));
   };
@@ -83,7 +76,6 @@ export function Search({ exchanges }) {
     if (e.target.value.length > 0) {
       const callBack = () => {
         console.log(e.target.value);
-        console.log(autoCompleteData.length);
         setSugestions(
           autoCompleteData.filter((elem) =>
             elem.symbol.toLowerCase().includes(e.target.value.toLowerCase())
@@ -96,14 +88,13 @@ export function Search({ exchanges }) {
 
     setAtcContainer('autocomplete');
     setShowSugestions('sugestionsShow');
-    setShowResults('none');
+    // setShowResults('none');
 
     // de modificat
-    setCryptoDetails(null);
+    setCryptoDetails('none');
   }
 
   function setFormValues(e) {
-    console.log(e.target.name);
     setForm({ ...form, [e.target.name]: e.target.value });
     setInputErrors({
       ...inputErrors,
@@ -115,7 +106,7 @@ export function Search({ exchanges }) {
     try {
       const data = await fetch(
         `https://finnhub.io/api/v1/crypto/candle?symbol=${queryC}&resolution=${
-          form.timeFrames
+          form.timeFrame
         }&from=${dateToEpoch(form.startDate)}&to=${dateToEpoch(
           form.endDate
         )}&token=c8p0kuaad3id3q613c3g`
@@ -148,10 +139,10 @@ export function Search({ exchanges }) {
       setInputErrors({ ...inputErrors, endDate: 'Please select end date' });
       return;
     }
-    if (!form.timeFrames) {
+    if (!form.timeFrame) {
       setInputErrors({
         ...inputErrors,
-        timeFrames: 'Please select a time frame',
+        timeFrame: 'Please select a time frame',
       });
       return;
     }
@@ -163,25 +154,29 @@ export function Search({ exchanges }) {
       });
       return;
     }
+    console.log(isDateInFuture(form.endDate));
+    if (isDateInFuture(form.endDate)) {
+      setInputErrors({
+        ...inputErrors,
+        endDate: 'End date must to be less or equal then current date',
+      });
+      console.log('ak;n;nnef');
+      return;
+    }
 
-    console.dir(form);
     await getCryptoData();
-    console.dir(inputErrors, 'from  handker');
-
-    setShowResults('details_container');
     localStorage.setItem('searchedCrypto', JSON.stringify(queryC));
     setForm({
       ...form,
       startDate: '',
       endDate: '',
-      exchange: '',
-      timeFrames: '',
+      timeFrame: initialTimeFrame,
     });
     setQueryC('');
     setRenderSugestions(false);
     setCryptoDetails('show_details');
   }
-  console.dir(cryptoData);
+
   return (
     <>
       <form className={formStyle.form_container_style} onSubmit={getCrypto}>
@@ -219,22 +214,6 @@ export function Search({ exchanges }) {
           ></input>
         </label>
 
-        {/* <label
-          className="text-blue-700 text-l font-semibold"
-          htmlFor="exchange"
-        >
-          Exchange:
-          <select
-            className={formStyle.exchange_input}
-            id="exchange"
-            name="exchange"
-            value={form.exchange}
-            onChange={setFormValues}
-          >
-            {options()}
-          </select>
-        </label> */}
-
         <label
           className="text-blue-700 text-l font-semibold"
           htmlFor="timeFrames"
@@ -242,9 +221,9 @@ export function Search({ exchanges }) {
           Time Frame:
           <select
             className={formStyle.exchange_input}
-            id="timeFrames"
-            name="timeFrames"
-            value={form.timeFrames}
+            id="timeFrame"
+            name="timeFrame"
+            value={form.timeFrame}
             onChange={setFormValues}
           >
             {timeFramesOptions()}
@@ -262,8 +241,8 @@ export function Search({ exchanges }) {
       {inputErrors.endDate && (
         <p className={formStyle.error}>{inputErrors.endDate}</p>
       )}
-      {inputErrors.timeFrames && (
-        <p className={formStyle.error}>{inputErrors.timeFrames}</p>
+      {inputErrors.timeFrame && (
+        <p className={formStyle.error}>{inputErrors.timeFrame}</p>
       )}
       {errorsCryptoServer.noDescription && (
         <p className={formStyle.error}>{errorsCryptoServer.noDescription}</p>

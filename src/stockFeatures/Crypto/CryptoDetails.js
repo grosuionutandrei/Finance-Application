@@ -5,27 +5,36 @@ import {
   VictoryTheme,
   VictoryAxis,
   VictoryCandlestick,
-  VictoryLabel,
   VictoryTooltip,
 } from 'victory';
 import { convertEpochToDate } from '../../stockComponents/Date';
 import style from '../../mcss/Details.module.css';
-export function CryptoDetailsLarge({ data, setShow, cryptoDetails }) {
-  const [candleData, setCandleData] = useState({
-    x: '',
-    open: '',
-    close: '',
-    high: '',
-    low: '',
-  });
+import { getCryptoQuerryFromStorage } from '../../stockComponents/Helpers';
+import { useAuthContext } from '../../features/Auth/Auth.context';
+export function CryptoDetailsLarge({ data, setShow, show }) {
+  const { user, token, trackedItems } = useAuthContext();
+  // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
+  // message to display if added to trck list
   const [message, setMessage] = useState(null);
-  const [candleClass, setCandleClass] = useState('');
+  // retrieve searcehd crypto from local storage
+  const searchedCrypto = getCryptoQuerryFromStorage();
+  // enable/disable add to track list button
+  const [disabled, setDisabled] = useState(false);
 
+  // if no data
+  const [error, setError] = useState({
+    noData: '',
+  });
+
+  // convert fetched candel data to chart supported data
   useEffect(() => {
     if (data) {
+      if (data.s === 'no_data') {
+        setError({ ...error, noData: 'Not available data' });
+        return;
+      }
       const candleData = [];
-
       for (let i = 0; i < data.o.length; i++) {
         const dateForChart = convertEpochToDate(data.t[i]);
         const dataObject = {
@@ -45,68 +54,105 @@ export function CryptoDetailsLarge({ data, setShow, cryptoDetails }) {
     return <p></p>;
   }
 
-  function closeResultBox(e) {
-    console.log('button Pressed');
-    console.log(cryptoDetails);
-    setShow('none');
-    setMessage('');
+  // add crypto to track list
+  async function updateTrackedList() {
+    const temp = [...trackedItems];
+    if (temp[0].items.includes(searchedCrypto)) {
+      return;
+    }
+    temp[0]?.items?.push(searchedCrypto);
+
+    localStorage.setItem('trackedItems', JSON.stringify(temp));
+    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        userId: user.id,
+        items: temp[0].items,
+      }),
+
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setMessage(`${searchedCrypto} added to the tracked list`);
   }
 
-  return (
-    <div className={style.show_details}>
-      <p>Previous year monthly evolution</p>
-      <button onClick={closeResultBox}>close</button>
-      <VictoryChart
-        theme={VictoryTheme.material}
-        width={900}
-        height={400}
-        domainPadding={{ x: 25 }}
-        scale={{ x: 'time' }}
-      >
-        <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`} />
-        <VictoryAxis dependentAxis />
-        <VictoryCandlestick
-          candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
-          candleRatio={0.3}
-          data={candleDataArr}
-          closeLabels
-          closeLabelComponent={<VictoryLabel dx={-15} textAnchor="middle" />}
-          openLabels
-          openLabelComponent={<VictoryLabel dx={15} textAnchor="middle" />}
-          lowLabels
-          lowLabelComponent={<VictoryTooltip pointerLength={0} />}
-          events={[
-            {
-              target: 'data',
-              eventHandlers: {
-                onMouseOver: () => ({
-                  target: 'lowLabels',
-                  mutation: () => ({ active: true }),
-                }),
-                onMouseOut: () => ({
-                  target: 'lowLabels',
-                  mutation: () => ({ active: false }),
-                }),
-              },
-            },
-          ]}
-          highLabels
-          highLabelComponent={
-            <VictoryLabel dx={0} dy={-10} textAnchor="middle" />
-          }
-          style={{
-            data: {
-              stroke: '#000',
-              strokeWidth: 1,
-            },
+  function saveTrackItem(e) {
+    e.preventDefault();
+    updateTrackedList();
+    setDisabled(true);
+  }
 
-            closeLabels: { fill: 'orange', padding: 2 },
-            highLabels: { fill: 'green', padding: 2 },
-            lowLabels: { fill: 'red', padding: 2 },
-            openLabels: { fill: 'blue', padding: 2 },
-          }}
-        />
-      </VictoryChart>
+  function closeResultBox(e) {
+    setShow('none');
+    setMessage('');
+    setError({ ...error, noData: '' });
+  }
+  console.log(searchedCrypto);
+
+  return (
+    <div className={style[show]}>
+      {error.noData && <p>{error.noData}</p>}
+      <p>{searchedCrypto}</p>
+      <button onClick={closeResultBox} data-close="crypto">
+        close
+      </button>
+      <button onClick={saveTrackItem} disabled={disabled}>
+        Add to track list
+      </button>
+      {message && <p>{message}</p>}
+      {!error.noData && (
+        <VictoryChart
+          theme={VictoryTheme.material}
+          width={900}
+          height={400}
+          domainPadding={{ x: 25 }}
+          scale={{ x: 'time' }}
+        >
+          <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`} />
+          <VictoryAxis dependentAxis />
+          <VictoryCandlestick
+            candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
+            candleRatio={0.3}
+            data={candleDataArr}
+            lowLabels={({ datum }) =>
+              `Date ${`${datum.x.getFullYear()}-${datum.x.getDate()}-${datum.x.getMonth()}`}\nOpen ${
+                datum.open
+              }\nClose ${datum.close}\nHigh ${datum.high}\nLow ${
+                datum.low
+              }\nEvolution ${(datum.close - datum.open).toFixed(4)}`
+            }
+            lowLabelComponent={<VictoryTooltip pointerLength={0} />}
+            events={[
+              {
+                target: 'data',
+                eventHandlers: {
+                  onMouseOver: () => ({
+                    target: 'lowLabels',
+                    mutation: () => ({ active: true }),
+                  }),
+                  onMouseOut: () => ({
+                    target: 'lowLabels',
+                    mutation: () => ({ active: false }),
+                  }),
+                },
+              },
+            ]}
+            style={{
+              data: {
+                stroke: '#000',
+                strokeWidth: 1,
+              },
+
+              closeLabels: { fill: 'black', padding: 2 },
+              highLabels: { fill: 'green', padding: 2 },
+              lowLabels: { fill: 'red', padding: 2 },
+              openLabels: { fill: 'blue', padding: 2 },
+            }}
+          />
+        </VictoryChart>
+      )}
     </div>
   );
 }

@@ -27,7 +27,10 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
   async function updateTrackedList() {
     const searchedParam = getValueFromStorage('searchedParameter');
     const temp = [...trackedItems];
-    console.log(temp[0].items);
+    // if already added return
+    if (temp[0].items.includes(searchedParam)) {
+      return;
+    }
     temp[0]?.items?.push(searchedParam);
 
     localStorage.setItem('trackedItems', JSON.stringify(temp));

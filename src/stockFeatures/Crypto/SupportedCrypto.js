@@ -108,7 +108,7 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   const render = () => {
     return curentCrypto.map((elem) => (
       <div key={elem.description} className={styles.individual_crypto}>
-        <p>Descritpion: {elem.description}</p>
+        <p>Description: {elem.description}</p>
         <p>Display symbol: {elem.displaySymbol}</p>
         <p>Symbol: {elem.symbol}</p>
         <div

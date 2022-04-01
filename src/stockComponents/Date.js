@@ -28,8 +28,40 @@ export function convertEpochToDate(epoch) {
   }
   return temp;
 }
-
+//  convert date to epoch
 export function dateToEpoch(date) {
   const toConvert = new Date(date);
   return Math.floor(toConvert.valueOf() / 1000);
+}
+
+// verify if end date > then current date
+export function isDateInFuture(date) {
+  const selDate = new Date(date);
+  const dateNow = new Date();
+  let areEqual = false;
+
+  if (selDate.getFullYear() === dateNow.getFullYear()) {
+    if (selDate.getMonth() === dateNow.getMonth()) {
+      if (selDate.getDate() > dateNow.getDate()) {
+        areEqual = true;
+      }
+    }
+  }
+  return areEqual;
+}
+
+// verify if selection is current date
+export function isDateEqual(date) {
+  const selDate = new Date(date);
+  const dateNow = new Date();
+  let areEqual = false;
+
+  if (selDate.getFullYear() === dateNow.getFullYear()) {
+    if (selDate.getMonth() === dateNow.getMonth()) {
+      if (selDate.getDate() === dateNow.getDate()) {
+        areEqual = true;
+      }
+    }
+  }
+  return areEqual;
 }
