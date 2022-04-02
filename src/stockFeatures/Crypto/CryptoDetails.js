@@ -6,12 +6,19 @@ import {
   VictoryAxis,
   VictoryCandlestick,
   VictoryTooltip,
+  VictoryBar,
 } from 'victory';
 import { convertEpochToDate } from '../../stockComponents/Date';
 import style from '../../mcss/Details.module.css';
 import { getCryptoQuerryFromStorage } from '../../stockComponents/Helpers';
 import { useAuthContext } from '../../features/Auth/Auth.context';
-export function CryptoDetailsLarge({ data, setShow, show }) {
+export function CryptoDetailsLarge({
+  data,
+  setShow,
+  show,
+  areDatesEqual,
+  setDatesEqual,
+}) {
   const { user, token, trackedItems } = useAuthContext();
   // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
@@ -27,11 +34,24 @@ export function CryptoDetailsLarge({ data, setShow, show }) {
     noData: '',
   });
 
+  // set bar data for the same day fetch data
+  const [barData, setBarData] = useState([]);
+  const [colorBar, setColorBar] = useState('');
   // convert fetched candel data to chart supported data
   useEffect(() => {
     if (data) {
       if (data.s === 'no_data') {
         setError({ ...error, noData: 'Not available data' });
+        return;
+      }
+      if (areDatesEqual) {
+        setBarData([
+          ['open', data.o],
+          ['close', data.c],
+          ['high', data.h],
+          ['low', data.l],
+        ]);
+        setColorBar(data.c < data.o ? 'red' : 'green');
         return;
       }
       const candleData = [];
@@ -88,6 +108,7 @@ export function CryptoDetailsLarge({ data, setShow, show }) {
     setShow('none');
     setMessage('');
     setError({ ...error, noData: '' });
+    setDatesEqual(false);
   }
   console.log(searchedCrypto);
 
@@ -102,7 +123,7 @@ export function CryptoDetailsLarge({ data, setShow, show }) {
         Add to track list
       </button>
       {message && <p>{message}</p>}
-      {!error.noData && (
+      {!error.noData && !areDatesEqual && (
         <VictoryChart
           theme={VictoryTheme.material}
           width={900}
@@ -153,7 +174,32 @@ export function CryptoDetailsLarge({ data, setShow, show }) {
           />
         </VictoryChart>
       )}
+      {areDatesEqual && <BarChart color={colorBar} data={barData} />}
     </div>
+  );
+}
+
+export function BarChart({ color, data }) {
+  return (
+    <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+      <VictoryBar
+        style={{
+          data: {
+            fill: () => color,
+            stroke: ({ index }) => '#000000',
+            fillOpacity: 0.7,
+            strokeWidth: 1,
+          },
+          labels: {
+            fontSize: 15,
+            fill: ({ datum }) => '#000000',
+          },
+        }}
+        data={data}
+        x={0}
+        y={1}
+      />
+    </VictoryChart>
   );
 }
 

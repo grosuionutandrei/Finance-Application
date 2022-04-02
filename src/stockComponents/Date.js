@@ -51,14 +51,14 @@ export function isDateInFuture(date) {
 }
 
 // verify if selection is current date
-export function isDateEqual(date) {
-  const selDate = new Date(date);
-  const dateNow = new Date();
+export function isDateEqual(start, end) {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
   let areEqual = false;
 
-  if (selDate.getFullYear() === dateNow.getFullYear()) {
-    if (selDate.getMonth() === dateNow.getMonth()) {
-      if (selDate.getDate() === dateNow.getDate()) {
+  if (startDate.getFullYear() === endDate.getFullYear()) {
+    if (startDate.getMonth() === endDate.getMonth()) {
+      if (startDate.getDate() === endDate.getDate()) {
         areEqual = true;
       }
     }

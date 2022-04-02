@@ -6,7 +6,11 @@ import { SupportedCrypto } from './SupportedCrypto';
 import { handleResponse } from '../HomePage/HomePage';
 import { AutocompleteCrypto } from './AutocompleteCrypto';
 import { CryptoDetailsLarge } from '../Crypto/CryptoDetails';
-import { dateToEpoch, isDateInFuture } from '../../stockComponents/Date';
+import {
+  dateToEpoch,
+  isDateEqual,
+  isDateInFuture,
+} from '../../stockComponents/Date';
 
 export function Search({ exchanges }) {
   const [sugestions, setSugestions] = useState(null);
@@ -19,6 +23,8 @@ export function Search({ exchanges }) {
   const [cryptoData, setCryptoData] = useState(null);
   const [autoCompleteData, setAutocopmleteData] = useState(null);
   const [queryC, setQueryC] = useState('');
+  // check if dates are equal , that means data for one day
+  const [areDatesEqual, setAreDatesEqual] = useState(null);
 
   // time Frames for crypto
   const initialTimeFrame = 'D';
@@ -160,8 +166,13 @@ export function Search({ exchanges }) {
         ...inputErrors,
         endDate: 'End date must to be less or equal then current date',
       });
-      console.log('ak;n;nnef');
+
       return;
+    }
+
+    if (isDateEqual(form.startDate, form.endDate)) {
+      console.log(isDateEqual(), 'check date equal ');
+      setAreDatesEqual(true);
     }
 
     await getCryptoData();
@@ -176,7 +187,7 @@ export function Search({ exchanges }) {
     setRenderSugestions(false);
     setCryptoDetails('show_details');
   }
-
+  console.log(areDatesEqual);
   return (
     <>
       <form className={formStyle.form_container_style} onSubmit={getCrypto}>
@@ -277,6 +288,8 @@ export function Search({ exchanges }) {
           show={cryptoDetails}
           data={cryptoData}
           errors={errorsCryptoServer}
+          areDatesEqual={areDatesEqual}
+          setDatesEqual={(value) => setAreDatesEqual(value)}
         />
       </div>
 
