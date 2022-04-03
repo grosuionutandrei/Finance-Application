@@ -20,7 +20,11 @@ export function ChartDetails({ data }) {
         tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`}
         style={{ tickLabels: { padding: 5, fontSize: 20 } }}
       />
-      <VictoryAxis dependentAxis style={{ tickLabels: { fontSize: 14 } }} />
+      <VictoryAxis
+        dependentAxis
+        tickFormat={(h) => `${h / 1000}k`}
+        style={{ tickLabels: { fontSize: 10 } }}
+      />
       <VictoryCandlestick
         candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
         candleRatio={0.3}

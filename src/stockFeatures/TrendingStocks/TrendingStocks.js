@@ -11,11 +11,11 @@ export function Trending() {
     trending: '',
   });
 
-  const [button, setButton] = useState('Follow');
   const { user, token, trackedItems } = useAuthContext();
   const [serverError, setServerError] = useState({
     serverError: '',
   });
+
   const abortController = new AbortController();
 
   //   get trending stocks from yahoo
@@ -80,63 +80,35 @@ export function Trending() {
   }
 
   // add to tracked stocks ,delete from tracked stocks
-  function displayDetails(e) {
+  function editTrackList(e) {
     e.preventDefault();
-    switch (e.target.innerText) {
-      case 'Follow':
-        e.target.innerText = 'Unfollow';
-        updateTracked(e.target.value);
-        break;
-      case 'Unfollow':
-        e.target.innerText = 'Follow';
-        deleteFromTrackedList(e.target.value);
-        break;
-      default:
-    }
+    updateTracked(e.target.value);
   }
 
   // add to tracked items
   async function updateTracked(item) {
-    const temp = [...trackedItems];
-    if (temp[0].items.includes(item)) {
-      return;
+    const response = window.confirm(
+      `Are you sure that you want to follow ${item} `
+    );
+    if (response) {
+      const temp = { ...trackedItems };
+      if (temp.items.includes(item)) {
+        return;
+      }
+      temp?.items?.push(item);
+      localStorage.setItem('trackedItems', JSON.stringify(temp));
+      await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          userId: user.id,
+          items: temp.items,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
-    temp[0]?.items?.push(item);
-
-    localStorage.setItem('trackedItems', JSON.stringify(temp));
-    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        userId: user.id,
-        items: temp[0].items,
-      }),
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }
-
-  async function deleteFromTrackedList(elem) {
-    const temp = [...trackedItems];
-    if (!temp[0].items.includes(elem)) {
-      return;
-    }
-    const removeItem = temp[0].items.filter((item) => item !== elem);
-    temp[0].items = [...removeItem];
-    localStorage.setItem('trackedItems', JSON.stringify(temp));
-    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        userId: user.id,
-        items: removeItem,
-      }),
-
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
   }
 
   // create render object
@@ -202,10 +174,10 @@ export function Trending() {
           </p>
 
           <button
-            onClick={displayDetails}
+            onClick={editTrackList}
             value={trendDetails.trending[0][i]?.symbol}
           >
-            {button}
+            Follow
           </button>
         </article>
       );

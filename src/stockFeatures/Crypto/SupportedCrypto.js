@@ -113,9 +113,7 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
         <div
           className={styles[candleClass]}
           onClick={() => setCandleClass('candleAllScren')}
-        >
-          <CryptoDetailsSmall />
-        </div>
+        ></div>
       </div>
     ));
   };

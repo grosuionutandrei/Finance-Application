@@ -58,3 +58,37 @@
   margin-top: 14px;
   padding: 2px 2px;
 }
+
+@media only screen and (max-width: 967px) {
+  .form_container_style {
+    width: 600px;
+  }
+  .search_input_text {
+    width: 600px;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .form_container_style {
+    width: 400px;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .search_input_text {
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .form_container_style {
+    width: 300px;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .search_input_text {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 381px) {
+}

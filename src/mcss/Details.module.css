@@ -60,13 +60,17 @@ p[data-close='close'] {
   width: 960px;
   gap: 10px;
 }
+
+.container_stocks_details {
+  margin-top: 20px;
+  width: 960px;
+}
 .trending_details {
   width: 960px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-
   border-bottom: 1px solid black;
 }
 
@@ -122,4 +126,81 @@ p[data-close='close'] {
   padding: 8px 8px;
   text-align: center;
   background-color: #46b9a4;
+}
+
+@media only screen and (max-width: 967px) {
+  .container_stocks_details {
+    margin-top: 20px;
+    width: 900px;
+  }
+  .trending_details {
+    width: 600px;
+  }
+  .trending_details > p {
+    width: calc(600px / 9);
+  }
+}
+@media only screen and (max-width: 769px) {
+  .container_stocks_details {
+    margin-top: 20px;
+    width: 400px;
+  }
+  .trending_details {
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+
+  .trending_details > p {
+    width: 100px;
+  }
+  [data-button='removeFromTrackList'] {
+    width: 100px;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .container_stocks_details {
+    margin-top: 20px;
+    width: 200px;
+  }
+  .trending_details {
+    width: 200px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+
+  .trending_details > p {
+    width: 100px;
+  }
+  [data-button='removeFromTrackList'] {
+    width: 100px;
+  }
+}
+@media only screen and (max-width: 381px) {
+  .container_stocks_details {
+    margin-top: 20px;
+    width: 200px;
+  }
+  .trending_details {
+    width: 200px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+
+  .trending_details > p {
+    width: 100px;
+  }
+  [data-button='removeFromTrackList'] {
+    width: 100px;
+  }
 }

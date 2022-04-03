@@ -20,7 +20,10 @@ export function Nav() {
         </li>
         {user && (
           <li className="p-3 ml-auto">
-            Welcome, <strong>{user.firstName}! </strong>
+            Welcome,
+            <CustomNavLink to="/profile" className="py-0 px-0">
+              <strong>{user.firstName}! </strong>
+            </CustomNavLink>
             <a
               href="/"
               onClick={(e) => {

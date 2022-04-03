@@ -79,34 +79,48 @@ export function CryptoDetailsLarge({
 
   // add crypto to track list
   async function updateTrackedList() {
-    const temp = [...trackedItems];
-    console.log(temp);
-    if (temp[0].items.includes(searchedCrypto)) {
-      setMessage('Already added to your tracked list');
-      return;
+    const response = window.confirm(
+      `Are you sure that you want to follow ${searchedCrypto} `
+    );
+    if (response) {
+      const temp = trackedItems;
+
+      if (temp.items.includes(searchedCrypto)) {
+        setMessage('Already added to your tracked list');
+        return;
+      }
+
+      temp?.items?.push(searchedCrypto);
+      console.log(user.id);
+
+      const data = await fetch(
+        `http://localhost:3005/trackedItems/${user.id}`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({
+            userId: user.id,
+            items: temp.items,
+          }),
+
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((res) => res.json());
+      if (!data.userId) {
+        console.log(data);
+        return;
+      }
+      localStorage.setItem('trackedItems', JSON.stringify(temp));
+      setDisabled(true);
+      setMessage(`${searchedCrypto} added to the tracked list`);
     }
-    temp[0]?.items?.push(searchedCrypto);
-
-    localStorage.setItem('trackedItems', JSON.stringify(temp));
-    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        userId: user.id,
-        items: temp[0].items,
-      }),
-
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setMessage(`${searchedCrypto} added to the tracked list`);
   }
 
   function saveTrackItem(e) {
     e.preventDefault();
     updateTrackedList();
-    setDisabled(true);
   }
 
   function closeResultBox(e) {
@@ -211,54 +225,5 @@ export function BarChart({ color, data }) {
         y={1}
       />
     </VictoryChart>
-  );
-}
-
-export function CryptoDetailsSmall({ data }) {
-  return (
-    <div style={{ width: '200px' }}>
-      <VictoryChart
-        theme={VictoryTheme.material}
-        domainPadding={{ x: 5 }}
-        width={200}
-        height={150}
-        scale={{ x: 'time' }}
-      >
-        <VictoryAxis
-          tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`}
-          style={{
-            grid: { stroke: 'grey' },
-            ticks: { stroke: 'grey', size: 1 },
-            tickLabels: { fontSize: 5, padding: 5 },
-          }}
-        />
-        <VictoryAxis
-          style={{
-            grid: { stroke: '' },
-            ticks: { stroke: 'grey', size: 1 },
-            tickLabels: { fontSize: 5, padding: 5 },
-          }}
-          dependentAxis
-        />
-        <VictoryCandlestick
-          candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
-          candleRatio={0.3}
-          data={[
-            { x: new Date(2016, 6, 1), open: 10, close: 15, high: 20, low: 5 },
-            { x: new Date(2016, 6, 2), open: 10, close: 15, high: 20, low: 5 },
-            { x: new Date(2016, 6, 3), open: 15, close: 20, high: 22, low: 10 },
-            { x: new Date(2016, 6, 4), open: 20, close: 10, high: 25, low: 7 },
-            { x: new Date(2016, 6, 5), open: 10, close: 8, high: 15, low: 5 },
-            { x: new Date(2016, 6, 6), open: 10, close: 15, high: 20, low: 5 },
-            { x: new Date(2016, 6, 7), open: 10, close: 15, high: 20, low: 5 },
-            { x: new Date(2016, 6, 8), open: 15, close: 20, high: 22, low: 10 },
-            { x: new Date(2016, 6, 9), open: 20, close: 10, high: 25, low: 7 },
-            { x: new Date(2016, 6, 10), open: 10, close: 8, high: 15, low: 5 },
-            { x: new Date(2016, 6, 11), open: 20, close: 10, high: 25, low: 7 },
-            { x: new Date(2016, 6, 12), open: 10, close: 8, high: 15, low: 5 },
-          ]}
-        />
-      </VictoryChart>
-    </div>
   );
 }

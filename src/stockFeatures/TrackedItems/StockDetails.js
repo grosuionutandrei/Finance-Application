@@ -2,14 +2,16 @@ import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 export function TrackedStocksDetails({ data, stocks, setDeleteItem }) {
-  console.log(data.length, stocks.length);
   const { user, token, trackedItems } = useAuthContext();
 
   async function removeItem(e) {
-    deleteFromTrackedList(e.target.value, trackedItems, user, token);
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    await delay(300);
-    setDeleteItem(true);
+    const response = window.confirm(
+      `Are you sure that you want to delete ${e.target.value}`
+    );
+    if (response) {
+      deleteFromTrackedList(e.target.value, trackedItems, user, token);
+      setDeleteItem(true);
+    }
   }
 
   const renderDetails = [];
@@ -26,34 +28,34 @@ export function TrackedStocksDetails({ data, stocks, setDeleteItem }) {
           <p title={`Stock Symbol`}>{stocks[i]}</p>
           <p title={`Open ${data[i]?.o}`}>
             O:
-            <span className="bg-violet-600">{data[i]?.o.toFixed(2)} &#36;</span>
+            <span className="bg-violet-600">{data[i]?.o.toFixed(2)}</span>
           </p>
 
           <p title={`Change ${data[i]?.d}`}>
             C:
-            <span className={colorCurrent}>{data[i]?.d.toFixed(2)} &#36;</span>
+            <span className={colorCurrent}>{data[i]?.d.toFixed(2)}</span>
           </p>
 
           <p title={`Percent Price ${data[i]?.dp}`}>
             PC:
-            <span className={colorPercent}>{data[i]?.dp.toFixed(2)} &#37;</span>
+            <span className={colorPercent}>{data[i]?.dp.toFixed(2)}</span>
           </p>
           <p title={`Current Price ${data[i]?.c}`}>
             CP:
-            <span className={colorCurrent}>{data[i]?.c.toFixed(2)} &#36;</span>
+            <span className={colorCurrent}>{data[i]?.c.toFixed(2)}</span>
           </p>
           <p title={`Previous Closing Price ${data[i].pc}`}>
             PCP:
-            <span className={colorPrevious}>{data[i].pc.toFixed(2)} &#36;</span>
+            <span className={colorPrevious}>{data[i].pc.toFixed(2)}</span>
           </p>
 
           <p title={`Lowest Price ${data[i].l}`}>
             LP:
-            <span className="bg-red-500">{data[i].l.toFixed(2)} &#36;</span>
+            <span className="bg-red-500">{data[i].l.toFixed(2)}</span>
           </p>
           <p title={`Highest Price ${data[i].h}`}>
             HP:
-            <span className="bg-lime-500">{data[i].h.toFixed(2)} &#36;</span>
+            <span className="bg-lime-500">{data[i].h.toFixed(2)}</span>
           </p>
 
           <button

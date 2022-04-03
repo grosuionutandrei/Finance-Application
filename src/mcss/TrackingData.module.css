@@ -102,3 +102,28 @@
     font-weight: 100;
   }
 }
+
+@media only screen and (max-width: 381px) {
+  .tracked_list {
+    display: flex;
+    width: 200px;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3;
+    transition: ease-in;
+  }
+  [data-button='removeFromTrackList'] {
+    cursor: pointer;
+    background: #b9465b;
+    border-radius: 10%;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-weight: 100;
+    text-align: center;
+  }
+  [data-title='title'] {
+    font-family: sans-serif;
+    font-weight: 100;
+  }
+}

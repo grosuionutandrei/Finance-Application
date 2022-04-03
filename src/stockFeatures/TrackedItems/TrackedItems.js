@@ -9,10 +9,10 @@ import {
   convertEpochToDate,
 } from '../../stockComponents/Date';
 
-import { CryptoDetailsLarge } from '../Crypto/CryptoDetails';
 import style from '../../mcss/TrackingData.module.css';
 import { ChartDetails } from './ChartDetails';
 import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
+import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 
 export function TrackedItems() {
   const { user, token, trackedItems } = useAuthContext();
@@ -48,8 +48,8 @@ export function TrackedItems() {
   useEffect(() => {
     setFetchError('');
     if (trackedItems) {
-      const crypto = filterCrypto(exchanges, trackedItems[0].items);
-      const stocks = filterStocks(crypto, trackedItems[0].items);
+      const crypto = filterCrypto(exchanges, trackedItems?.items);
+      const stocks = filterStocks(crypto, trackedItems?.items);
       setStocks(stocks);
       setCrypto(crypto);
       setDeleteItem(false);
@@ -57,6 +57,9 @@ export function TrackedItems() {
   }, [trackedItems, deleteItem]);
 
   useEffect(() => {
+    if (!crypto) {
+      return;
+    }
     async function getCryptoData() {
       const dataArr = [];
       for (const item of crypto) {
@@ -110,6 +113,9 @@ export function TrackedItems() {
   }, [cryptoData]);
 
   useEffect(() => {
+    if (!stocks) {
+      return;
+    }
     async function getSearchedData() {
       const stockTempData = [];
       for (const item of stocks) {
@@ -140,6 +146,22 @@ export function TrackedItems() {
   if (!stockData) {
     return <Loading />;
   }
+  if (!crypto) {
+    return <p>No items</p>;
+  }
+  if (!stocks) {
+    return <p></p>;
+  }
+
+  async function removeItem(e) {
+    const response = window.confirm(
+      `Are you sure that you want to delete ${e.target.value}`
+    );
+    if (response) {
+      deleteFromTrackedList(e.target.value, trackedItems, user, token);
+      setDeleteItem(true);
+    }
+  }
 
   function renderCryptoTracked() {
     const renderData = [];
@@ -147,7 +169,13 @@ export function TrackedItems() {
       renderData.push(
         <article key={crypto[i]} className={style.track_elem}>
           <p data-title="title">{crypto[i]}</p>
-          <button data-button="removeFromTrackList"> Remove</button>
+          <button
+            data-button="removeFromTrackList"
+            onClick={removeItem}
+            value={crypto[i]}
+          >
+            Remove
+          </button>
           <ChartDetails data={cryptoDataGraph[i]} />
         </article>
       );
@@ -161,11 +189,13 @@ export function TrackedItems() {
         <p className="bg-red-200 text-red-600 bold p-2">{fetchError}</p>
       )}
       {renderCryptoTracked()}
-      <TrackedStocksDetails
-        data={stockData}
-        stocks={stocks}
-        setDeleteItem={(value) => setDeleteItem(value)}
-      />
+      <div className={style.container_stocks_details}>
+        <TrackedStocksDetails
+          data={stockData}
+          stocks={stocks}
+          setDeleteItem={(value) => setDeleteItem(value)}
+        />
+      </div>
     </div>
   );
 }

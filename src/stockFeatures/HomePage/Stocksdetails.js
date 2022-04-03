@@ -4,13 +4,11 @@ import {
   useAuthContext,
 } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
-import { Loading } from '../../stockComponents/Loading';
 
 export function StocksDetails({ parameter, setShow, show, details, errors }) {
   const [param, setParam] = useState(null);
   const { user, token, trackedItems } = useAuthContext();
   const [message, setMessage] = useState(null);
-  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     setParam(parameter);
@@ -26,39 +24,44 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
 
   async function updateTrackedList() {
     const searchedParam = getValueFromStorage('searchedParameter');
-    const temp = [...trackedItems];
-    // if already added return
-    if (temp[0].items.includes(searchedParam)) {
-      return;
-    }
-    temp[0]?.items?.push(searchedParam);
-    localStorage.setItem('trackedItems', JSON.stringify(temp));
-    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        userId: user.id,
-        items: temp[0].items,
-      }),
+    const response = window.confirm(
+      `Are you sure that you want to follow ${searchedParam} `
+    );
+    if (response) {
+      const temp = [...trackedItems];
+      // if already added return
+      if (temp[0].items.includes(searchedParam)) {
+        setMessage(`${searchedParam} already added to the tracked list`);
+        return;
+      }
+      temp[0]?.items?.push(searchedParam);
+      localStorage.setItem('trackedItems', JSON.stringify(temp));
+      await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          userId: user.id,
+          items: temp[0].items,
+        }),
 
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setMessage(`${searchedParam} added to the tracked list`);
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setMessage(`${searchedParam} added to the tracked list`);
+    }
   }
 
   function saveTrackItem(e) {
     e.preventDefault();
     updateTrackedList();
-    setDisabled(true);
   }
 
   function closeResultBox(e) {
     setShow('none');
     setMessage('');
     setParam(null);
-    setDisabled(false);
+    // setDisabled(false);
   }
 
   return (
@@ -109,9 +112,7 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
           Highest Price:
           <span className="bg-lime-500">{param.h} &#36;</span>
         </p>
-        <button onClick={saveTrackItem} disabled={disabled}>
-          Add to track list
-        </button>
+        <button onClick={saveTrackItem}>Add to track list</button>
         {message && <p>{message}</p>}
       </div>
     </article>

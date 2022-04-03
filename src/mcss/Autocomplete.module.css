@@ -115,3 +115,49 @@ p[data-symbol='']:hover {
   z-index: 3;
   color: #f17300ff;
 }
+
+@media only screen and (max-width: 967px) {
+  .form_container {
+    width: 600px;
+  }
+  .searchInput {
+    width: 600px;
+  }
+  .autocomplete {
+    width: 600px;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .form_container {
+    width: 500px;
+  }
+  .searchInput {
+    width: 500px;
+  }
+  .autocomplete {
+    width: 500px;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .form_container {
+    width: 400px;
+  }
+  .searchInput {
+    width: 400px;
+  }
+  .autocomplete {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 381px) {
+  .form_container {
+    width: 300px;
+  }
+  .searchInput {
+    width: 300px;
+  }
+  .autocomplete {
+    width: 300px;
+  }
+}

@@ -4,43 +4,25 @@
       "email": "a@a.com",
       "password": "$2a$10$gcC3pe5u93DmNx1z/JS45eiiYp0oLIKAvICOgU66qmX48Lh0OR6xa",
       "firstName": "Paul",
-      "lastName": "Negoescu",
-      "id": 1
+      "lastName": "Negoescudwq",
+      "id": 1,
+      "profilePhoto": "https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTg0NTEzNzgyNTMyNDE2OTk5/black-cat-gettyimages-901574784.jpg"
     },
     {
       "email": "p@p.com",
       "password": "$2a$10$bN2aHTng90CFf/joD8XUguGIqikMaziHMUKBZhJd27nN7y7sXH3W2",
       "firstName": "Paul",
       "lastName": "Negoescu",
-      "id": 2
+      "id": 2,
+      "profilePhoto": ""
     },
     {
-      "email": "test@test.com",
-      "password": "$2a$10$/db3P55T9HBSIPyO4trj3.3vTDyq2XeWnZ7XYWxPKDmCZoDpzz9i.",
-      "firstName": "first",
-      "lastName": "first",
+      "email": "test@tes.com",
+      "password": "$2a$10$yU341GGUTPi62N/qWnE05.3i4JjvAut1.aWmd3sZNQQkvK6ZIu6lW",
+      "firstName": "er",
+      "lastName": "er",
+      "profilePhoto": "",
       "id": 3
-    },
-    {
-      "email": "altest@a.com",
-      "password": "$2a$10$Eg7RvAQhL/zeAIzn2gK8c.38GAjnqJ2ZHUOJ2uYkQ8GbB4k3y/qG2",
-      "firstName": "qw",
-      "lastName": "qw",
-      "id": 4
-    },
-    {
-      "email": "ana@ana.com",
-      "password": "$2a$10$RM7lvcQxRPJHLOqH65pEl.s0DWL4KtMbnFwH4yrnTHmcJY2zK/6Ni",
-      "firstName": "parola",
-      "lastName": "parola",
-      "id": 5
-    },
-    {
-      "email": "s1@yahoo.com",
-      "password": "$2a$10$RhY6IVksL3OAwtIpQxgS3ezmyz4UgwdRMkb/kK.rvXoiPF7VvdX3C",
-      "firstName": "asd",
-      "lastName": "asd",
-      "id": 6
     }
   ],
   "movies": [
@@ -39731,38 +39713,37 @@
       "id": 1,
       "userId": 1,
       "items": [
-        "BINANCE:ETHEUR",
-        "BINANCE:ETHUSDT",
-        "BINANCE:DOGEUSDT",
-        "BINANCE:ETHAUD",
-        "BINANCE:BTCUSDP",
-        "BINANCE:AAVEBKRW",
-        "DOT-USD",
-        "BINANCE:DOGEEUR",
-        "AAPL"
+        "CABT",
+        "WE",
+        "ATOM-USD",
+        "LINK-USD",
+        "WISH",
+        "BINANCE:BTCUSDT",
+        "DOGE-USD",
+        "KHC",
+        "BINANCE:ETHUSDP",
+        "BYDDY",
+        "CL=F",
+        "BINANCE:BTCUSDC"
       ]
     },
     {
-      "userId": 3,
+      "userId": 2,
       "items": [
-        "BINANCE:DOGEUSDT"
+        "CABT",
+        "WE",
+        "ATOM-USD",
+        "LINK-USD",
+        "WISH",
+        "BINANCE:BTCUSDT",
+        "DOGE-USD",
+        "KHC",
+        "BINANCE:ETHUSDP",
+        "BYDDY",
+        "CL=F",
+        "BINANCE:BTCUSDC"
       ],
       "id": 2
-    },
-    {
-      "userId": 4,
-      "items": [],
-      "id": 3
-    },
-    {
-      "userId": 5,
-      "items": [],
-      "id": 4
-    },
-    {
-      "userId": 6,
-      "items": [],
-      "id": 5
     }
   ]
 }

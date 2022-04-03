@@ -113,7 +113,6 @@ export function HomePage() {
         setErrors({ ...errors, noDetails: 'No data for your search.' });
         return;
       }
-      console.log(data);
       setStockDetails(data);
     } catch (error) {
       setErrors({
@@ -141,7 +140,6 @@ export function HomePage() {
         });
         return;
       }
-      console.log(data);
       setStocksData(data);
     } catch (error) {
       setErrors({
@@ -161,7 +159,6 @@ export function HomePage() {
       });
       return;
     }
-    console.log(query);
     getSearchedData();
     getDetails();
     setShowResults('details_container');

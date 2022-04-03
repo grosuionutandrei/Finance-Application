@@ -24,7 +24,6 @@
   font-size: large;
 }
 .ul_container {
-  width: 960px;
   height: 40px;
   display: flex;
   flex-flow: row wrap;
@@ -44,4 +43,66 @@
 }
 .li_elem:hover {
   background-color: #054a91ff;
+}
+
+@media only screen and (max-width: 967px) {
+  .crypto_container {
+    width: 600px;
+  }
+  .individual_crypto {
+    width: 600px;
+  }
+  .ul_container {
+    width: 600px;
+  }
+
+  .individual_crypto > p {
+    width: calc(600px / 7);
+    font-family: 'Robot' sans-serif;
+    font-weight: 200;
+    font-size: medium;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .crypto_container {
+    width: 400px;
+  }
+  .individual_crypto {
+    width: 400px;
+  }
+  .ul_container {
+    width: 400px;
+  }
+
+  .individual_crypto > p {
+    width: calc(400px / 7);
+    font-family: 'Robot' sans-serif;
+    font-weight: 200;
+    font-size: medium;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .crypto_container {
+    width: 300px;
+  }
+  .individual_crypto {
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+  .ul_container {
+    width: 300px;
+  }
+
+  .individual_crypto > p {
+    width: calc(300px / 7);
+    font-family: 'Robot' sans-serif;
+    font-weight: 100;
+    font-size: small;
+  }
+}
+@media only screen and (max-width: 381px) {
 }

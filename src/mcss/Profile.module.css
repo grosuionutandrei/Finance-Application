@@ -1,0 +1,106 @@
+.user {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: larger;
+  font-weight: 500;
+  border: 2px solid #054a91ff;
+  width: 960px;
+  border-radius: 10%;
+}
+.user > p {
+  width: 100px;
+  padding: 5px 5px;
+  margin: 0 auto;
+  color: #f17300ff;
+}
+.profile_img {
+  border-radius: 30%;
+  width: 500px;
+  height: 400px;
+}
+
+.tracked {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: larger;
+  font-weight: 500;
+  border: 2px solid #054a91ff;
+  width: 960px;
+  border-radius: 10%;
+}
+
+.tracked > p {
+  padding: 3px 3px;
+  color: #f17300ff;
+}
+.none {
+  display: none;
+}
+.editDetails {
+  cursor: pointer;
+}
+
+.show {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.my_style {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media only screen and (max-width: 967px) {
+  .user {
+    width: 600px;
+  }
+  .tracked {
+    width: 600px;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .user {
+    width: 400px;
+  }
+  .tracked {
+    width: 400px;
+  }
+  .profile_img {
+    width: 400px;
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .user {
+    width: 381px;
+  }
+  .tracked {
+    width: 381px;
+  }
+  .profile_img {
+    width: 300px;
+    height: 200px;
+  }
+}
+@media only screen and (max-width: 381px) {
+  .user {
+    width: 250px;
+  }
+  .tracked {
+    width: 250px;
+  }
+  .profile_img {
+    width: 250px;
+    height: 150px;
+  }
+}

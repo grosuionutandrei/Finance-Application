@@ -9,6 +9,7 @@ export function LoginPage({ error, onError }) {
     password: '',
     firstName: '',
     lastName: '',
+    profilePhoto: '',
     retypePassword: '',
   });
   const [errors, setErrors] = useState({
@@ -23,7 +24,7 @@ export function LoginPage({ error, onError }) {
   const isRegister = location.pathname.includes('register');
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/crypto';
 
   useEffect(() => {
     if (token) {
@@ -38,13 +39,14 @@ export function LoginPage({ error, onError }) {
 
   async function getTrackedItems(userId, userToken) {
     const trackedItems = await fetch(
-      `http://localhost:3005/trackedItems/?userId=${userId}`,
+      `http://localhost:3005/trackedItems/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       }
     ).then((res) => res.json());
+    console.log(trackedItems);
     trackList(trackedItems);
   }
 
@@ -75,6 +77,7 @@ export function LoginPage({ error, onError }) {
       return;
     }
     await getTrackedItems(data.user.id, data.accessToken);
+
     login(data);
   }
 
@@ -199,6 +202,18 @@ export function LoginPage({ error, onError }) {
               id="lastName"
               className="border-2 border-slate-900 p-1 text-slate-900 rounded-md"
             />
+            <div className={`my-2 ${styles.my_style}`}>
+              <label htmlFor="profilePhoto">Profile photo</label>
+              <input
+                type="text"
+                name="profilePhoto"
+                value={values.profilePhoto}
+                onChange={handleInputChange}
+                placeholder="Photo Url"
+                id="profilePhoto"
+                className="border-2 border-slate-900 p-1 text-slate-900 rounded-md"
+              />
+            </div>
             {errors.lastName && (
               <>
                 <p className={styles.error}> {errors.lastName}</p>
