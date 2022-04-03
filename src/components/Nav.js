@@ -14,6 +14,10 @@ export function Nav() {
         <li>
           <CustomNavLink to="/crypto">Crypto</CustomNavLink>
         </li>
+
+        <li>
+          <CustomNavLink to="/trackedItems">TrackedItems</CustomNavLink>
+        </li>
         {user && (
           <li className="p-3 ml-auto">
             Welcome, <strong>{user.firstName}! </strong>

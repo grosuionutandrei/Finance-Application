@@ -15,11 +15,32 @@
       "id": 2
     },
     {
-      "email": "test@yahoo.com",
-      "password": "$2a$10$pP.Cssgck0ywblRo3MrMMeTivx/4h9kUTEUSFTk3284OFZcisUZeW",
-      "firstName": "Grosu",
-      "lastName": "Ionut",
+      "email": "test@test.com",
+      "password": "$2a$10$/db3P55T9HBSIPyO4trj3.3vTDyq2XeWnZ7XYWxPKDmCZoDpzz9i.",
+      "firstName": "first",
+      "lastName": "first",
       "id": 3
+    },
+    {
+      "email": "altest@a.com",
+      "password": "$2a$10$Eg7RvAQhL/zeAIzn2gK8c.38GAjnqJ2ZHUOJ2uYkQ8GbB4k3y/qG2",
+      "firstName": "qw",
+      "lastName": "qw",
+      "id": 4
+    },
+    {
+      "email": "ana@ana.com",
+      "password": "$2a$10$RM7lvcQxRPJHLOqH65pEl.s0DWL4KtMbnFwH4yrnTHmcJY2zK/6Ni",
+      "firstName": "parola",
+      "lastName": "parola",
+      "id": 5
+    },
+    {
+      "email": "s1@yahoo.com",
+      "password": "$2a$10$RhY6IVksL3OAwtIpQxgS3ezmyz4UgwdRMkb/kK.rvXoiPF7VvdX3C",
+      "firstName": "asd",
+      "lastName": "asd",
+      "id": 6
     }
   ],
   "movies": [
@@ -39710,13 +39731,43 @@
       "id": 1,
       "userId": 1,
       "items": [
-        "ana",
-        "BTC-USD",
         "BRK-A",
         "SWN",
         "CLVR",
-        "DOGE-USD"
+        "DOGE-USD",
+        "BINANCE:ETHEUR",
+        "BINANCE:ETHUSDT",
+        "TSLA",
+        "BINANCE:DOGEUSDT",
+        "BINANCE:ETHAUD",
+        "BINANCE:BTCUSDP",
+        "BINANCE:AAVEBKRW",
+        "DOT-USD",
+        "BINANCE:DOGEEUR",
+        "MSFT"
       ]
+    },
+    {
+      "userId": 3,
+      "items": [
+        "BINANCE:DOGEUSDT"
+      ],
+      "id": 2
+    },
+    {
+      "userId": 4,
+      "items": [],
+      "id": 3
+    },
+    {
+      "userId": 5,
+      "items": [],
+      "id": 4
+    },
+    {
+      "userId": 6,
+      "items": [],
+      "id": 5
     }
   ]
 }

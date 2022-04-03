@@ -25,6 +25,13 @@ export function Search({ exchanges }) {
   const [queryC, setQueryC] = useState('');
   // check if dates are equal , that means data for one day
   const [areDatesEqual, setAreDatesEqual] = useState(null);
+  // if not available data for specified period
+  const [errorTimeFrames, setErrorTimeFrames] = useState({
+    noData: '',
+  });
+
+  // message to display after item added to track list
+  const [message, setMessage] = useState('');
 
   // time Frames for crypto
   const initialTimeFrame = 'D';
@@ -73,7 +80,12 @@ export function Search({ exchanges }) {
       serverError: '',
       noDescription: '',
     });
+    setErrorTimeFrames({ ...errorTimeFrames, noData: '' });
     setInputErrors({ ...inputErrors, noQuery: '' });
+    setErrorTimeFrames('');
+    setMessage('');
+    setAreDatesEqual(false);
+
     setQueryC(e.target.value.toUpperCase());
     if (e.target.value.length === 0) {
       setRenderSugestions(false);
@@ -81,7 +93,6 @@ export function Search({ exchanges }) {
     }
     if (e.target.value.length > 0) {
       const callBack = () => {
-        console.log(e.target.value);
         setSugestions(
           autoCompleteData.filter((elem) =>
             elem.symbol.toLowerCase().includes(e.target.value.toLowerCase())
@@ -94,9 +105,6 @@ export function Search({ exchanges }) {
 
     setAtcContainer('autocomplete');
     setShowSugestions('sugestionsShow');
-    // setShowResults('none');
-
-    // de modificat
     setCryptoDetails('none');
   }
 
@@ -160,7 +168,7 @@ export function Search({ exchanges }) {
       });
       return;
     }
-    console.log(isDateInFuture(form.endDate));
+
     if (isDateInFuture(form.endDate)) {
       setInputErrors({
         ...inputErrors,
@@ -171,7 +179,6 @@ export function Search({ exchanges }) {
     }
 
     if (isDateEqual(form.startDate, form.endDate)) {
-      console.log(isDateEqual(), 'check date equal ');
       setAreDatesEqual(true);
     }
 
@@ -187,7 +194,7 @@ export function Search({ exchanges }) {
     setRenderSugestions(false);
     setCryptoDetails('show_details');
   }
-  console.log(areDatesEqual);
+
   return (
     <>
       <form className={formStyle.form_container_style} onSubmit={getCrypto}>
@@ -285,11 +292,15 @@ export function Search({ exchanges }) {
 
         <CryptoDetailsLarge
           setShow={(value) => setCryptoDetails(value)}
+          errorTimeFrames={errorTimeFrames}
+          setErrorTimeFrames={(value) => setErrorTimeFrames(value)}
           show={cryptoDetails}
           data={cryptoData}
           errors={errorsCryptoServer}
           areDatesEqual={areDatesEqual}
           setDatesEqual={(value) => setAreDatesEqual(value)}
+          message={message}
+          setMessage={(value) => setMessage(value)}
         />
       </div>
 
@@ -298,6 +309,7 @@ export function Search({ exchanges }) {
         setAutocompleteData={(value) => setAutocopmleteData(value)}
         changeExchange={form.exchange}
       ></SupportedCrypto>
+
       <p style={{ height: '300px' }}>Ana are mere </p>
     </>
   );

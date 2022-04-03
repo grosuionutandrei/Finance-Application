@@ -2,6 +2,7 @@ import styles from '../../mcss/Details.module.css';
 import { useState, useEffect } from 'react';
 import { Loading } from '../../stockComponents/Loading';
 import { useAuthContext } from '../../features/Auth/Auth.context';
+import { handleResponse } from '../HomePage/HomePage';
 
 export function Trending() {
   const [trending, setTrending] = useState(null);
@@ -12,28 +13,43 @@ export function Trending() {
 
   const [button, setButton] = useState('Follow');
   const { user, token, trackedItems } = useAuthContext();
+  const [serverError, setServerError] = useState({
+    serverError: '',
+  });
+  const abortController = new AbortController();
 
   //   get trending stocks from yahoo
   useEffect(() => {
+    const { signal } = abortController;
+    setServerError('');
+    let aborted = true;
     async function getTrending() {
       const trending = [];
-      const data = await fetch(`https://yfapi.net/v1/finance/trending/US`, {
-        headers: {
-          'x-api-key': 'L3dhdg23zyWMjriBQhaBfmJCsvN6N81xIia5WB90',
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          trending.push(res.finance.result[0].quotes);
-          setTrending(trending);
-        });
+      try {
+        const data = await fetch(`https://yfapi.net/v1/finance/trending/US`, {
+          signal,
+          headers: {
+            'x-api-key': 'XBw8i4nDMTbazQGtmWqJ6gNhOPV7ZTZ9ivz0qs0b',
+          },
+        }).then((res) => handleResponse(res));
+
+        trending.push(data.finance.result[0].quotes);
+        setTrending(trending);
+        aborted = false;
+      } catch (error) {
+        console.log(error);
+        setServerError(' A Server Error has occured ');
+      }
 
       return trending;
     }
 
     async function getTrendDetails(trending) {
+      if (aborted) {
+        return;
+      }
       const tempPromises = [];
-      for (const trend of trending[0]) {
+      for (const trend of trending[0].slice(0, 15)) {
         tempPromises.push(
           await fetch(
             `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c8p0kuaad3id3q613c3g`
@@ -52,7 +68,11 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    // getData();
+    getData();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   if (!trending || !trendDetails.data) {
@@ -78,14 +98,12 @@ export function Trending() {
   // add to tracked items
   async function updateTracked(item) {
     const temp = [...trackedItems];
-
     if (temp[0].items.includes(item)) {
       return;
     }
-
     temp[0]?.items?.push(item);
 
-    localStorage.setItem('trackedItems', JSON.stringify(temp[0].items));
+    localStorage.setItem('trackedItems', JSON.stringify(temp));
     await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -104,14 +122,14 @@ export function Trending() {
     if (!temp[0].items.includes(elem)) {
       return;
     }
-    const deleted = temp[0].items.filter((item) => item !== elem);
-
-    localStorage.setItem('trackedItems', JSON.stringify(deleted));
+    const removeItem = temp[0].items.filter((item) => item !== elem);
+    temp[0].items = [...removeItem];
+    localStorage.setItem('trackedItems', JSON.stringify(temp));
     await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
         userId: user.id,
-        items: deleted,
+        items: removeItem,
       }),
 
       headers: {
@@ -123,7 +141,7 @@ export function Trending() {
 
   // create render object
   const renderDetails = [];
-  for (let i = 0; i < trendDetails.trending[0].length; i++) {
+  for (let i = 0; i < trendDetails.data.length; i++) {
     let colorCurrent =
       trendDetails.data[i].c > trendDetails.data[i].pc
         ? 'bg-lime-500'
@@ -144,39 +162,43 @@ export function Trending() {
           className={styles.trending_details}
         >
           <p title={`Stock Symbol`}>{trendDetails.trending[0][i]?.symbol}</p>
-          <p title="Change">
+          <p title={`Change ${trendDetails.data[i]?.d}`}>
             C:
             <span className={colorCurrent}>
-              {trendDetails.data[i]?.d} &#36;
+              {trendDetails.data[i]?.d.toFixed(2)} &#36;
             </span>
           </p>
 
-          <p title="Percent Price">
+          <p title={`Percent Price ${trendDetails.data[i]?.dp}`}>
             PC:
             <span className={colorPercent}>
-              {trendDetails.data[i]?.dp} &#37;
+              {trendDetails.data[i]?.dp.toFixed(2)} &#37;
             </span>
           </p>
-          <p title="Current Price">
+          <p title={`Current Price ${trendDetails.data[i]?.c}`}>
             CP:
             <span className={colorCurrent}>
-              {trendDetails.data[i]?.c} &#36;
+              {trendDetails.data[i]?.c.toFixed(2)} &#36;
             </span>
           </p>
-          <p title="Previous Closing Price">
+          <p title={`Previous Closing Price ${trendDetails.data[i].pc}`}>
             PCP:
             <span className={colorPrevious}>
-              {trendDetails.data[i].pc} &#36;
+              {trendDetails.data[i].pc.toFixed(2)} &#36;
             </span>
           </p>
 
-          <p title="Lowest Price">
+          <p title={`Lowest Price ${trendDetails.data[i].l}`}>
             LP:
-            <span className="bg-red-500">{trendDetails.data[i].l} &#36;</span>
+            <span className="bg-red-500">
+              {trendDetails.data[i].l.toFixed(2)} &#36;
+            </span>
           </p>
-          <p title="Highest Price">
+          <p title={`Highest Price ${trendDetails.data[i].h}`}>
             HP:
-            <span className="bg-lime-500">{trendDetails.data[i].h} &#36;</span>
+            <span className="bg-lime-500">
+              {trendDetails.data[i].h.toFixed(2)} &#36;
+            </span>
           </p>
 
           <button
@@ -190,5 +212,11 @@ export function Trending() {
     }
   }
 
-  return <div className={styles.trending_container}>{renderDetails}</div>;
+  return (
+    <div className={styles.trending_container}>
+      {serverError.serverError && <p>{serverError.serverError}</p>}
+      <h3>Top 15 trending</h3>
+      {renderDetails}
+    </div>
+  );
 }

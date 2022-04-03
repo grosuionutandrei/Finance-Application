@@ -130,7 +130,7 @@ export function HomePage() {
         `https://yfapi.net/v11/finance/quoteSummary/${query}?lang=en&region=US&modules=assetProfile`,
         {
           headers: {
-            'x-api-key': 'L3dhdg23zyWMjriBQhaBfmJCsvN6N81xIia5WB90',
+            'x-api-key': 'XBw8i4nDMTbazQGtmWqJ6gNhOPV7ZTZ9ivz0qs0b',
           },
         }
       ).then((res) => handleResponse(res));
@@ -250,9 +250,3 @@ export function handleResponse(res) {
     throw new Error('A fetch error has occured');
   }
 }
-
-export const authHeaderFinnHub = {
-  headers: {
-    'X-Finnhub-Token': 'c8p0kuaad3id3q613c3g',
-  },
-};

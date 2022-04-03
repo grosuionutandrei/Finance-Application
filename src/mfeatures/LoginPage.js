@@ -45,8 +45,20 @@ export function LoginPage({ error, onError }) {
         },
       }
     ).then((res) => res.json());
-    console.log(trackedItems);
     trackList(trackedItems);
+  }
+
+  async function createTrackedItems(userId, userToken) {
+    const createItems = await fetch(`http://localhost:3005/trackedItems`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify({ userId: userId, items: [] }),
+    }).then((res) => res.json());
+    console.log(createItems);
+    trackList(createItems);
   }
 
   async function handleLogin() {
@@ -95,6 +107,8 @@ export function LoginPage({ error, onError }) {
       },
       body: JSON.stringify(valuesWithoutRetype),
     }).then((res) => res.json());
+
+    createTrackedItems(data.user.id, data.accessToken);
 
     if (!data.accessToken) {
       onError(data);

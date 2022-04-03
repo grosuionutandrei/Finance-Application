@@ -18,22 +18,20 @@ export function CryptoDetailsLarge({
   show,
   areDatesEqual,
   setDatesEqual,
+  errorTimeFrames,
+  setErrorTimeFrames,
+  message,
+  setMessage,
 }) {
   const { user, token, trackedItems } = useAuthContext();
   // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
   // message to display if added to trck list
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
   // retrieve searcehd crypto from local storage
   const searchedCrypto = getCryptoQuerryFromStorage();
   // enable/disable add to track list button
   const [disabled, setDisabled] = useState(false);
-
-  // if no data
-  const [error, setError] = useState({
-    noData: '',
-  });
-
   // set bar data for the same day fetch data
   const [barData, setBarData] = useState([]);
   const [colorBar, setColorBar] = useState('');
@@ -41,7 +39,10 @@ export function CryptoDetailsLarge({
   useEffect(() => {
     if (data) {
       if (data.s === 'no_data') {
-        setError({ ...error, noData: 'Not available data' });
+        setErrorTimeFrames({
+          ...errorTimeFrames,
+          noData: 'Not available data',
+        });
         return;
       }
       if (areDatesEqual) {
@@ -52,6 +53,7 @@ export function CryptoDetailsLarge({
           ['low', data.l],
         ]);
         setColorBar(data.c < data.o ? 'red' : 'green');
+        setDisabled(false);
         return;
       }
       const candleData = [];
@@ -67,6 +69,7 @@ export function CryptoDetailsLarge({
         candleData.push(dataObject);
       }
       setCandleDataArr(candleData);
+      setDisabled(false);
     }
   }, [data]);
 
@@ -77,7 +80,9 @@ export function CryptoDetailsLarge({
   // add crypto to track list
   async function updateTrackedList() {
     const temp = [...trackedItems];
+    console.log(temp);
     if (temp[0].items.includes(searchedCrypto)) {
+      setMessage('Already added to your tracked list');
       return;
     }
     temp[0]?.items?.push(searchedCrypto);
@@ -107,23 +112,29 @@ export function CryptoDetailsLarge({
   function closeResultBox(e) {
     setShow('none');
     setMessage('');
-    setError({ ...error, noData: '' });
+    setErrorTimeFrames('');
     setDatesEqual(false);
   }
-  console.log(searchedCrypto);
 
   return (
     <div className={style[show]}>
-      {error.noData && <p>{error.noData}</p>}
-      <p>{searchedCrypto}</p>
-      <button onClick={closeResultBox} data-close="crypto">
-        close
-      </button>
-      <button onClick={saveTrackItem} disabled={disabled}>
-        Add to track list
-      </button>
+      {errorTimeFrames.noData && <p>{errorTimeFrames.noData}</p>}
+      <div className={style.interaction_container}>
+        <p data-search="cryptoSymbol">{searchedCrypto}</p>
+        <button onClick={closeResultBox} data-close="crypto">
+          close
+        </button>
+        <button
+          onClick={saveTrackItem}
+          data-add="cryptoAdd"
+          disabled={disabled}
+        >
+          Add to track list
+        </button>
+      </div>
+
       {message && <p>{message}</p>}
-      {!error.noData && !areDatesEqual && (
+      {!errorTimeFrames.noData && !areDatesEqual && (
         <VictoryChart
           theme={VictoryTheme.material}
           width={900}

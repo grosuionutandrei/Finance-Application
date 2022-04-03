@@ -32,7 +32,6 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
       return;
     }
     temp[0]?.items?.push(searchedParam);
-
     localStorage.setItem('trackedItems', JSON.stringify(temp));
     await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
       method: 'PATCH',
@@ -59,6 +58,7 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
     setShow('none');
     setMessage('');
     setParam(null);
+    setDisabled(false);
   }
 
   return (

@@ -5,10 +5,13 @@ export function Crypto() {
   const [exchanges, setExchanges] = useState(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
     async function getExchanges() {
       try {
         const data = await fetch(
-          `https://finnhub.io/api/v1/crypto/exchange?token=c8p0kuaad3id3q613c3g`
+          `https://finnhub.io/api/v1/crypto/exchange?token=c8p0kuaad3id3q613c3g`,
+          { signal }
         ).then((res) => handleResponse(res));
         setExchanges(data);
       } catch (error) {
@@ -16,6 +19,10 @@ export function Crypto() {
       }
     }
     getExchanges();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (

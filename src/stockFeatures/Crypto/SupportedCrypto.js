@@ -4,11 +4,6 @@ import styles from '../../mcss/Crypto.module.css';
 import { handleResponse } from '../HomePage/HomePage';
 import { Pagination } from '../Crypto/Pagination';
 import { CryptoDetailsSmall } from './CryptoDetails';
-import {
-  convertEpochToDate,
-  lastYearEpoch,
-  thisYearEpoch,
-} from '../../stockComponents/Date';
 export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   const initialExchange = 'BINANCE';
   const [selOption, setSelOption] = useState({
@@ -20,8 +15,6 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   });
   const [cryptoPerPage] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
-  const toData = thisYearEpoch();
-  const fromData = lastYearEpoch();
   const [candleData, setCandleData] = useState({
     x: '',
     open: '',
@@ -34,10 +27,13 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
 
   // get the suported crypto data;
   useEffect(() => {
+    const abortController = new AbortController();
     async function getCryptoData() {
+      const { signal } = abortController;
       try {
         const data = await fetch(
-          `https://finnhub.io/api/v1/crypto/symbol?exchange=${selOption.exchange}&token=c8p0kuaad3id3q613c3g`
+          `https://finnhub.io/api/v1/crypto/symbol?exchange=${selOption.exchange}&token=c8p0kuaad3id3q613c3g`,
+          { signal }
         ).then((res) => handleResponse(res));
 
         setCrypto(data);
@@ -48,6 +44,9 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
       }
     }
     getCryptoData();
+    return () => {
+      abortController.abort();
+    };
   }, [selOption]);
 
   // Aceasta metoda aduce candle data de la server pentru toate elementele din suported crypto ,
