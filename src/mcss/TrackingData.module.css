@@ -1,0 +1,101 @@
+.tracked_list {
+  margin-top: 20px;
+  display: flex;
+  width: 960px;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3;
+
+  transition: ease-in;
+}
+.track_elem {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+[data-button='removeFromTrackList'] {
+  cursor: pointer;
+  background: #b9465b;
+  border-radius: 10%;
+  padding: 5px 5px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+[data-title='title'] {
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 967px) {
+  .tracked_list {
+    display: flex;
+    width: 600px;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 3;
+    transition: ease-in;
+  }
+  [data-button='removeFromTrackList'] {
+    cursor: pointer;
+    background: #b9465b;
+    border-radius: 10%;
+    padding: 5px 5px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: 400;
+  }
+  [data-title='title'] {
+    font-family: sans-serif;
+    font-weight: 400;
+  }
+}
+@media only screen and (max-width: 769px) {
+  .tracked_list {
+    display: flex;
+    width: 400px;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 3;
+    transition: ease-in;
+  }
+  [data-button='removeFromTrackList'] {
+    cursor: pointer;
+    background: #b9465b;
+    border-radius: 10%;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: 200;
+  }
+  [data-title='title'] {
+    font-family: sans-serif;
+    font-weight: 200;
+  }
+}
+@media only screen and (max-width: 481px) {
+  .tracked_list {
+    display: flex;
+    width: 300px;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 3;
+    transition: ease-in;
+  }
+  [data-button='removeFromTrackList'] {
+    cursor: pointer;
+    background: #b9465b;
+    border-radius: 10%;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-weight: 100;
+  }
+  [data-title='title'] {
+    font-family: sans-serif;
+    font-weight: 100;
+  }
+}
