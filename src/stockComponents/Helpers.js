@@ -38,3 +38,25 @@ export function filterStocks(conditional, toFilter) {
 
   return stocks;
 }
+
+export async function deleteFromTrackedList(elem, trackedItems, user, token) {
+  const temp = [...trackedItems];
+  if (!temp[0].items.includes(elem)) {
+    return;
+  }
+  const removeItem = temp[0].items.filter((item) => item !== elem);
+  temp[0].items = [...removeItem];
+  localStorage.setItem('trackedItems', JSON.stringify(temp));
+  await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      userId: user.id,
+      items: removeItem,
+    }),
+
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

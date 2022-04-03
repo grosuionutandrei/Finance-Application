@@ -19,10 +19,11 @@
   cursor: pointer;
   background: #b9465b;
   border-radius: 10%;
-  padding: 5px 5px;
+  padding: 2px 2px;
   text-transform: uppercase;
   font-family: sans-serif;
   font-weight: 400;
+  text-align: center;
 }
 [data-title='title'] {
   font-family: sans-serif;
@@ -43,10 +44,10 @@
     cursor: pointer;
     background: #b9465b;
     border-radius: 10%;
-    padding: 5px 5px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-family: sans-serif;
     font-weight: 400;
+    text-align: center;
   }
   [data-title='title'] {
     font-family: sans-serif;
@@ -67,9 +68,10 @@
     cursor: pointer;
     background: #b9465b;
     border-radius: 10%;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-family: sans-serif;
     font-weight: 200;
+    text-align: center;
   }
   [data-title='title'] {
     font-family: sans-serif;
@@ -90,9 +92,10 @@
     cursor: pointer;
     background: #b9465b;
     border-radius: 10%;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-family: sans-serif;
     font-weight: 100;
+    text-align: center;
   }
   [data-title='title'] {
     font-family: sans-serif;

@@ -12,6 +12,7 @@ import {
 import { CryptoDetailsLarge } from '../Crypto/CryptoDetails';
 import style from '../../mcss/TrackingData.module.css';
 import { ChartDetails } from './ChartDetails';
+import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
 
 export function TrackedItems() {
   const { user, token, trackedItems } = useAuthContext();
@@ -41,15 +42,19 @@ export function TrackedItems() {
   const [cryptoDataGraph, setCryptoDataGraph] = useState('');
   const fromDate = lastYearEpoch();
   const toDate = thisYearEpoch();
+  const [fetchError, setFetchError] = useState('');
+  const [deleteItem, setDeleteItem] = useState(false);
 
   useEffect(() => {
+    setFetchError('');
     if (trackedItems) {
       const crypto = filterCrypto(exchanges, trackedItems[0].items);
       const stocks = filterStocks(crypto, trackedItems[0].items);
       setStocks(stocks);
       setCrypto(crypto);
+      setDeleteItem(false);
     }
-  }, [trackedItems]);
+  }, [trackedItems, deleteItem]);
 
   useEffect(() => {
     async function getCryptoData() {
@@ -62,6 +67,7 @@ export function TrackedItems() {
           dataArr.push(data);
         } catch (error) {
           console.log(error);
+          setFetchError('A server error has occured try again later');
         }
       }
       const allData = await Promise.allSettled(dataArr).then((elems) =>
@@ -103,18 +109,36 @@ export function TrackedItems() {
     }
   }, [cryptoData]);
 
+  useEffect(() => {
+    async function getSearchedData() {
+      const stockTempData = [];
+      for (const item of stocks) {
+        try {
+          const data = await fetch(
+            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c8p0kuaad3id3q613c3g`
+          ).then((res) => handleResponse(res));
+          stockTempData.push(data);
+        } catch (error) {
+          console.log(error);
+          setFetchError('A server error has occured try again later');
+        }
+      }
+      const allData = await Promise.allSettled(stockTempData).then((elems) =>
+        elems.map((elem) => elem.value)
+      );
+      setStockData(allData);
+    }
+    getSearchedData();
+  }, [stocks]);
+
   if (!trackedItems) {
     return <Loading />;
   }
   if (!cryptoData) {
     return <Loading />;
   }
-
-  function resizeImage(e) {
-    if (e.target.dataset.article === 'container') {
-      e.target.classList.remove(style.track_elem);
-      e.target.classList.add(style.full_track_elem);
-    }
+  if (!stockData) {
+    return <Loading />;
   }
 
   function renderCryptoTracked() {
@@ -131,5 +155,17 @@ export function TrackedItems() {
     return renderData;
   }
 
-  return <div className={style.tracked_list}>{renderCryptoTracked()}</div>;
+  return (
+    <div className={style.tracked_list}>
+      {fetchError && (
+        <p className="bg-red-200 text-red-600 bold p-2">{fetchError}</p>
+      )}
+      {renderCryptoTracked()}
+      <TrackedStocksDetails
+        data={stockData}
+        stocks={stocks}
+        setDeleteItem={(value) => setDeleteItem(value)}
+      />
+    </div>
+  );
 }

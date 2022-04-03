@@ -309,8 +309,6 @@ export function Search({ exchanges }) {
         setAutocompleteData={(value) => setAutocopmleteData(value)}
         changeExchange={form.exchange}
       ></SupportedCrypto>
-
-      <p style={{ height: '300px' }}>Ana are mere </p>
     </>
   );
 }

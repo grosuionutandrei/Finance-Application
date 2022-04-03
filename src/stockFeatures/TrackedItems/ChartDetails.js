@@ -6,9 +6,8 @@ import {
   VictoryCandlestick,
   VictoryTooltip,
 } from 'victory';
-import style from '../../mcss/TrackingData.module.css';
 
-export function ChartDetails({ data, id }) {
+export function ChartDetails({ data }) {
   return (
     <VictoryChart
       theme={VictoryTheme.material}

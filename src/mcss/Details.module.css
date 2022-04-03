@@ -71,7 +71,7 @@ p[data-close='close'] {
 }
 
 .trending_details > p {
-  width: calc(960px / 8);
+  width: calc(960px / 9);
   overflow: hidden;
   text-overflow: ellipsis;
 }
