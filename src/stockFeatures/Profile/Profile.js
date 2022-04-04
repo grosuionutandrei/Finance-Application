@@ -3,9 +3,10 @@ import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Profile.module.css';
 
 export function Profile() {
-  const { user, token, trackedItems, setUserAfterEdit } = useAuthContext();
+  const { user, token, setUserAfterEdit } = useAuthContext();
   const [enable, setEnable] = useState('none');
   const [usertoRender, setUserToRender] = useState(user);
+  const [trackedList, setTrackList] = useState(null);
   const [formValues, setFormValues] = useState({
     id: usertoRender.id,
     firstName: usertoRender.firstName,
@@ -16,6 +17,13 @@ export function Profile() {
   const [errors, setErrors] = useState({
     serverError: '',
   });
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('trackedItems');
+    if (data) {
+      setTrackList(JSON.parse(data));
+    }
+  }, []);
 
   useEffect(() => {
     setUserToRender(user);
@@ -49,10 +57,10 @@ export function Profile() {
   }
 
   function tracked() {
-    if (!trackedItems) {
+    if (!trackedList) {
       return;
     }
-    return trackedItems.items.map((elem) => <p key={elem}>{elem}</p>);
+    return trackedList.map((elem) => <p key={elem}>{elem}</p>);
   }
   async function enableEdit() {
     setEnable('show');

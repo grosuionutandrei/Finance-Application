@@ -3,8 +3,8 @@
     {
       "email": "test@tes.com",
       "password": "$2a$10$yU341GGUTPi62N/qWnE05.3i4JjvAut1.aWmd3sZNQQkvK6ZIu6lW",
-      "firstName": "er",
-      "lastName": "er",
+      "firstName": "Gal",
+      "lastName": "Gadot",
       "profilePhoto": "https://upload.wikimedia.org/wikipedia/commons/9/99/Gal_Gadot_cropped_lighting_corrected.jpg",
       "id": 3
     }
@@ -39053,313 +39053,7 @@
       "id": 996
     }
   ],
-  "products": [
-    {
-      "id": 1,
-      "userId": 2,
-      "name": "Tasty Soft Salad",
-      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-      "price": "207.00",
-      "material": "Frozen",
-      "color": "gold",
-      "tags": [
-        "Small",
-        "Licensed",
-        "Tasty",
-        "Intelligent",
-        "Gorgeous"
-      ],
-      "categoryId": 2
-    },
-    {
-      "id": 2,
-      "userId": 2,
-      "name": "Rustic Metal Towels",
-      "description": "The Football Is Good For Training And Recreational Purposes",
-      "price": "994.00",
-      "material": "Plastic",
-      "color": "olive",
-      "tags": [
-        "Practical",
-        "Handcrafted",
-        "Generic",
-        "Gorgeous",
-        "Licensed"
-      ],
-      "categoryId": 4
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "name": "Awesome Concrete Chicken",
-      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
-      "price": "583.00",
-      "material": "Granite",
-      "color": "teal",
-      "tags": [
-        "Fantastic"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 4,
-      "userId": 2,
-      "name": "Practical Fresh Tuna",
-      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
-      "price": "328.00",
-      "material": "Soft",
-      "color": "azure",
-      "tags": [
-        "Small",
-        "Sleek",
-        "Generic",
-        "Incredible",
-        "Intelligent"
-      ],
-      "categoryId": 5
-    },
-    {
-      "id": 5,
-      "userId": 2,
-      "name": "Generic Soft Bike",
-      "description": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-      "price": "729.00",
-      "material": "Rubber",
-      "color": "yellow",
-      "tags": [
-        "Handcrafted",
-        "Rustic",
-        "Fantastic",
-        "Incredible",
-        "Handcrafted"
-      ],
-      "categoryId": 2
-    },
-    {
-      "id": 6,
-      "userId": 2,
-      "name": "Gorgeous Cotton Car",
-      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
-      "price": "813.00",
-      "material": "Steel",
-      "color": "gold",
-      "tags": [
-        "Unbranded",
-        "Rustic",
-        "Ergonomic"
-      ],
-      "categoryId": 1
-    },
-    {
-      "id": 7,
-      "userId": 2,
-      "name": "Intelligent Metal Shirt",
-      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-      "price": "977.00",
-      "material": "Wooden",
-      "color": "fuchsia",
-      "tags": [
-        "Fantastic",
-        "Handcrafted",
-        "Small"
-      ],
-      "categoryId": 4
-    },
-    {
-      "id": 8,
-      "userId": 2,
-      "name": "Unbranded Granite Computer",
-      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-      "price": "236.00",
-      "material": "Frozen",
-      "color": "gold",
-      "tags": [
-        "Intelligent",
-        "Generic",
-        "Rustic"
-      ],
-      "categoryId": 1
-    },
-    {
-      "id": 9,
-      "userId": 1,
-      "name": "Handmade Frozen Sausages",
-      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-      "price": "340.00",
-      "material": "Granite",
-      "color": "grey",
-      "tags": [
-        "Refined",
-        "Unbranded",
-        "Rustic",
-        "Tasty",
-        "Handmade"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 10,
-      "userId": 1,
-      "name": "Handcrafted Plastic Keyboard",
-      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-      "price": "396.00",
-      "material": "Granite",
-      "color": "yellow",
-      "tags": [
-        "Awesome"
-      ],
-      "categoryId": 1
-    },
-    {
-      "id": 11,
-      "userId": 1,
-      "name": "Fantastic Plastic Bacon",
-      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
-      "price": "387.00",
-      "material": "Soft",
-      "color": "plum",
-      "tags": [
-        "Small",
-        "Tasty",
-        "Practical",
-        "Sleek",
-        "Refined"
-      ],
-      "categoryId": 1
-    },
-    {
-      "id": 12,
-      "userId": 1,
-      "name": "Licensed Frozen Computer",
-      "description": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-      "price": "46.00",
-      "material": "Fresh",
-      "color": "tan",
-      "tags": [
-        "Licensed"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 13,
-      "userId": 2,
-      "name": "Sleek Wooden Pizza",
-      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-      "price": "225.00",
-      "material": "Concrete",
-      "color": "lime",
-      "tags": [
-        "Gorgeous",
-        "Gorgeous",
-        "Fantastic",
-        "Ergonomic",
-        "Handcrafted"
-      ],
-      "categoryId": 4
-    },
-    {
-      "id": 14,
-      "userId": 2,
-      "name": "Sleek Fresh Sausages",
-      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-      "price": "453.00",
-      "material": "Soft",
-      "color": "grey",
-      "tags": [
-        "Gorgeous",
-        "Refined",
-        "Generic"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 15,
-      "userId": 1,
-      "name": "Intelligent Granite Cheese",
-      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
-      "price": "715.00",
-      "material": "Metal",
-      "color": "teal",
-      "tags": [
-        "Unbranded"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 16,
-      "userId": 2,
-      "name": "Rustic Fresh Tuna",
-      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-      "price": "2.00",
-      "material": "Frozen",
-      "color": "orange",
-      "tags": [
-        "Tasty",
-        "Licensed",
-        "Rustic",
-        "Small",
-        "Awesome"
-      ],
-      "categoryId": 3
-    },
-    {
-      "id": 17,
-      "userId": 1,
-      "name": "Refined Frozen Soap",
-      "description": "The Football Is Good For Training And Recreational Purposes",
-      "price": "345.00",
-      "material": "Steel",
-      "color": "black",
-      "tags": [
-        "Gorgeous",
-        "Handmade",
-        "Small",
-        "Handmade"
-      ],
-      "categoryId": 5
-    },
-    {
-      "id": 18,
-      "userId": 1,
-      "name": "Sleek Rubber Cheese",
-      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
-      "price": "878.00",
-      "material": "Rubber",
-      "color": "orchid",
-      "tags": [
-        "Intelligent",
-        "Tasty"
-      ],
-      "categoryId": 4
-    },
-    {
-      "id": 19,
-      "userId": 1,
-      "name": "Handcrafted Steel Mouse",
-      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
-      "price": "963.00",
-      "material": "Soft",
-      "color": "tan",
-      "tags": [
-        "Rustic",
-        "Ergonomic"
-      ],
-      "categoryId": 2
-    },
-    {
-      "id": 20,
-      "userId": 1,
-      "name": "Refined Soft Pants",
-      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-      "price": "534.00",
-      "material": "Concrete",
-      "color": "cyan",
-      "tags": [
-        "Fantastic"
-      ],
-      "categoryId": 5
-    }
-  ],
+  "products": [],
   "categories": [
     {
       "id": 1,
@@ -39382,26 +39076,7 @@
       "name": "Movies"
     }
   ],
-  "todos": [
-    {
-      "id": 1,
-      "title": "Buy milk",
-      "completed": true,
-      "userId": 2
-    },
-    {
-      "id": 2,
-      "title": "Buy flowers",
-      "completed": false,
-      "userId": 2
-    },
-    {
-      "id": 3,
-      "title": "Give flowers to wife",
-      "completed": false,
-      "userId": 2
-    }
-  ],
+  "todos": [],
   "exchanges": [
     {
       "code": "AS",
@@ -39692,45 +39367,7 @@
       "name": "BOERSE_FRANKFURT_ZERTIFIKATE"
     }
   ],
-  "trackedItems": [
-    {
-      "id": 1,
-      "userId": 1,
-      "items": [
-        "CABT",
-        "WE",
-        "ATOM-USD",
-        "LINK-USD",
-        "WISH",
-        "BINANCE:BTCUSDT",
-        "DOGE-USD",
-        "KHC",
-        "BINANCE:ETHUSDP",
-        "BYDDY",
-        "CL=F",
-        "BINANCE:BTCUSDC",
-        "TWTR"
-      ]
-    },
-    {
-      "userId": 2,
-      "items": [
-        "CABT",
-        "WE",
-        "ATOM-USD",
-        "LINK-USD",
-        "WISH",
-        "BINANCE:BTCUSDT",
-        "DOGE-USD",
-        "KHC",
-        "BINANCE:ETHUSDP",
-        "BYDDY",
-        "CL=F",
-        "BINANCE:BTCUSDC"
-      ],
-      "id": 2
-    }
-  ],
+  "trackedItems": [],
   "trackedList": [
     {
       "userId": 3,
@@ -39764,8 +39401,18 @@
     },
     {
       "userId": 3,
-      "item": "BINANCE:BTCUSDT",
-      "id": 27
+      "item": "TWTR",
+      "id": 28
+    },
+    {
+      "userId": 3,
+      "item": "DWAC",
+      "id": 29
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:ETHUSDT",
+      "id": 30
     }
   ]
 }
