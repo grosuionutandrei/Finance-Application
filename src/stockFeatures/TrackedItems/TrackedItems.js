@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { handleResponse } from '../HomePage/HomePage';
 import { Loading } from '../../stockComponents/Loading';
 import { useAuthContext } from '../../features/Auth/Auth.context';
@@ -48,6 +48,7 @@ export function TrackedItems() {
   const [serverError, setServerError] = useState({
     serverError: '',
   });
+  const enable = useRef(true);
   useEffect(() => {
     async function getItems() {
       try {
@@ -181,7 +182,13 @@ export function TrackedItems() {
     return <p></p>;
   }
 
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   async function removeItem(e) {
+    enable.current = false;
+
     const response = window.confirm(
       `Are you sure that you want to delete ${e.target.value}`
     );
@@ -198,6 +205,7 @@ export function TrackedItems() {
       }
       setDeleteItem(true);
     }
+    await delay(1000).then((enable.current = true));
   }
 
   function renderCryptoTracked() {
@@ -207,6 +215,7 @@ export function TrackedItems() {
         <article key={crypto[i]} className={style.track_elem}>
           <p data-title="title">{crypto[i]}</p>
           <button
+            disabled={enable}
             data-button="removeFromTrackList"
             onClick={removeItem}
             value={crypto[i]}
