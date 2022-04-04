@@ -1,5 +1,5 @@
 import styles from '../../mcss/Details.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Loading } from '../../stockComponents/Loading';
 import { useAuthContext } from '../../features/Auth/Auth.context';
 import { handleResponse } from '../HomePage/HomePage';
@@ -11,12 +11,25 @@ export function Trending() {
     trending: '',
   });
 
-  const { user, token, trackedItems } = useAuthContext();
+  const { user, token, setTrackedListLocal } = useAuthContext();
   const [serverError, setServerError] = useState({
     serverError: '',
   });
+  const [trackedList, setTrackList] = useState(null);
+  const follow = useRef(false);
 
   const abortController = new AbortController();
+
+  useEffect(() => {
+    if (follow) {
+      const data = window.localStorage.getItem('trackedItems');
+      if (data) {
+        setTrackList(JSON.parse(data));
+      }
+      console.log(follow);
+      follow.current = false;
+    }
+  }, []);
 
   //   get trending stocks from yahoo
   useEffect(() => {
@@ -82,7 +95,10 @@ export function Trending() {
   // add to tracked stocks ,delete from tracked stocks
   function editTrackList(e) {
     e.preventDefault();
-    updateTracked(e.target.value);
+    follow.current = true;
+    if (!trackedList.includes(e.target.value)) {
+      updateTracked(e.target.value);
+    }
   }
 
   // add to tracked items
@@ -90,24 +106,29 @@ export function Trending() {
     const response = window.confirm(
       `Are you sure that you want to follow ${item} `
     );
+
     if (response) {
-      const temp = { ...trackedItems };
-      if (temp.items.includes(item)) {
-        return;
-      }
-      temp?.items?.push(item);
-      localStorage.setItem('trackedItems', JSON.stringify(temp));
-      await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          userId: user.id,
-          items: temp.items,
-        }),
+      const temp = [...trackedList];
+      console.log(temp);
+      temp.push(item);
+      setTrackedListLocal(temp);
+      const objPatch = {
+        userId: user.id,
+        item: item,
+      };
+      console.log(user.id, item, 'sssewfwfwefwedw');
+      const data = await fetch(`http://localhost:3005/trackedList`, {
+        method: 'POST',
+        body: JSON.stringify(objPatch),
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      });
+      }).then((res) => handleResponse(res));
+
+      if (data === 'jwt expired') {
+        console.log('jwt expired');
+      }
     }
   }
 
@@ -137,39 +158,39 @@ export function Trending() {
           <p title={`Change ${trendDetails.data[i]?.d}`}>
             C:
             <span className={colorCurrent}>
-              {trendDetails.data[i]?.d.toFixed(2)} &#36;
+              {trendDetails.data[i]?.d.toFixed(2)}
             </span>
           </p>
 
           <p title={`Percent Price ${trendDetails.data[i]?.dp}`}>
             PC:
             <span className={colorPercent}>
-              {trendDetails.data[i]?.dp.toFixed(2)} &#37;
+              {trendDetails.data[i]?.dp.toFixed(2)}
             </span>
           </p>
           <p title={`Current Price ${trendDetails.data[i]?.c}`}>
             CP:
             <span className={colorCurrent}>
-              {trendDetails.data[i]?.c.toFixed(2)} &#36;
+              {trendDetails.data[i]?.c.toFixed(2)}
             </span>
           </p>
           <p title={`Previous Closing Price ${trendDetails.data[i].pc}`}>
             PCP:
             <span className={colorPrevious}>
-              {trendDetails.data[i].pc.toFixed(2)} &#36;
+              {trendDetails.data[i].pc.toFixed(2)}
             </span>
           </p>
 
           <p title={`Lowest Price ${trendDetails.data[i].l}`}>
             LP:
             <span className="bg-red-500">
-              {trendDetails.data[i].l.toFixed(2)} &#36;
+              {trendDetails.data[i].l.toFixed(2)}
             </span>
           </p>
           <p title={`Highest Price ${trendDetails.data[i].h}`}>
             HP:
             <span className="bg-lime-500">
-              {trendDetails.data[i].h.toFixed(2)} &#36;
+              {trendDetails.data[i].h.toFixed(2)}
             </span>
           </p>
 

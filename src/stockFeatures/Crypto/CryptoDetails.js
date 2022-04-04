@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // De revenit peste nu merge ca la stocks
 import {
   VictoryChart,
@@ -12,6 +12,7 @@ import { convertEpochToDate } from '../../stockComponents/Date';
 import style from '../../mcss/Details.module.css';
 import { getCryptoQuerryFromStorage } from '../../stockComponents/Helpers';
 import { useAuthContext } from '../../features/Auth/Auth.context';
+import { handleResponse } from '../HomePage/HomePage';
 export function CryptoDetailsLarge({
   data,
   setShow,
@@ -23,7 +24,7 @@ export function CryptoDetailsLarge({
   message,
   setMessage,
 }) {
-  const { user, token, trackedItems } = useAuthContext();
+  const { user, token, setTrackedListLocal } = useAuthContext();
   // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
   // message to display if added to trck list
@@ -35,6 +36,22 @@ export function CryptoDetailsLarge({
   // set bar data for the same day fetch data
   const [barData, setBarData] = useState([]);
   const [colorBar, setColorBar] = useState('');
+  // tracked items from local Storage
+  const [trackedList, setTrackList] = useState(null);
+  // necessary to update the trackedList from local storage;
+  const follow = useRef(false);
+
+  useEffect(() => {
+    if (follow) {
+      const data = window.localStorage.getItem('trackedItems');
+      if (data) {
+        setTrackList(JSON.parse(data));
+      }
+      console.log(follow);
+      follow.current = false;
+    }
+  }, []);
+
   // convert fetched candel data to chart supported data
   useEffect(() => {
     if (data) {
@@ -79,40 +96,37 @@ export function CryptoDetailsLarge({
 
   // add crypto to track list
   async function updateTrackedList() {
+    const temp = [...trackedList];
+    // if already added return
+    if (temp.includes(searchedCrypto)) {
+      setMessage('Already added to your tracked list');
+      return;
+    }
     const response = window.confirm(
       `Are you sure that you want to follow ${searchedCrypto} `
     );
     if (response) {
-      const temp = trackedItems;
+      temp.push(searchedCrypto);
 
-      if (temp.items.includes(searchedCrypto)) {
-        setMessage('Already added to your tracked list');
-        return;
-      }
+      const objPatch = {
+        userId: user.id,
+        item: searchedCrypto,
+      };
 
-      temp?.items?.push(searchedCrypto);
-      console.log(user.id);
-
-      const data = await fetch(
-        `http://localhost:3005/trackedItems/${user.id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify({
-            userId: user.id,
-            items: temp.items,
-          }),
-
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ).then((res) => res.json());
+      const data = await fetch(`http://localhost:3005/trackedList`, {
+        method: 'POST',
+        body: JSON.stringify(objPatch),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => handleResponse(res));
       if (!data.userId) {
+        setMessage('Server error , please try again');
         console.log(data);
         return;
       }
-      localStorage.setItem('trackedItems', JSON.stringify(temp));
+      setTrackedListLocal(temp);
       setDisabled(true);
       setMessage(`${searchedCrypto} added to the tracked list`);
     }
@@ -120,6 +134,7 @@ export function CryptoDetailsLarge({
 
   function saveTrackItem(e) {
     e.preventDefault();
+    follow.current = true;
     updateTrackedList();
   }
 

@@ -1,27 +1,11 @@
 {
   "users": [
     {
-      "email": "a@a.com",
-      "password": "$2a$10$gcC3pe5u93DmNx1z/JS45eiiYp0oLIKAvICOgU66qmX48Lh0OR6xa",
-      "firstName": "Paul",
-      "lastName": "Negoescudwq",
-      "id": 1,
-      "profilePhoto": "https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTg0NTEzNzgyNTMyNDE2OTk5/black-cat-gettyimages-901574784.jpg"
-    },
-    {
-      "email": "p@p.com",
-      "password": "$2a$10$bN2aHTng90CFf/joD8XUguGIqikMaziHMUKBZhJd27nN7y7sXH3W2",
-      "firstName": "Paul",
-      "lastName": "Negoescu",
-      "id": 2,
-      "profilePhoto": ""
-    },
-    {
       "email": "test@tes.com",
       "password": "$2a$10$yU341GGUTPi62N/qWnE05.3i4JjvAut1.aWmd3sZNQQkvK6ZIu6lW",
       "firstName": "er",
       "lastName": "er",
-      "profilePhoto": "",
+      "profilePhoto": "https://upload.wikimedia.org/wikipedia/commons/9/99/Gal_Gadot_cropped_lighting_corrected.jpg",
       "id": 3
     }
   ],
@@ -39724,7 +39708,8 @@
         "BINANCE:ETHUSDP",
         "BYDDY",
         "CL=F",
-        "BINANCE:BTCUSDC"
+        "BINANCE:BTCUSDC",
+        "TWTR"
       ]
     },
     {
@@ -39744,6 +39729,43 @@
         "BINANCE:BTCUSDC"
       ],
       "id": 2
+    }
+  ],
+  "trackedList": [
+    {
+      "userId": 3,
+      "item": "FB",
+      "id": 14
+    },
+    {
+      "userId": 3,
+      "item": "FSR",
+      "id": 19
+    },
+    {
+      "userId": 3,
+      "item": "PINS",
+      "id": 20
+    },
+    {
+      "userId": 3,
+      "item": "BRCC",
+      "id": 23
+    },
+    {
+      "userId": 3,
+      "item": "GGPI",
+      "id": 25
+    },
+    {
+      "userId": 3,
+      "item": "AAPL",
+      "id": 26
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:BTCUSDT",
+      "id": 27
     }
   ]
 }

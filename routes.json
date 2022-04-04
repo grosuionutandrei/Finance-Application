@@ -4,5 +4,6 @@
   "/products*": "/664/products$1",
   "/todos*": "/600/todos$1",
   "/exchanges*": "/664/exchanges$1",
-  "/trackedItems*": "/600/trackedItems$1"
+  "/trackedItems*": "/600/trackedItems$1",
+  "/trackedList*": "/664/trackedList$1"
 }

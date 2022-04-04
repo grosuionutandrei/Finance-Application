@@ -1,8 +1,13 @@
 import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
-export function TrackedStocksDetails({ data, stocks, setDeleteItem }) {
-  const { user, token, trackedItems } = useAuthContext();
+export function TrackedStocksDetails({
+  data,
+  stocks,
+  setDeleteItem,
+  trackedItems,
+}) {
+  const { user, token } = useAuthContext();
 
   async function removeItem(e) {
     const response = window.confirm(

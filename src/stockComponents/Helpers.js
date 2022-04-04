@@ -1,3 +1,6 @@
+import { useAuthContext } from '../features/Auth/Auth.context';
+import { handleResponse } from '../stockFeatures/HomePage/HomePage';
+
 export function getCryptoQuerryFromStorage() {
   const fromStorage = localStorage.getItem('searchedCrypto');
   if (fromStorage) {
@@ -18,11 +21,13 @@ export function filterCrypto(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
+  const items = toFilter.map((elem) => elem.item);
+  console.log(items);
   const crypto = [];
   for (let i = 0; i < conditional.length; i++) {
-    for (let j = 0; j < toFilter.length; j++) {
-      if (toFilter[j].includes(conditional[i])) {
-        crypto.push(toFilter[j]);
+    for (let j = 0; j < items.length; j++) {
+      if (items[j].includes(conditional[i])) {
+        crypto.push(items[j]);
       }
     }
   }
@@ -34,8 +39,10 @@ export function filterStocks(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
+  const items = toFilter.map((elem) => elem.item);
+  console.log(items);
   const stocks = [];
-  for (const item of toFilter) {
+  for (const item of items) {
     if (conditional.includes(item)) {
       continue;
     }
@@ -45,31 +52,30 @@ export function filterStocks(conditional, toFilter) {
   return stocks;
 }
 
+export function getItemsForLocal(data) {
+  return data.map((elem) => elem.item);
+}
+
 export async function deleteFromTrackedList(elem, trackedItems, user, token) {
-  const response = window.confirm('Delete this item from list?');
-  if (response) {
-    const temp = trackedItems;
-    if (!temp.items.includes(elem)) {
-      return;
-    }
-    const removeItem = temp.items.filter((item) => item !== elem);
-    temp.items = [...removeItem];
-    localStorage.setItem('trackedItems', JSON.stringify(temp));
-    await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-      method: 'PATCH',
+  const itemToDelete = trackedItems.find((element) => element.item === elem);
+  console.log(itemToDelete, 'item to delete');
+  console.log(itemToDelete.id);
+  const deleteItem = await fetch(
+    `http://localhost:3005/trackedList/${itemToDelete.id}`,
+    {
+      method: 'DELETE',
       body: JSON.stringify({
-        userId: user.id,
-        items: removeItem,
+        itemToDelete,
       }),
 
       headers: {
         'Content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => {
-      if (!res.ok) {
-      }
-    });
+    }
+  ).then((res) => handleResponse(res));
+  if (deleteItem === 'jwt expired') {
+    return 'jwt expired';
   }
 }
 

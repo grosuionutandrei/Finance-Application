@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useAuthContext } from '../features/Auth/Auth.context';
 import styles from '../mcss/Navigation.module.css';
+import { getItemsForLocal } from '../stockComponents/Helpers';
+import { handleResponse } from '../stockFeatures/HomePage/HomePage';
 
 export function LoginPage({ error, onError }) {
   const [values, setValues] = useState({
@@ -19,11 +21,10 @@ export function LoginPage({ error, onError }) {
     lastName: '',
     retypePassword: '',
   });
-  const { token, login, trackList } = useAuthContext();
+  const { token, login, setTrackedListLocal } = useAuthContext();
   const location = useLocation();
   const isRegister = location.pathname.includes('register');
   const navigate = useNavigate();
-
   const from = location.state?.from?.pathname || '/crypto';
 
   useEffect(() => {
@@ -32,36 +33,63 @@ export function LoginPage({ error, onError }) {
     }
   }, [token, from, navigate]);
 
+  async function getItems(userId) {
+    const data = await fetch(
+      `http://localhost:3005/trackedList?userId=${userId}`,
+      {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).then((res) => handleResponse(res));
+    const items = await getItemsForLocal(data);
+    console.log(items);
+    setTrackedListLocal(items);
+  }
+
   function handleInputChange(e) {
     setErrors({ ...errors, [e.target.name]: '' });
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
-  async function getTrackedItems(userId, userToken) {
-    const trackedItems = await fetch(
-      `http://localhost:3005/trackedItems/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    ).then((res) => res.json());
-    console.log(trackedItems);
-    trackList(trackedItems);
-  }
+  // async function getTrackedItems(userId, userToken) {
+  //   const trackedItems = await fetch(
+  //     `http://localhost:3005/trackedItems/${userId}`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${userToken}`,
+  //       },
+  //     }
+  //   ).then((res) => res.json());
+  //   console.log(trackedItems);
+  //   trackList(trackedItems);
+  // }
+  // async function getTrackedItems2(userId, userToken) {
+  //   const trackedItems = await fetch(
+  //     `http://localhost:3005/trackedItems?userId=${userId}`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${userToken}`,
+  //       },
+  //     }
+  //   ).then((res) => res.json());
+  //   console.log(trackedItems);
+  //   trackList(trackedItems);
+  // }
 
-  async function createTrackedItems(userId, userToken) {
-    const createItems = await fetch(`http://localhost:3005/trackedItems`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: JSON.stringify({ userId: userId, items: [] }),
-    }).then((res) => res.json());
-    console.log(createItems);
-    trackList(createItems);
-  }
+  // async function createTrackedItems(userId, userToken) {
+  //   const createItems = await fetch(`http://localhost:3005/trackedItems`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //       Authorization: `Bearer ${userToken}`,
+  //     },
+  //     body: JSON.stringify({ userId: userId, items: [] }),
+  //   }).then((res) => res.json());
+  //   console.log(createItems);
+  //   trackList(createItems);
+  // }
 
   async function handleLogin() {
     const data = await fetch('http://localhost:3005/login', {
@@ -76,7 +104,10 @@ export function LoginPage({ error, onError }) {
       onError(data);
       return;
     }
-    await getTrackedItems(data.user.id, data.accessToken);
+    getItems(data.user.id);
+
+    // console.log(data.user.id);
+    // await getTrackedItems2(data.user.id, data.accessToken);
 
     login(data);
   }
@@ -111,13 +142,13 @@ export function LoginPage({ error, onError }) {
       body: JSON.stringify(valuesWithoutRetype),
     }).then((res) => res.json());
 
-    createTrackedItems(data.user.id, data.accessToken);
+    // createTrackedItems(data.user.id, data.accessToken);
 
     if (!data.accessToken) {
       onError(data);
       return;
     }
-
+    setTrackedListLocal([]);
     login(data);
   }
 

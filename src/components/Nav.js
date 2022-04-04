@@ -36,7 +36,7 @@ export function Nav() {
             </a>
           </li>
         )}
-        {!user && (
+        {/* {!user && (
           <>
             <li className="ml-auto">
               <CustomNavLink to="/login">Login</CustomNavLink>
@@ -47,7 +47,7 @@ export function Nav() {
               </CustomNavLink>
             </li>
           </>
-        )}
+        )} */}
       </ul>
     </nav>
   );

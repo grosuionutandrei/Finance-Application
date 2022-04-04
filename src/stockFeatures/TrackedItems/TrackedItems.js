@@ -15,7 +15,7 @@ import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 
 export function TrackedItems() {
-  const { user, token, trackedItems } = useAuthContext();
+  const { user, token, logout } = useAuthContext();
   const exchanges = [
     'KUCOIN',
     'GEMINI',
@@ -44,12 +44,40 @@ export function TrackedItems() {
   const toDate = thisYearEpoch();
   const [fetchError, setFetchError] = useState('');
   const [deleteItem, setDeleteItem] = useState(false);
+  const [trackedItems, setTrackedItems] = useState(null);
+  const [serverError, setServerError] = useState({
+    serverError: '',
+  });
+  useEffect(() => {
+    async function getItems() {
+      try {
+        const data = await fetch(
+          `http://localhost:3005/trackedList?userId=${user.id}`,
+          {
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ).then((res) => handleResponse(res));
+        console.log(data);
+        setTrackedItems(data);
+      } catch (e) {
+        console.log(e);
+        setServerError({
+          ...serverError,
+          serverError: 'Server error has occured try again later',
+        });
+      }
+    }
+    getItems();
+  }, [deleteItem]);
 
   useEffect(() => {
     setFetchError('');
     if (trackedItems) {
-      const crypto = filterCrypto(exchanges, trackedItems?.items);
-      const stocks = filterStocks(crypto, trackedItems?.items);
+      const crypto = filterCrypto(exchanges, trackedItems);
+      const stocks = filterStocks(crypto, trackedItems);
       setStocks(stocks);
       setCrypto(crypto);
       setDeleteItem(false);
@@ -158,7 +186,16 @@ export function TrackedItems() {
       `Are you sure that you want to delete ${e.target.value}`
     );
     if (response) {
-      deleteFromTrackedList(e.target.value, trackedItems, user, token);
+      console.log(trackedItems);
+      let deleted = deleteFromTrackedList(
+        e.target.value,
+        trackedItems,
+        user,
+        token
+      );
+      if (deleted === 'jwt expired') {
+        logout();
+      }
       setDeleteItem(true);
     }
   }
@@ -194,6 +231,7 @@ export function TrackedItems() {
           data={stockData}
           stocks={stocks}
           setDeleteItem={(value) => setDeleteItem(value)}
+          trackedItems={trackedItems}
         />
       </div>
     </div>

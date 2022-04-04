@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Autocomplete } from './Autocomplete';
 import styles from '../../mcss/Autocomplete.module.css';
 import { StocksDetails } from './Stocksdetails';
@@ -14,6 +14,7 @@ export function HomePage() {
     noData: '',
     noDetails: '',
     noDescription: '',
+    notSupported: '',
   });
 
   const [sugestions, setSugestions] = useState(null);
@@ -24,6 +25,7 @@ export function HomePage() {
   const [showResults, setShowResults] = useState('none');
   const [executeFetchDetails, setExecuteFetchDetails] = useState(false);
   const [stocksData, setStocksData] = useState(null);
+  const follow = useRef(false);
 
   // get exchanges for stocks
   useEffect(() => {
@@ -55,6 +57,7 @@ export function HomePage() {
       serverError: '',
       noDetails: '',
       noDescription: '',
+      notSupported: '',
     });
     setQuery(e.target.value.toUpperCase());
     if (e.target.value.length === 0) {
@@ -113,6 +116,7 @@ export function HomePage() {
         setErrors({ ...errors, noDetails: 'No data for your search.' });
         return;
       }
+
       setStockDetails(data);
     } catch (error) {
       setErrors({
@@ -211,6 +215,7 @@ export function HomePage() {
               setStyle={(value) => setAtcContainer(value)}
               setSugestionsStyle={(value) => setShowSugestions(value)}
               enableFetch={(value) => setExecuteFetchDetails(value)}
+              follow={follow}
             />
           </div>
         </>
@@ -230,6 +235,7 @@ export function HomePage() {
           show={showResults}
           details={stocksData}
           errors={errors}
+          follow={follow}
         />
       </div>
       <article>

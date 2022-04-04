@@ -1,14 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   getValueFromStorage,
   useAuthContext,
 } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
+import { handleResponse } from './HomePage';
 
-export function StocksDetails({ parameter, setShow, show, details, errors }) {
+export function StocksDetails({
+  parameter,
+  setShow,
+  show,
+  details,
+  errors,
+  follow,
+}) {
   const [param, setParam] = useState(null);
-  const { user, token, trackedItems } = useAuthContext();
+  const { user, token, setTrackedListLocal, logout } = useAuthContext();
   const [message, setMessage] = useState(null);
+
+  const [trackedList, setTrackList] = useState(null);
+
+  useEffect(() => {
+    if (follow) {
+      const data = window.localStorage.getItem('trackedItems');
+      if (data) {
+        setTrackList(JSON.parse(data));
+      }
+      console.log(follow);
+      follow.current = false;
+    }
+  }, [follow]);
 
   useEffect(() => {
     setParam(parameter);
@@ -24,30 +45,40 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
 
   async function updateTrackedList() {
     const searchedParam = getValueFromStorage('searchedParameter');
+    const temp = [...trackedList];
+    console.log(temp);
+    // if already added return
+    if (temp.includes(searchedParam)) {
+      setMessage(`${searchedParam} already added to the tracked list`);
+      return;
+    }
     const response = window.confirm(
       `Are you sure that you want to follow ${searchedParam} `
     );
     if (response) {
-      const temp = [...trackedItems];
-      // if already added return
-      if (temp[0].items.includes(searchedParam)) {
-        setMessage(`${searchedParam} already added to the tracked list`);
-        return;
-      }
-      temp[0]?.items?.push(searchedParam);
-      localStorage.setItem('trackedItems', JSON.stringify(temp));
-      await fetch(`http://localhost:3005/trackedItems/${user.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          userId: user.id,
-          items: temp[0].items,
-        }),
+      temp.push(searchedParam);
 
+      const objPatch = {
+        userId: user.id,
+        item: searchedParam,
+      };
+      console.log(user.id, searchedParam, 'sssewfwfwefwedw');
+      const data = await fetch(`http://localhost:3005/trackedList`, {
+        method: 'POST',
+        body: JSON.stringify(objPatch),
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      });
+      }).then((res) => handleResponse(res));
+
+      // did not manage to test when token has expired need to test the bellow code
+
+      if (data === 'jwt expired') {
+        console.log('jwt expired');
+        logout();
+      }
+      setTrackedListLocal(temp);
       setMessage(`${searchedParam} added to the tracked list`);
     }
   }
@@ -80,16 +111,21 @@ export function StocksDetails({ parameter, setShow, show, details, errors }) {
             {errors.serverError}
           </p>
         )}
-
-        <a
-          href={details.quoteSummary.result[0]?.assetProfile.website}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Website :{details.quoteSummary.result[0]?.assetProfile.website}
-        </a>
-        <p>Industry: {details.quoteSummary.result[0].assetProfile.industry}</p>
-        <p>Sector:{details.quoteSummary.result[0]?.assetProfile.sector}</p>
+        {details.quoteSummary.result && (
+          <>
+            <a
+              href={details.quoteSummary.result[0]?.assetProfile.website}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Website :{details.quoteSummary.result[0]?.assetProfile.website}
+            </a>
+            <p>
+              Industry: {details.quoteSummary.result[0].assetProfile.industry}
+            </p>
+            <p>Sector:{details.quoteSummary.result[0]?.assetProfile.sector}</p>
+          </>
+        )}
         <p>{`Open price: ${param.o} `} &#36;</p>
         <p>
           Change: <span className={colorCurrent}>{param.d} &#36;</span>

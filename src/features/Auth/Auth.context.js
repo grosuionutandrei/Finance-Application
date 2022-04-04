@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from 'react';
-import { saveTrackedItemsAtLogout } from '../../stockComponents/Helpers';
 
 const AuthContext = createContext(null);
 const userKey = 'user';
@@ -17,7 +16,7 @@ export function getValueFromStorage(key) {
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(() => getValueFromStorage(userKey));
   const [token, setToken] = useState(() => getValueFromStorage(tokenKey));
-  const [trackedItems, setTrackedItems] = useState(() =>
+  const [trackedList, setTrackedList] = useState(() =>
     getValueFromStorage(tracked)
   );
   function login({ user, accessToken }) {
@@ -27,23 +26,22 @@ export function AuthContextProvider({ children }) {
     localStorage.setItem(tokenKey, JSON.stringify(accessToken));
   }
 
-  function trackList(trackList) {
-    setTrackedItems(trackList);
-    localStorage.setItem(tracked, JSON.stringify(trackList));
+  function setTrackedListLocal(data) {
+    window.localStorage.setItem(tracked, JSON.stringify(data));
   }
+
   function setUserAfterEdit(user) {
     setUser(user);
   }
 
   function logout() {
-    saveTrackedItemsAtLogout(user, token, trackedItems);
     setUser(null);
     setToken(null);
     localStorage.removeItem(userKey);
     localStorage.removeItem(tokenKey);
-    localStorage.removeItem(tracked);
     localStorage.removeItem('searchedCrypto');
     localStorage.removeItem('searchedParameter');
+    localStorage.removeItem(tracked);
   }
 
   return (
@@ -53,9 +51,9 @@ export function AuthContextProvider({ children }) {
         token,
         login,
         logout,
-        trackList,
-        trackedItems,
         setUserAfterEdit,
+        trackedList,
+        setTrackedListLocal,
       }}
     >
       {children}
