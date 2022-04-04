@@ -3,7 +3,7 @@ import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Profile.module.css';
 
 export function Profile() {
-  const { user, token, setUserAfterEdit } = useAuthContext();
+  const { user, token, setUserAfterEdit, logout } = useAuthContext();
   const [enable, setEnable] = useState('none');
   const [usertoRender, setUserToRender] = useState(user);
   const [trackedList, setTrackList] = useState(null);
@@ -43,6 +43,10 @@ export function Profile() {
           body: JSON.stringify(formValues),
         }
       ).then((res) => res.json());
+      if (data === 'jwt expired') {
+        logout();
+        return;
+      }
       if (!data.email) {
         setErrors({
           ...errors,
