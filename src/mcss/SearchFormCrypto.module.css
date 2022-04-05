@@ -62,6 +62,15 @@
 @media only screen and (max-width: 967px) {
   .form_container_style {
     width: 600px;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  label {
+    width: 300px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
   }
   .search_input_text {
     width: 600px;

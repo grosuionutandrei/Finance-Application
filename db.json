@@ -39371,18 +39371,18 @@
   "trackedList": [
     {
       "userId": 3,
-      "item": "PINS",
-      "id": 20
-    },
-    {
-      "userId": 3,
       "item": "BRCC",
       "id": 23
     },
     {
       "userId": 3,
-      "item": "BINANCE:ETHUSDT",
-      "id": 30
+      "item": "ATER",
+      "id": 25
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:ETHUSDP",
+      "id": 26
     }
   ]
 }

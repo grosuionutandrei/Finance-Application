@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Profile.module.css';
-
+import { Loading } from '../../stockComponents/Loading';
+import { handleResponse } from '../HomePage/HomePage';
+import { getItemsForLocal } from '../../stockComponents/Helpers';
 export function Profile() {
   const { user, token, setUserAfterEdit, logout } = useAuthContext();
   const [enable, setEnable] = useState('none');
   const [usertoRender, setUserToRender] = useState(user);
-  const [trackedList, setTrackList] = useState(null);
+  const [trackedList, setTrackedList] = useState('');
   const [formValues, setFormValues] = useState({
     id: usertoRender.id,
     firstName: usertoRender.firstName,
@@ -19,13 +21,21 @@ export function Profile() {
   });
 
   useEffect(() => {
-    const data = window.localStorage.getItem('trackedItems');
-    if (data) {
-      setTrackList(JSON.parse(data));
+    async function getItems() {
+      const data = await fetch(
+        `http://localhost:3005/trackedList?userId=${user.id}`,
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((res) => handleResponse(res));
+      const items = await getItemsForLocal(data);
+      console.log(items);
+      setTrackedList(items);
     }
-  }, []);
-
-  useEffect(() => {
+    getItems();
     setUserToRender(user);
   }, [user]);
 
@@ -61,9 +71,6 @@ export function Profile() {
   }
 
   function tracked() {
-    if (!trackedList) {
-      return;
-    }
     return trackedList.map((elem) => <p key={elem}>{elem}</p>);
   }
   async function enableEdit() {
@@ -78,6 +85,9 @@ export function Profile() {
     e.preventDefault();
     addToLocalStorage();
     setErrors({ ...errors, serverError: '' });
+  }
+  if (!trackedList) {
+    return <Loading />;
   }
 
   return (

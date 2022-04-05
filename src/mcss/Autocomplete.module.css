@@ -119,6 +119,10 @@ p[data-symbol='']:hover {
 @media only screen and (max-width: 967px) {
   .form_container {
     width: 600px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
   }
   .searchInput {
     width: 600px;
@@ -129,13 +133,13 @@ p[data-symbol='']:hover {
 }
 @media only screen and (max-width: 769px) {
   .form_container {
-    width: 500px;
+    width: 400px;
   }
   .searchInput {
-    width: 500px;
+    width: 400px;
   }
   .autocomplete {
-    width: 500px;
+    width: 400px;
   }
 }
 

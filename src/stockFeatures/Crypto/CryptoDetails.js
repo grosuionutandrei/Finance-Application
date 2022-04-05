@@ -24,7 +24,7 @@ export function CryptoDetailsLarge({
   message,
   setMessage,
 }) {
-  const { user, token, setTrackedListLocal } = useAuthContext();
+  const { user, token, setTrackedListLocal, logout } = useAuthContext();
   // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
   // message to display if added to trck list
@@ -121,6 +121,12 @@ export function CryptoDetailsLarge({
           Authorization: `Bearer ${token}`,
         },
       }).then((res) => handleResponse(res));
+
+      if (data === 'jwt expired') {
+        logout();
+        return;
+      }
+
       if (!data.userId) {
         setMessage('Server error , please try again');
         console.log(data);
@@ -164,55 +170,57 @@ export function CryptoDetailsLarge({
 
       {message && <p>{message}</p>}
       {!errorTimeFrames.noData && !areDatesEqual && (
-        <VictoryChart
-          theme={VictoryTheme.material}
-          width={900}
-          height={400}
-          domainPadding={{ x: 25 }}
-          scale={{ x: 'time' }}
-        >
-          <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`} />
-          <VictoryAxis dependentAxis />
-          <VictoryCandlestick
-            candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
-            candleRatio={0.3}
-            data={candleDataArr}
-            lowLabels={({ datum }) =>
-              `Date ${`${datum.x.getFullYear()}-${datum.x.getDate()}-${datum.x.getMonth()}`}\nOpen ${
-                datum.open
-              }\nClose ${datum.close}\nHigh ${datum.high}\nLow ${
-                datum.low
-              }\nEvolution ${(datum.close - datum.open).toFixed(4)}`
-            }
-            lowLabelComponent={<VictoryTooltip pointerLength={0} />}
-            events={[
-              {
-                target: 'data',
-                eventHandlers: {
-                  onMouseOver: () => ({
-                    target: 'lowLabels',
-                    mutation: () => ({ active: true }),
-                  }),
-                  onMouseOut: () => ({
-                    target: 'lowLabels',
-                    mutation: () => ({ active: false }),
-                  }),
+        <div className={style.chartContainer}>
+          <VictoryChart
+            theme={VictoryTheme.material}
+            width={900}
+            height={400}
+            domainPadding={{ x: 25 }}
+            scale={{ x: 'time' }}
+          >
+            <VictoryAxis tickFormat={(t) => `${t.getDate()}/${t.getMonth()}`} />
+            <VictoryAxis dependentAxis />
+            <VictoryCandlestick
+              candleColors={{ positive: '#30f10e', negative: '#c43a31' }}
+              candleRatio={0.3}
+              data={candleDataArr}
+              lowLabels={({ datum }) =>
+                `Date ${`${datum.x.getFullYear()}-${datum.x.getDate()}-${datum.x.getMonth()}`}\nOpen ${
+                  datum.open
+                }\nClose ${datum.close}\nHigh ${datum.high}\nLow ${
+                  datum.low
+                }\nEvolution ${(datum.close - datum.open).toFixed(4)}`
+              }
+              lowLabelComponent={<VictoryTooltip pointerLength={0} />}
+              events={[
+                {
+                  target: 'data',
+                  eventHandlers: {
+                    onMouseOver: () => ({
+                      target: 'lowLabels',
+                      mutation: () => ({ active: true }),
+                    }),
+                    onMouseOut: () => ({
+                      target: 'lowLabels',
+                      mutation: () => ({ active: false }),
+                    }),
+                  },
                 },
-              },
-            ]}
-            style={{
-              data: {
-                stroke: '#000',
-                strokeWidth: 1,
-              },
+              ]}
+              style={{
+                data: {
+                  stroke: '#000',
+                  strokeWidth: 1,
+                },
 
-              closeLabels: { fill: 'black', padding: 2 },
-              highLabels: { fill: 'green', padding: 2 },
-              lowLabels: { fill: 'red', padding: 2 },
-              openLabels: { fill: 'blue', padding: 2 },
-            }}
-          />
-        </VictoryChart>
+                closeLabels: { fill: 'black', padding: 2 },
+                highLabels: { fill: 'green', padding: 2 },
+                lowLabels: { fill: 'red', padding: 2 },
+                openLabels: { fill: 'blue', padding: 2 },
+              }}
+            />
+          </VictoryChart>
+        </div>
       )}
       {areDatesEqual && <BarChart color={colorBar} data={barData} />}
     </div>
