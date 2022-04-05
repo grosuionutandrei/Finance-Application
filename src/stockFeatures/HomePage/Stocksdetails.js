@@ -62,7 +62,7 @@ export function StocksDetails({
         userId: user.id,
         item: searchedParam,
       };
-      console.log(user.id, searchedParam, 'sssewfwfwefwedw');
+
       const data = await fetch(`http://localhost:3005/trackedList`, {
         method: 'POST',
         body: JSON.stringify(objPatch),
@@ -73,10 +73,9 @@ export function StocksDetails({
       }).then((res) => handleResponse(res));
 
       // did not manage to test when token has expired need to test the bellow code
-
       if (data === 'jwt expired') {
-        console.log('jwt expired');
         logout();
+        return;
       }
       setTrackedListLocal(temp);
       setMessage(`${searchedParam} added to the tracked list`);

@@ -72,6 +72,25 @@ p[data-symbol='']:hover {
   align-items: center;
   width: 960px;
 }
+.form_container_home {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 960px;
+}
+.searchInput_home {
+  padding: 5px 5px;
+  border: 1px solid #f17300ff;
+  text-align: center;
+  width: 500px;
+  margin-right: -62px;
+  margin-left: -62px;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+}
 
 .form_container > button[type='submit'] {
   text-align: center;
@@ -124,8 +143,18 @@ p[data-symbol='']:hover {
     justify-content: center;
     align-items: center;
   }
+  .form_container_home {
+    width: 305px;
+  }
   .searchInput {
-    width: 600px;
+    width: 300px;
+    margin-right: -62px;
+    margin-left: -62px;
+  }
+  .searchInput_home {
+    width: 300px;
+    margin-right: -33px;
+    margin-left: -33px;
   }
   .autocomplete {
     width: 600px;

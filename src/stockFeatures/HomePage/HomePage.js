@@ -177,7 +177,7 @@ export function HomePage() {
 
   return (
     <>
-      <form onSubmit={getStocks} className={styles.form_container}>
+      <form onSubmit={getStocks} className={styles.form_container_home}>
         <input
           id="search_query"
           type="text"
@@ -185,7 +185,7 @@ export function HomePage() {
           value={query}
           placeholder="Search for stocks"
           onChange={setInput}
-          className={styles.searchInput}
+          className={styles.searchInput_home}
         ></input>
         <button
           disabled
