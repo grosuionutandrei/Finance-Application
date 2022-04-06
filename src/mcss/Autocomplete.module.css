@@ -108,7 +108,7 @@ p[data-symbol='']:hover {
   height: 38px;
   width: 64px;
   background-color: #054a91ff;
-  background-color: #054a91ff;
+
   color: #054a91ff;
   border-top-left-radius: 20%;
   border-bottom-left-radius: 20%;
@@ -144,7 +144,7 @@ p[data-symbol='']:hover {
     align-items: center;
   }
   .form_container_home {
-    width: 305px;
+    width: 600px;
   }
   .searchInput {
     width: 300px;
@@ -167,6 +167,14 @@ p[data-symbol='']:hover {
   .searchInput {
     width: 400px;
   }
+  .form_container_home {
+    width: 400px;
+  }
+  .searchInput_home {
+    width: 300px;
+    margin-right: -33px;
+    margin-left: -33px;
+  }
   .autocomplete {
     width: 400px;
   }
@@ -181,6 +189,21 @@ p[data-symbol='']:hover {
   }
   .autocomplete {
     width: 400px;
+  }
+  .form_container_home {
+    width: 200px;
+  }
+  .searchInput_home {
+    width: 150px;
+    margin-right: -10px;
+    margin-left: -10px;
+    border-radius: 0%;
+  }
+  .buttonDisabled {
+    width: 14px;
+  }
+  .buttonDisabledRight {
+    width: 14px;
   }
 }
 @media only screen and (max-width: 381px) {

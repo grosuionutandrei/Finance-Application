@@ -123,7 +123,7 @@ export function Search({ exchanges }) {
           form.timeFrame
         }&from=${dateToEpoch(form.startDate)}&to=${dateToEpoch(
           form.endDate
-        )}&token=c8p0kuaad3id3q613c3g`
+        )}&token=c96t0k2ad3ibs388bpdg`
       ).then((res) => handleResponse(res));
       setCryptoData(data);
     } catch (error) {

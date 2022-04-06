@@ -68,7 +68,7 @@ export function HomePage() {
       async function getAutoCompleteData() {
         try {
           const sugestions = await fetch(
-            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c8p0kuaad3id3q613c3g`
+            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c96t0k2ad3ibs388bpdg`
           ).then((res) => handleResponse(res));
 
           if (sugestions.count === 0) {
@@ -110,7 +110,7 @@ export function HomePage() {
   async function getSearchedData() {
     try {
       const data = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${query}&token=c8p0kuaad3id3q613c3g`
+        `https://finnhub.io/api/v1/quote?symbol=${query}&token=c96t0k2ad3ibs388bpdg`
       ).then((res) => handleResponse(res));
       if (data.d === null) {
         setErrors({ ...errors, noDetails: 'No data for your search.' });
@@ -187,11 +187,7 @@ export function HomePage() {
           onChange={setInput}
           className={styles.searchInput_home}
         ></input>
-        <button
-          disabled
-          type="submit"
-          className={styles.buttonDisabledRight}
-        ></button>
+        <button disabled className={styles.buttonDisabledRight}></button>
         <button disabled className={styles.buttonDisabled}></button>
       </form>
       {errors.noDescription && (

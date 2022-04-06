@@ -65,7 +65,7 @@ export function Trending() {
       for (const trend of trending[0].slice(0, 15)) {
         tempPromises.push(
           await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c8p0kuaad3id3q613c3g`
+            `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c96t0k2ad3ibs388bpdg`
           ).then((res) => res.json())
         );
       }
@@ -81,7 +81,7 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    getData();
+    // getData();
 
     return () => {
       abortController.abort();

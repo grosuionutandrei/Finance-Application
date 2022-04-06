@@ -94,7 +94,7 @@ export function TrackedItems() {
       for (const item of crypto) {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/crypto/candle?symbol=${item}&resolution=M&from=${fromDate}&to=${toDate}&token=c8p0kuaad3id3q613c3g`
+            `https://finnhub.io/api/v1/crypto/candle?symbol=${item}&resolution=M&from=${fromDate}&to=${toDate}&token=c96t0k2ad3ibs388bpdg`
           ).then((res) => handleResponse(res));
           dataArr.push(data);
         } catch (error) {
@@ -150,7 +150,7 @@ export function TrackedItems() {
       for (const item of stocks) {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c8p0kuaad3id3q613c3g`
+            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c96t0k2ad3ibs388bpdg`
           ).then((res) => handleResponse(res));
           stockTempData.push(data);
         } catch (error) {
