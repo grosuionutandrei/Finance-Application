@@ -96,7 +96,11 @@ export function StocksDetails({
 
   return (
     <article className={styles[show]}>
-      <p data-close="close" onClick={closeResultBox}>
+      <p
+        data-close="close"
+        onClick={closeResultBox}
+        className={styles.close_results}
+      >
         &times;
       </p>
       <div className={styles.details_inside}>

@@ -39371,8 +39371,18 @@
   "trackedList": [
     {
       "userId": 3,
-      "item": "ATER",
-      "id": 25
+      "item": "HD",
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:BTCUSDT",
+      "id": 2
+    },
+    {
+      "userId": 3,
+      "item": "NVDA",
+      "id": 3
     }
   ]
 }

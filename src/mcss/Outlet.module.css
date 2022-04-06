@@ -25,5 +25,7 @@
 @media only screen and (max-width: 381px) {
   .containerOutlet {
     width: 300px;
+    flex-flow: row wrap;
+    /* justify-content: center; */
   }
 }

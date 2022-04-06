@@ -135,6 +135,9 @@ p[data-symbol='']:hover {
   color: #f17300ff;
 }
 
+.results_container {
+}
+
 @media only screen and (max-width: 967px) {
   .form_container {
     width: 600px;
@@ -157,7 +160,9 @@ p[data-symbol='']:hover {
     margin-left: -33px;
   }
   .autocomplete {
-    width: 600px;
+    width: 470px;
+  }
+  .autocompleteOption {
   }
 }
 @media only screen and (max-width: 769px) {
@@ -190,6 +195,9 @@ p[data-symbol='']:hover {
   .autocomplete {
     width: 400px;
   }
+  .autocompleteOption {
+    width: 370px;
+  }
   .form_container_home {
     width: 200px;
   }
@@ -207,13 +215,25 @@ p[data-symbol='']:hover {
   }
 }
 @media only screen and (max-width: 381px) {
-  .form_container {
-    width: 300px;
-  }
-  .searchInput {
-    width: 300px;
-  }
   .autocomplete {
     width: 300px;
+  }
+  .autocompleteOption {
+    width: 300px;
+  }
+  .form_container_home {
+    width: 300px;
+  }
+  .searchInput_home {
+    width: 150px;
+    margin-right: -10px;
+    margin-left: -10px;
+    border-radius: 0%;
+  }
+  .buttonDisabled {
+    width: 14px;
+  }
+  .buttonDisabledRight {
+    width: 14px;
   }
 }

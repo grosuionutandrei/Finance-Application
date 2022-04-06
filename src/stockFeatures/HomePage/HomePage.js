@@ -216,7 +216,7 @@ export function HomePage() {
           </div>
         </>
       )}
-      <div>
+      <div className={styles.results_container}>
         {errors.noDetails && (
           <p className="bg-red-200 text-red-600 bold p-2">{errors.noDetails}</p>
         )}

@@ -19,7 +19,7 @@
 }
 .individual_crypto > p {
   width: calc(900px / 7);
-  font-family: 'Robot' sans-serif;
+  font-family: sans-serif;
   font-weight: 400;
   font-size: large;
 }
@@ -58,7 +58,6 @@
 
   .individual_crypto > p {
     width: calc(600px / 7);
-    font-family: 'Robot' sans-serif;
     font-weight: 200;
     font-size: medium;
   }
@@ -69,22 +68,31 @@
   }
   .individual_crypto {
     width: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
   }
   .ul_container {
     width: 400px;
   }
 
   .individual_crypto > p {
-    width: calc(400px / 7);
-    font-family: 'Robot' sans-serif;
-    font-weight: 200;
-    font-size: medium;
+    width: calc(400px / 9);
+    font-weight: 100;
+    font-size: small;
   }
 }
 
 @media only screen and (max-width: 481px) {
   .crypto_container {
     width: 300px;
+  }
+  label {
+    width: 248px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
   }
   .individual_crypto {
     width: 300px;
@@ -99,7 +107,6 @@
 
   .individual_crypto > p {
     width: calc(300px / 7);
-    font-family: 'Robot' sans-serif;
     font-weight: 100;
     font-size: small;
   }
