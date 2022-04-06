@@ -1,5 +1,21 @@
-import { useAuthContext } from '../features/Auth/Auth.context';
 import { handleResponse } from '../stockFeatures/HomePage/HomePage';
+
+export const exchanges = [
+  'KUCOIN',
+  'GEMINI',
+  'POLONIEX',
+  'ZB',
+  'KRAKEN',
+  'BINANCE',
+  'OKEX',
+  'BITMEX',
+  'BITFINEX',
+  'HITBTC',
+  'BITTREX',
+  'COINBASE',
+  'FXPIG',
+  'HUOBI',
+];
 
 export function getCryptoQuerryFromStorage() {
   const fromStorage = localStorage.getItem('searchedCrypto');
@@ -17,12 +33,23 @@ export function fromStorageTracked(elem) {
   return null;
 }
 
+export function isCrypto(value, data) {
+  let isCrypto = false;
+  for (const elem of data) {
+    if (value.toLowerCase().includes(elem.toLowerCase())) {
+      isCrypto = true;
+      break;
+    }
+  }
+  console.log(value);
+  return isCrypto;
+}
+
 export function filterCrypto(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
   const items = toFilter.map((elem) => elem.item);
-  console.log(items);
   const crypto = [];
   for (let i = 0; i < conditional.length; i++) {
     for (let j = 0; j < items.length; j++) {

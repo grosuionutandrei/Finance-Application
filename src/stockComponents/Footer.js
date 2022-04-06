@@ -4,10 +4,12 @@ export function Footer() {
     <footer className={styles.footer_container}>
       <ul className={styles.links}>
         <li>
-          <a href="https://finance.yahoo.com/">Powered by Yahoo Finance</a>
+          <p>Powered by</p>
         </li>
         <li>
-          <a href="https://finnhub.io/">Powered by Finnhub</a>
+          <a href="https://finance.yahoo.com/">Yahoo Finance</a>
+          <span> &amp;</span>
+          <a href="https://finnhub.io/"> Finnhub </a>
         </li>
       </ul>
     </footer>

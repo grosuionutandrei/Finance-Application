@@ -81,7 +81,7 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    getData();
+    // getData();
 
     return () => {
       abortController.abort();
