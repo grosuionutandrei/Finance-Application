@@ -8,7 +8,7 @@ export function Nav() {
       <ul className="flex gap-3 list-none text-slate-100 mx-auto my-0 lg:w-[960px] md:w-[540px]">
         <li>
           <CustomNavLink className="pl-0" to="/">
-            Home
+            Stocks
           </CustomNavLink>
         </li>
         <li>
