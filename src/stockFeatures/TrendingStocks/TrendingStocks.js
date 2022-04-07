@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Loading } from '../../stockComponents/Loading';
 import { useAuthContext } from '../../features/Auth/Auth.context';
 import { handleResponse } from '../HomePage/HomePage';
+import { fromStorageTracked } from '../../stockComponents/Helpers';
 
 export function Trending() {
   const [trending, setTrending] = useState(null);
@@ -11,26 +12,12 @@ export function Trending() {
     trending: '',
   });
 
-  const { user, token, setTrackedListLocal } = useAuthContext();
+  const { user, token, setTrackedListLocal, logout, setJwtError } =
+    useAuthContext();
   const [serverError, setServerError] = useState({
     serverError: '',
   });
-  const [trackedList, setTrackList] = useState(null);
-  const follow = useRef(false);
-
   const abortController = new AbortController();
-
-  useEffect(() => {
-    if (follow) {
-      const data = window.localStorage.getItem('trackedItems');
-      if (data) {
-        setTrackList(JSON.parse(data));
-      }
-      console.log(follow);
-      follow.current = false;
-    }
-  }, []);
-
   //   get trending stocks from yahoo
   useEffect(() => {
     const { signal } = abortController;
@@ -81,7 +68,7 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    // getData();
+    getData();
 
     return () => {
       abortController.abort();
@@ -95,28 +82,26 @@ export function Trending() {
   // add to tracked stocks ,delete from tracked stocks
   function editTrackList(e) {
     e.preventDefault();
-    follow.current = true;
-    if (!trackedList.includes(e.target.value)) {
-      updateTracked(e.target.value);
-    }
+    updateTracked(e.target.value);
   }
 
   // add to tracked items
   async function updateTracked(item) {
+    const temp = [...fromStorageTracked('trackedItems')];
+
+    if (temp.includes(item)) {
+      return;
+    }
     const response = window.confirm(
       `Are you sure that you want to follow ${item} `
     );
 
     if (response) {
-      const temp = [...trackedList];
-      console.log(temp);
-      temp.push(item);
-      setTrackedListLocal(temp);
       const objPatch = {
         userId: user.id,
         item: item,
       };
-      console.log(user.id, item, 'sssewfwfwefwedw');
+
       const data = await fetch(`http://localhost:3005/trackedList`, {
         method: 'POST',
         body: JSON.stringify(objPatch),
@@ -124,11 +109,15 @@ export function Trending() {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => handleResponse(res));
+      }).then((res) => res.json());
 
       if (data === 'jwt expired') {
-        console.log('jwt expired');
+        setJwtError('Your token has expired');
+        logout();
+        return;
       }
+      temp.push(item);
+      setTrackedListLocal(temp);
     }
   }
 

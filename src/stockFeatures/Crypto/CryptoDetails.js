@@ -12,7 +12,7 @@ import { convertEpochToDate } from '../../stockComponents/Date';
 import style from '../../mcss/Details.module.css';
 import { getCryptoQuerryFromStorage } from '../../stockComponents/Helpers';
 import { useAuthContext } from '../../features/Auth/Auth.context';
-import { handleResponse } from '../HomePage/HomePage';
+
 export function CryptoDetailsLarge({
   data,
   setShow,
@@ -24,7 +24,8 @@ export function CryptoDetailsLarge({
   message,
   setMessage,
 }) {
-  const { user, token, setTrackedListLocal, logout } = useAuthContext();
+  const { user, token, setTrackedListLocal, logout, setJwtError } =
+    useAuthContext();
   // candle data for details chart
   const [candleDataArr, setCandleDataArr] = useState([]);
   // message to display if added to trck list
@@ -98,6 +99,7 @@ export function CryptoDetailsLarge({
   async function updateTrackedList() {
     const temp = [...trackedList];
     // if already added return
+
     if (temp.includes(searchedCrypto)) {
       setMessage('Already added to your tracked list');
       return;
@@ -106,8 +108,6 @@ export function CryptoDetailsLarge({
       `Are you sure that you want to follow ${searchedCrypto} `
     );
     if (response) {
-      temp.push(searchedCrypto);
-
       const objPatch = {
         userId: user.id,
         item: searchedCrypto,
@@ -120,9 +120,10 @@ export function CryptoDetailsLarge({
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => handleResponse(res));
+      }).then((res) => res.json());
 
       if (data === 'jwt expired') {
+        setJwtError('Your token has expired');
         logout();
         return;
       }
@@ -132,6 +133,7 @@ export function CryptoDetailsLarge({
         console.log(data);
         return;
       }
+      temp.push(searchedCrypto);
       setTrackedListLocal(temp);
       setDisabled(true);
       setMessage(`${searchedCrypto} added to the tracked list`);

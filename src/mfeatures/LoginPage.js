@@ -21,7 +21,8 @@ export function LoginPage({ error, onError }) {
     lastName: '',
     retypePassword: '',
   });
-  const { token, login, setTrackedListLocal } = useAuthContext();
+  const { token, login, setTrackedListLocal, jwtExpired, setJwtError } =
+    useAuthContext();
   const location = useLocation();
   const isRegister = location.pathname.includes('register');
   const navigate = useNavigate();
@@ -53,44 +54,6 @@ export function LoginPage({ error, onError }) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
-  // async function getTrackedItems(userId, userToken) {
-  //   const trackedItems = await fetch(
-  //     `http://localhost:3005/trackedItems/${userId}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //     }
-  //   ).then((res) => res.json());
-  //   console.log(trackedItems);
-  //   trackList(trackedItems);
-  // }
-  // async function getTrackedItems2(userId, userToken) {
-  //   const trackedItems = await fetch(
-  //     `http://localhost:3005/trackedItems?userId=${userId}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //     }
-  //   ).then((res) => res.json());
-  //   console.log(trackedItems);
-  //   trackList(trackedItems);
-  // }
-
-  // async function createTrackedItems(userId, userToken) {
-  //   const createItems = await fetch(`http://localhost:3005/trackedItems`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //       Authorization: `Bearer ${userToken}`,
-  //     },
-  //     body: JSON.stringify({ userId: userId, items: [] }),
-  //   }).then((res) => res.json());
-  //   console.log(createItems);
-  //   trackList(createItems);
-  // }
-
   async function handleLogin() {
     const data = await fetch('http://localhost:3005/login', {
       method: 'POST',
@@ -105,10 +68,7 @@ export function LoginPage({ error, onError }) {
       return;
     }
     getItems(data.user.id);
-
-    // console.log(data.user.id);
-    // await getTrackedItems2(data.user.id, data.accessToken);
-
+    setJwtError('');
     login(data);
   }
 
@@ -166,6 +126,9 @@ export function LoginPage({ error, onError }) {
     <form onSubmit={handleSubmit} className={styles.form_style}>
       <h1 className="text-2xl">{isRegister ? 'Register' : 'Login'}</h1>
       {error && <p className="bg-red-200 text-red-900 bold p-2">{error}</p>}
+      {jwtExpired && (
+        <p className="bg-red-200 text-red-900 bold p-2">{error}</p>
+      )}
       <div className={`my-2 ${styles.my_style}`}>
         <label htmlFor="email">Email </label>
         <input

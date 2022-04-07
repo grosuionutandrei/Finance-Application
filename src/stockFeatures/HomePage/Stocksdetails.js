@@ -4,7 +4,8 @@ import {
   useAuthContext,
 } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
-import { handleResponse } from './HomePage';
+import { saveToLocalStorage } from '../../stockComponents/Helpers';
+import { fromStorageTracked } from '../../stockComponents/Helpers';
 
 export function StocksDetails({
   parameter,
@@ -12,24 +13,12 @@ export function StocksDetails({
   show,
   details,
   errors,
-  follow,
+  message,
+  setMessage,
 }) {
   const [param, setParam] = useState(null);
-  const { user, token, setTrackedListLocal, logout } = useAuthContext();
-  const [message, setMessage] = useState(null);
-
-  const [trackedList, setTrackList] = useState(null);
-
-  useEffect(() => {
-    if (follow) {
-      const data = window.localStorage.getItem('trackedItems');
-      if (data) {
-        setTrackList(JSON.parse(data));
-      }
-      console.log(follow);
-      follow.current = false;
-    }
-  }, [follow]);
+  const { user, token, logout, setJwtError } = useAuthContext();
+  const follow = useRef(false);
 
   useEffect(() => {
     setParam(parameter);
@@ -45,24 +34,23 @@ export function StocksDetails({
 
   async function updateTrackedList() {
     const searchedParam = getValueFromStorage('searchedParameter');
-    const temp = [...trackedList];
-    console.log(temp);
+
+    const temp = [...fromStorageTracked('trackedItems')];
+
     // if already added return
     if (temp.includes(searchedParam)) {
       setMessage(`${searchedParam} already added to the tracked list`);
       return;
     }
+    temp.push(searchedParam);
     const response = window.confirm(
       `Are you sure that you want to follow ${searchedParam} `
     );
     if (response) {
-      temp.push(searchedParam);
-
       const objPatch = {
         userId: user.id,
         item: searchedParam,
       };
-
       const data = await fetch(`http://localhost:3005/trackedList`, {
         method: 'POST',
         body: JSON.stringify(objPatch),
@@ -70,14 +58,16 @@ export function StocksDetails({
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => handleResponse(res));
+      }).then((res) => res.json());
 
       // did not manage to test when token has expired need to test the bellow code
       if (data === 'jwt expired') {
+        setJwtError('Your token has expired');
         logout();
         return;
       }
-      setTrackedListLocal(temp);
+
+      saveToLocalStorage('trackedItems', temp);
       setMessage(`${searchedParam} added to the tracked list`);
     }
   }
@@ -91,7 +81,6 @@ export function StocksDetails({
     setShow('none');
     setMessage('');
     setParam(null);
-    // setDisabled(false);
   }
 
   return (

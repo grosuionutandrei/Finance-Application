@@ -25,29 +25,8 @@ export function HomePage() {
   const [showResults, setShowResults] = useState('none');
   const [executeFetchDetails, setExecuteFetchDetails] = useState(false);
   const [stocksData, setStocksData] = useState(null);
-  const follow = useRef(false);
+  const [message, setMessage] = useState(null);
 
-  // get exchanges for stocks
-  useEffect(() => {
-    async function getExchanges() {
-      const exchanges = await fetch(`http://localhost:3005/exchanges`).then(
-        (res) => res.json()
-      );
-
-      setRegions(exchanges);
-    }
-    // getExchanges();
-  }, []);
-
-  const regionOptions = function () {
-    return regions.map((elem) => (
-      <option key={elem.code} value={elem.code}>
-        {elem.code}
-      </option>
-    ));
-  };
-
-  // sugestions for stocks search
   //set input value
   function setInput(e) {
     setErrors({
@@ -104,6 +83,7 @@ export function HomePage() {
     setShowSugestions('sugestionsShow');
     setShowResults('none');
     setStockDetails(null);
+    setMessage('');
   }
 
   //   get the data for searched parameter
@@ -211,7 +191,6 @@ export function HomePage() {
               setStyle={(value) => setAtcContainer(value)}
               setSugestionsStyle={(value) => setShowSugestions(value)}
               enableFetch={(value) => setExecuteFetchDetails(value)}
-              follow={follow}
             />
           </div>
         </>
@@ -231,7 +210,8 @@ export function HomePage() {
           show={showResults}
           details={stocksData}
           errors={errors}
-          follow={follow}
+          message={message}
+          setMessage={(value) => setMessage(value)}
         />
       </div>
       <article>

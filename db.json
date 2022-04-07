@@ -7,6 +7,14 @@
       "lastName": "Gadot",
       "profilePhoto": "https://upload.wikimedia.org/wikipedia/commons/9/99/Gal_Gadot_cropped_lighting_corrected.jpg",
       "id": 3
+    },
+    {
+      "email": "test2@tes.com",
+      "password": "$2a$10$2sm5cyBqWHofQxqx/M1Gc.cIJkw8PCijnUCD5TVcxka6adJOT0FhS",
+      "firstName": "aaa",
+      "lastName": "aaa",
+      "profilePhoto": "https://splicedpersonality.files.wordpress.com/2017/09/img_3418.jpg?w=600&h=408",
+      "id": 4
     }
   ],
   "movies": [
@@ -39370,24 +39378,34 @@
   "trackedItems": [],
   "trackedList": [
     {
-      "userId": 3,
-      "item": "HD",
-      "id": 1
-    },
-    {
-      "userId": 3,
-      "item": "BINANCE:BTCUSDT",
-      "id": 2
-    },
-    {
-      "userId": 3,
-      "item": "NVDA",
+      "userId": 4,
+      "item": "MSFT",
       "id": 3
     },
     {
-      "userId": 3,
-      "item": "SAVE",
+      "userId": 4,
+      "item": "ADP",
       "id": 4
+    },
+    {
+      "userId": 4,
+      "item": "HPQ",
+      "id": 5
+    },
+    {
+      "userId": 4,
+      "item": "COST",
+      "id": 9
+    },
+    {
+      "userId": 4,
+      "item": "MNTS",
+      "id": 10
+    },
+    {
+      "userId": 4,
+      "item": "BINANCE:BTCUSDP",
+      "id": 11
     }
   ]
 }

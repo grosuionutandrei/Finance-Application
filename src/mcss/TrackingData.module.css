@@ -2,6 +2,7 @@
   margin-top: 20px;
   display: flex;
   width: 960px;
+
   flex-flow: column wrap;
   justify-content: center;
   align-items: flex-start;

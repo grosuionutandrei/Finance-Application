@@ -126,7 +126,7 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
           className="text-blue-700 text-lg font-semibold mr-4"
           htmlFor="exchange"
         >
-          Select the market place
+          Select the exchange house
           <select
             id="exchange"
             name="exchange"

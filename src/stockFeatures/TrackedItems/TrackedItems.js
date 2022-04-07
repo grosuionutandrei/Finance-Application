@@ -15,7 +15,7 @@ import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 
 export function TrackedItems() {
-  const { user, token, logout } = useAuthContext();
+  const { user, token, logout, setJwtError } = useAuthContext();
   const exchanges = [
     'KUCOIN',
     'GEMINI',
@@ -48,6 +48,7 @@ export function TrackedItems() {
   const [serverError, setServerError] = useState({
     serverError: '',
   });
+  const [noTrackedItems, setNoTrackedItems] = useState('jlglugyuvkgtv');
 
   useEffect(() => {
     async function getItems() {
@@ -61,7 +62,7 @@ export function TrackedItems() {
             },
           }
         ).then((res) => handleResponse(res));
-        console.log(data);
+
         setTrackedItems(data);
       } catch (e) {
         console.log(e);
@@ -82,6 +83,7 @@ export function TrackedItems() {
       setStocks(stocks);
       setCrypto(crypto);
       setDeleteItem(false);
+      setNoTrackedItems('');
     }
   }, [trackedItems, deleteItem]);
 
@@ -136,7 +138,6 @@ export function TrackedItems() {
 
         setCryptoDataGraph(data);
       }
-
       dataForGraph();
     }
   }, [cryptoData]);
@@ -150,7 +151,7 @@ export function TrackedItems() {
       for (const item of stocks) {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c96t0k2ad3ibs388bpdg`
+            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c8p0kuaad3id3q613c3g`
           ).then((res) => handleResponse(res));
           stockTempData.push(data);
         } catch (error) {
@@ -169,17 +170,8 @@ export function TrackedItems() {
   if (!trackedItems) {
     return <Loading />;
   }
-  if (!cryptoData) {
-    return <Loading />;
-  }
-  if (!stockData) {
-    return <Loading />;
-  }
-  if (!crypto) {
-    return <p>No items</p>;
-  }
-  if (!stocks) {
-    return <p></p>;
+  if (trackedItems.length === 0) {
+    return <p>No items in your list !!!</p>;
   }
 
   async function removeItem(e) {
@@ -187,12 +179,13 @@ export function TrackedItems() {
       `Are you sure that you want to delete ${e.target.value}`
     );
     if (response) {
-      console.log(trackedItems);
       let deleted = deleteFromTrackedList(
         e.target.value,
         trackedItems,
         user,
-        token
+        token,
+        logout,
+        setJwtError
       );
       if (deleted === 'jwt expired') {
         logout();
@@ -222,19 +215,22 @@ export function TrackedItems() {
   }
 
   return (
-    <div className={style.tracked_list}>
-      {fetchError && (
-        <p className="bg-red-200 text-red-600 bold p-2">{fetchError}</p>
-      )}
-      {renderCryptoTracked()}
-      <div className={style.container_stocks_details}>
-        <TrackedStocksDetails
-          data={stockData}
-          stocks={stocks}
-          setDeleteItem={(value) => setDeleteItem(value)}
-          trackedItems={trackedItems}
-        />
+    <>
+      {noTrackedItems && <p>{noTrackedItems}</p>}
+      <div className={style.tracked_list}>
+        {fetchError && (
+          <p className="bg-red-200 text-red-600 bold p-2">{fetchError}</p>
+        )}
+        {renderCryptoTracked()}
+        <div className={style.container_stocks_details}>
+          <TrackedStocksDetails
+            data={stockData}
+            stocks={stocks}
+            setDeleteItem={(value) => setDeleteItem(value)}
+            trackedItems={trackedItems}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

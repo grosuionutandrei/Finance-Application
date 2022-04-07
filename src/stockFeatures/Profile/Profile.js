@@ -32,7 +32,7 @@ export function Profile() {
         }
       ).then((res) => handleResponse(res));
       const items = await getItemsForLocal(data);
-      console.log(items);
+
       setTrackedList(items);
     }
     getItems();
@@ -104,8 +104,13 @@ export function Profile() {
         <p>{usertoRender.lastName}</p>
         <p>{usertoRender.email}</p>
       </div>
-      <p>Tracked items</p>
-      <div className={styles.tracked}>{tracked()}</div>
+      {trackedList.length !== 0 && (
+        <>
+          <p>Tracked items</p>
+          <div className={styles.tracked}>{tracked()}</div>
+        </>
+      )}
+
       <form onSubmit={handleEdit} className={styles[enable]}>
         <div className={`my-2 ${styles.my_style}`}>
           <label htmlFor="email">Email</label>

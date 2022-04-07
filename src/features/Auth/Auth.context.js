@@ -19,6 +19,8 @@ export function AuthContextProvider({ children }) {
   const [trackedList, setTrackedList] = useState(() =>
     getValueFromStorage(tracked)
   );
+  const [jwtExpired, setJwtExpired] = useState(null);
+
   function login({ user, accessToken }) {
     setUser(user);
     setToken(accessToken);
@@ -44,6 +46,10 @@ export function AuthContextProvider({ children }) {
     localStorage.removeItem(tracked);
   }
 
+  function setJwtError(value) {
+    setJwtExpired(value);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -54,6 +60,8 @@ export function AuthContextProvider({ children }) {
         setUserAfterEdit,
         trackedList,
         setTrackedListLocal,
+        jwtExpired,
+        setJwtError,
       }}
     >
       {children}

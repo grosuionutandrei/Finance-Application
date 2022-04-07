@@ -7,7 +7,6 @@ export function Autocomplete({
   setStyle,
   setSugestionsStyle,
   enableFetch,
-  follow,
 }) {
   const [items, setItems] = useState(null);
 
@@ -21,7 +20,6 @@ export function Autocomplete({
 
   function setSelectedOption(e) {
     console.log(e.target.innerText);
-    follow.current = true;
     setAutocomplete(e.target.innerText);
     setStyle('none');
     setSugestionsStyle('none');

@@ -1,3 +1,4 @@
+import { useAuthContext } from '../features/Auth/Auth.context';
 import { handleResponse } from '../stockFeatures/HomePage/HomePage';
 
 export const exchanges = [
@@ -67,7 +68,7 @@ export function filterStocks(conditional, toFilter) {
     return null;
   }
   const items = toFilter.map((elem) => elem.item);
-  console.log(items);
+
   const stocks = [];
   for (const item of items) {
     if (conditional.includes(item)) {
@@ -83,10 +84,28 @@ export function getItemsForLocal(data) {
   return data.map((elem) => elem.item);
 }
 
-export async function deleteFromTrackedList(elem, trackedItems, user, token) {
+export function getLocalStorageItems(item) {
+  const data = window.localStorage.getItem(item);
+  if (data) {
+    return JSON.parse(data);
+  }
+  return null;
+}
+
+export function saveToLocalStorage(key, value) {
+  let valueToSave = JSON.stringify(value);
+  localStorage.setItem(key, valueToSave);
+}
+
+export async function deleteFromTrackedList(
+  elem,
+  trackedItems,
+  user,
+  token,
+  logout,
+  setJwtError
+) {
   const itemToDelete = trackedItems.find((element) => element.item === elem);
-  console.log(itemToDelete, 'item to delete');
-  console.log(itemToDelete.id);
   const deleteItem = await fetch(
     `http://localhost:3005/trackedList/${itemToDelete.id}`,
     {
@@ -100,10 +119,15 @@ export async function deleteFromTrackedList(elem, trackedItems, user, token) {
         Authorization: `Bearer ${token}`,
       },
     }
-  ).then((res) => handleResponse(res));
+  ).then((res) => res.json());
   if (deleteItem === 'jwt expired') {
-    return 'jwt expired';
+    setJwtError('Your token has expired');
+    logout();
+    return;
   }
+  const trackedLocal = getLocalStorageItems('trackedItems');
+  const removedData = trackedLocal.filter((item) => item !== elem);
+  saveToLocalStorage('trackedItems', removedData);
 }
 
 export async function saveTrackedItemsAtLogout(user, token, trackedItems) {
