@@ -214,7 +214,7 @@ export function TrackedItems() {
       );
     }
     return renderData;
-
+  }
 
   return (
     <>
