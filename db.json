@@ -39406,6 +39406,16 @@
       "userId": 4,
       "item": "BINANCE:BTCUSDP",
       "id": 11
+    },
+    {
+      "userId": 3,
+      "item": "BITMEX:DOGEUSD",
+      "id": 12
+    },
+    {
+      "userId": 3,
+      "item": "BITMEX:ETHUSD",
+      "id": 13
     }
   ]
 }

@@ -6,17 +6,17 @@ import { StockDetails } from './StocksDetails';
 export function Details() {
   const { symbolCrypto } = useParams();
   const paramsType = useRef(isCrypto(symbolCrypto, exchanges));
-
+  console.log(paramsType);
   return (
     <>
       {paramsType.current && (
         <>
-          <CryptoDetails />
+          <CryptoDetails keye={symbolCrypto} />
           <p>isCrypto</p>
         </>
       )}
 
-      {!paramsType || <StockDetails />}
+      {!paramsType.current && <StockDetails keye={symbolCrypto} />}
       <p> {symbolCrypto} </p>
     </>
   );

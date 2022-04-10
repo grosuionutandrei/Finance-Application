@@ -1,0 +1,52 @@
+.details_main_container {
+  display: grid;
+  width: 960px;
+  height: fit-content;
+  background-color: bisque;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    'date form'
+    'date graph'
+    'date graph'
+    'unfollow graph'
+    'delete data';
+  border: 1px solid black;
+}
+
+.current_value {
+  grid-area: date;
+  height: fit-content;
+  background-color: antiquewhite;
+}
+.end_date {
+  grid-area: unfollow;
+  height: fit-content;
+  background-color: aqua;
+}
+.end_date_form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.end_date_form > label {
+  width: auto;
+  margin-right: 3px;
+}
+.remove {
+  grid-area: delete;
+  background-color: blue;
+}
+.graph_date {
+  grid-area: form;
+  background-color: blueviolet;
+}
+.crypto_graph {
+  grid-area: graph;
+  background-color: brown;
+}
+.crypto_info {
+  grid-area: data;
+  background-color: chartreuse;
+}

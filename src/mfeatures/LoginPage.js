@@ -45,7 +45,7 @@ export function LoginPage({ error, onError }) {
       }
     ).then((res) => handleResponse(res));
     const items = await getItemsForLocal(data);
-    console.log(items);
+
     setTrackedListLocal(items);
   }
 
@@ -68,7 +68,7 @@ export function LoginPage({ error, onError }) {
       return;
     }
     getItems(data.user.id);
-    setJwtError('');
+    setJwtError(null);
     login(data);
   }
 
@@ -127,7 +127,7 @@ export function LoginPage({ error, onError }) {
       <h1 className="text-2xl">{isRegister ? 'Register' : 'Login'}</h1>
       {error && <p className="bg-red-200 text-red-900 bold p-2">{error}</p>}
       {jwtExpired && (
-        <p className="bg-red-200 text-red-900 bold p-2">{error}</p>
+        <p className="bg-red-200 text-red-900 bold p-2">{jwtExpired}</p>
       )}
       <div className={`my-2 ${styles.my_style}`}>
         <label htmlFor="email">Email </label>

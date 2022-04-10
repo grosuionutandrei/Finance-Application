@@ -42,7 +42,6 @@ export function isCrypto(value, data) {
       break;
     }
   }
-  console.log(value);
   return isCrypto;
 }
 

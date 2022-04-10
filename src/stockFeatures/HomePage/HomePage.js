@@ -113,7 +113,7 @@ export function HomePage() {
         `https://yfapi.net/v11/finance/quoteSummary/${query}?lang=en&region=US&modules=assetProfile`,
         {
           headers: {
-            'x-api-key': 'XBw8i4nDMTbazQGtmWqJ6gNhOPV7ZTZ9ivz0qs0b',
+            'x-api-key': 'q5oXDKCc6337KtoBnXOaoaxP07wcUA6i8QDiXZ7d',
           },
         }
       ).then((res) => handleResponse(res));
