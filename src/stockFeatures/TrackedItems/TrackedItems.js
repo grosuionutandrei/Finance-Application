@@ -51,6 +51,8 @@ export function TrackedItems() {
   const [noTrackedItems, setNoTrackedItems] = useState('jlglugyuvkgtv');
 
   useEffect(() => {
+    console.log(trackedItems);
+    console.log(deleteItem);
     async function getItems() {
       try {
         const data = await fetch(
@@ -187,9 +189,9 @@ export function TrackedItems() {
         logout,
         setJwtError
       );
-      if (deleted === 'jwt expired') {
-        logout();
-      }
+      setTrackedItems(
+        trackedItems.filter((elem) => elem.item !== e.target.value)
+      );
       setDeleteItem(true);
     }
   }
@@ -228,6 +230,7 @@ export function TrackedItems() {
             stocks={stocks}
             setDeleteItem={(value) => setDeleteItem(value)}
             trackedItems={trackedItems}
+            setTrackedItems={(value) => setTrackedItems(value)}
           />
         </div>
       </div>

@@ -6,6 +6,7 @@ export function TrackedStocksDetails({
   stocks,
   setDeleteItem,
   trackedItems,
+  setTrackedItems,
 }) {
   const { user, token } = useAuthContext();
 
@@ -15,6 +16,9 @@ export function TrackedStocksDetails({
     );
     if (response) {
       deleteFromTrackedList(e.target.value, trackedItems, user, token);
+      setTrackedItems(
+        trackedItems.filter((elem) => elem.item !== e.target.value)
+      );
       setDeleteItem(true);
     }
   }
