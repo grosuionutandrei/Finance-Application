@@ -39416,6 +39416,11 @@
       "userId": 3,
       "item": "BITMEX:ETHUSD",
       "id": 13
+    },
+    {
+      "userId": 3,
+      "item": "AAPL",
+      "id": 14
     }
   ]
 }

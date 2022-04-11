@@ -65,3 +65,8 @@ export function isDateEqual(start, end) {
   }
   return areEqual;
 }
+
+export function convertEpochToLocale(epoch) {
+  const date = new Date(epoch * 1000);
+  return `Date: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+}

@@ -1,5 +1,4 @@
-import { useAuthContext } from '../features/Auth/Auth.context';
-import { handleResponse } from '../stockFeatures/HomePage/HomePage';
+export const finApiKey = 'c96t0k2ad3ibs388bpdg';
 
 export const exchanges = [
   'KUCOIN',
