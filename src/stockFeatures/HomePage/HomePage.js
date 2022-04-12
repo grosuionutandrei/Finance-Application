@@ -222,7 +222,7 @@ export function HomePage() {
 }
 
 //   function to treat the server response
-export function handleResponse(res) {
+export function handleResponse(res, cb) {
   if (res.ok) {
     return res.json();
   } else {

@@ -1,3 +1,10 @@
+// timeFrames for graph data
+export const timeFrames = [
+  { symbol: 'D', val: 'Daily' },
+  { symbol: 'W', val: 'Weekly' },
+  { symbol: 'M', val: 'Monthly' },
+];
+
 // last year date
 export function lastYearEpoch() {
   const date = Date.now();

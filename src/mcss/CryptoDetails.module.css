@@ -54,3 +54,13 @@
   grid-area: data;
   background-color: chartreuse;
 }
+
+.form_container {
+  width: calc(960px / 1.5);
+  height: fit-content;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #81a4cdff;
+}

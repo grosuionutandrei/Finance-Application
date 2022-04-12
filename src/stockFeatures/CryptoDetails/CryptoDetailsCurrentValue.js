@@ -11,45 +11,53 @@ export function CurrentValue({ title }) {
   });
   const [loading, setLoading] = useState(<Loading />);
 
+  const abort = new AbortController();
   useEffect(() => {
     let execute = false;
+    let slowServerResponse = setTimeout(serverError, 15000);
     async function getData() {
-      if (!execute) {
-        try {
-          const data = await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${title}&token=${finApiKey}`
-          ).then((res) => handleResponse(res));
-          setLoading(<Loading />);
-          if (data.o === undefined) {
-            setError({
-              ...error,
-              serverError: 'An error has occured please try again later',
-            });
-          }
-          setCurrent(data);
-        } catch (e) {
+      const { signal } = abort;
+      try {
+        const data = await fetch(
+          `https://finnhub.io/api/v1/quote?symbol=${title}&token=${finApiKey}`,
+          { signal }
+        ).then((res) => handleResponse(res));
+        setLoading(<Loading />);
+        if (data.o === undefined) {
           setError({
             ...error,
             serverError: 'An error has occured please try again later',
           });
         }
+        setCurrent(data);
+      } catch (e) {
+        setError({
+          ...error,
+          serverError: 'An error has occured please try again later',
+        });
       }
     }
-    getData();
+    if (!execute) {
+      getData();
+    }
     return () => {
+      abort.abort();
       execute = true;
+      clearTimeout(slowServerResponse);
     };
   }, []);
 
   function serverError() {
     if (!current) {
       setLoading(
-        <p className="bg-red-200 text-red-600 bold p-2">{error.serverError}</p>
+        <p className="bg-red-200 text-red-600 bold p-2">
+          Error, try again later
+        </p>
       );
     }
   }
+
   if (!current) {
-    setTimeout(serverError, 15000);
     return loading;
   }
   if (current.o === undefined) {

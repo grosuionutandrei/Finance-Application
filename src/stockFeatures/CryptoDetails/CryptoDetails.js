@@ -11,8 +11,8 @@ export function CryptoDetails({ keye }) {
       <CurrentValue title={keye} />
       <EndDate />
       <Remove />
-      <ChangeDateForm />
-      <CryptoGraph />
+      <ChangeDateForm title={keye} />
+      <CryptoGraph title={keye} />
       <CryptoInfo />
     </div>
   );

@@ -8,14 +8,21 @@ export function TrackedStocksDetails({
   trackedItems,
   setTrackedItems,
 }) {
-  const { user, token } = useAuthContext();
+  const { user, token, setJwtError, logout } = useAuthContext();
 
   async function removeItem(e) {
     const response = window.confirm(
       `Are you sure that you want to delete ${e.target.value}`
     );
     if (response) {
-      deleteFromTrackedList(e.target.value, trackedItems, user, token);
+      deleteFromTrackedList(
+        e.target.value,
+        trackedItems,
+        user,
+        token,
+        logout,
+        setJwtError
+      );
       setTrackedItems(
         trackedItems.filter((elem) => elem.item !== e.target.value)
       );

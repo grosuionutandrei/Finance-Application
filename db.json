@@ -39409,18 +39409,8 @@
     },
     {
       "userId": 3,
-      "item": "BITMEX:DOGEUSD",
-      "id": 12
-    },
-    {
-      "userId": 3,
-      "item": "BITMEX:ETHUSD",
-      "id": 13
-    },
-    {
-      "userId": 3,
-      "item": "AAPL",
-      "id": 14
+      "item": "BINANCE:ETHUSDT",
+      "id": 15
     }
   ]
 }

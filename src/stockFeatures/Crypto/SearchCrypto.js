@@ -11,6 +11,7 @@ import {
   isDateEqual,
   isDateInFuture,
 } from '../../stockComponents/Date';
+import { timeFrames } from '../../stockComponents/Date';
 
 export function Search({ exchanges }) {
   const [sugestions, setSugestions] = useState(null);
@@ -35,11 +36,7 @@ export function Search({ exchanges }) {
 
   // time Frames for crypto
   const initialTimeFrame = 'D';
-  const timeFrames = [
-    { symbol: 'D', val: 'Daily' },
-    { symbol: 'W', val: 'Weekly' },
-    { symbol: 'M', val: 'Monthly' },
-  ];
+
   const [form, setForm] = useState({
     startDate: '',
     endDate: '',
