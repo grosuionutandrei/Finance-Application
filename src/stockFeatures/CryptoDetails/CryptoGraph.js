@@ -8,7 +8,12 @@ import {
   isDateEqual,
 } from '../../stockComponents/Date';
 import { handleResponse } from '../HomePage/HomePage';
+import { LoadingCrypto } from './LoadingCrypto';
 
-export function CryptoGraph({ title }) {
+export const CryptoGraph = ({ title, cryptoData }) => {
+  if (!cryptoData) {
+    return <LoadingCrypto title={title} />;
+  }
+
   return <div className={style.crypto_graph}></div>;
-}
+};

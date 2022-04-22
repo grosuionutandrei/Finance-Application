@@ -49,6 +49,10 @@
 .crypto_graph {
   grid-area: graph;
   background-color: brown;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 .crypto_info {
   grid-area: data;

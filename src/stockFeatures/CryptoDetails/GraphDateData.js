@@ -10,7 +10,7 @@ import {
 import { handleResponse } from '../HomePage/HomePage';
 import { finApiKey } from '../../stockComponents/Helpers';
 
-export function ChangeDateForm({ title }) {
+export function ChangeDateForm({ title, retrieveCryptoData }) {
   const initialTimeFrame = 'D';
   const [form, setForm] = useState({
     startDate: '',
@@ -28,8 +28,10 @@ export function ChangeDateForm({ title }) {
   // if the page is closed
   const abortFetch = new AbortController();
 
-  // data for the graph
-  const [cryptoData, setCryptoData] = useState(null);
+  // data for the graph from the server
+  const retrievedData = (data) => {
+    retrieveCryptoData(data);
+  };
 
   // check if dates are equal , that means data for one day
   const [areDatesEqual, setAreDatesEqual] = useState(null);
@@ -49,7 +51,7 @@ export function ChangeDateForm({ title }) {
           { signal }
         ).then((res) => handleResponse(res, getData.current));
         console.log(data);
-        setCryptoData(data);
+        retrievedData(data);
         setForm({
           ...form,
           startDate: '',
