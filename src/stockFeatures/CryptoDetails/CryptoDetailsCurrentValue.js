@@ -77,34 +77,34 @@ export function CurrentValue({ title }) {
         <article className={style.current_value}>
           <p title={`Stock Symbol`}>{title}</p>
           <p title={`Open ${current?.o}`}>
-            O:
+            Open:
             <span className="bg-violet-600">{current?.o.toFixed(2)}</span>
           </p>
 
           <p title={`Change ${current?.d}`}>
-            C:
+            Change:
             <span className={colorCurrent}>{current?.d.toFixed(2)}</span>
           </p>
 
           <p title={`Percent Price ${current?.dp}`}>
-            PC:
+            PreviousChange:
             <span className={colorPercent}>{current?.dp.toFixed(2)}</span>
           </p>
           <p title={`Current Price ${current?.c}`}>
-            CP:
+            CurrentPrice:
             <span className={colorCurrent}>{current?.c.toFixed(2)}</span>
           </p>
           <p title={`Previous Closing Price ${current?.pc}`}>
-            PCP:
+            PreviousClosingPrice:
             <span className={colorPrevious}>{current?.pc.toFixed(2)}</span>
           </p>
 
           <p title={`Lowest Price ${current?.l}`}>
-            LP:
+            Lowest Price:
             <span className="bg-red-500">{current?.l.toFixed(2)}</span>
           </p>
           <p title={`Highest Price ${current?.h}`}>
-            HP:
+            HighestPrice:
             <span className="bg-lime-500">{current?.h.toFixed(2)}</span>
           </p>
           <p>{convertEpochToLocale(current.t)}</p>

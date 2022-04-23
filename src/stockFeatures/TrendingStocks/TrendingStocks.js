@@ -29,7 +29,7 @@ export function Trending() {
         const data = await fetch(`https://yfapi.net/v1/finance/trending/US`, {
           signal,
           headers: {
-            'x-api-key': 'XBw8i4nDMTbazQGtmWqJ6gNhOPV7ZTZ9ivz0qs0b',
+            'x-api-key': 'z8C7ctfvZY4yf4K9rTOjr9LUpxNElFDa8zKB2Jeo',
           },
         }).then((res) => handleResponse(res));
 
@@ -52,7 +52,7 @@ export function Trending() {
       for (const trend of trending[0].slice(0, 15)) {
         tempPromises.push(
           await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c96t0k2ad3ibs388bpdg`
+            `https://finnhub.io/api/v1/quote?symbol=${trend.symbol}&token=c9i5r6qad3i9bpe27lm0`
           ).then((res) => res.json())
         );
       }
@@ -68,7 +68,7 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    // getData();
+    getData();
 
     return () => {
       abortController.abort();

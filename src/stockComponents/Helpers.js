@@ -1,4 +1,4 @@
-export const finApiKey = 'c96t0k2ad3ibs388bpdg';
+export const finApiKey = 'c9i5r6qad3i9bpe27lm0';
 
 export const exchanges = [
   'KUCOIN',

@@ -47,7 +47,7 @@ export function HomePage() {
       async function getAutoCompleteData() {
         try {
           const sugestions = await fetch(
-            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c96t0k2ad3ibs388bpdg`
+            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c9i5r6qad3i9bpe27lm0`
           ).then((res) => handleResponse(res));
 
           if (sugestions.count === 0) {
@@ -90,7 +90,7 @@ export function HomePage() {
   async function getSearchedData() {
     try {
       const data = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${query}&token=c96t0k2ad3ibs388bpdg`
+        `https://finnhub.io/api/v1/quote?symbol=${query}&token=c9i5r6qad3i9bpe27lm0`
       ).then((res) => handleResponse(res));
       if (data.d === null) {
         setErrors({ ...errors, noDetails: 'No data for your search.' });
@@ -113,7 +113,7 @@ export function HomePage() {
         `https://yfapi.net/v11/finance/quoteSummary/${query}?lang=en&region=US&modules=assetProfile`,
         {
           headers: {
-            'x-api-key': 'q5oXDKCc6337KtoBnXOaoaxP07wcUA6i8QDiXZ7d',
+            'x-api-key': 'z8C7ctfvZY4yf4K9rTOjr9LUpxNElFDa8zKB2Jeo',
           },
         }
       ).then((res) => handleResponse(res));

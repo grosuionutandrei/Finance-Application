@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
+import { finApiKey } from '../../stockComponents/Helpers';
 import { lastYearEpoch, thisYearEpoch } from '../../stockComponents/Date';
 import { handleResponse } from '../HomePage/HomePage';
 
@@ -18,7 +18,7 @@ export const InitialCrypto = ({ cryptoData, setError, title }) => {
       async function getInitialData() {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/crypto/candle?symbol=${title}&resolution=M&from=${fromDate}&to=${toDate}&token=c96t0k2ad3ibs388bpdg`
+            `https://finnhub.io/api/v1/crypto/candle?symbol=${title}&resolution=M&from=${fromDate}&to=${toDate}&token=${finApiKey}`
           ).then((res) => handleResponse(res));
           setInitialData(data);
         } catch (error) {

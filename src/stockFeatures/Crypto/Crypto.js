@@ -10,7 +10,7 @@ export function Crypto() {
     async function getExchanges() {
       try {
         const data = await fetch(
-          `https://finnhub.io/api/v1/crypto/exchange?token=c96t0k2ad3ibs388bpdg`,
+          `https://finnhub.io/api/v1/crypto/exchange?token=c9i5r6qad3i9bpe27lm0`,
           { signal }
         ).then((res) => handleResponse(res));
         setExchanges(data);

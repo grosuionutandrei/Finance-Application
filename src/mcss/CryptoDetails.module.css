@@ -1,7 +1,7 @@
 .details_main_container {
   display: grid;
   width: 960px;
-  height: fit-content;
+  height: 90vh;
   background-color: bisque;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
@@ -48,7 +48,7 @@
 }
 .crypto_graph {
   grid-area: graph;
-  background-color: brown;
+
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;

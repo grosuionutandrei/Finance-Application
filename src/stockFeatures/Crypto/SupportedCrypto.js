@@ -32,7 +32,7 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
       const { signal } = abortController;
       try {
         const data = await fetch(
-          `https://finnhub.io/api/v1/crypto/symbol?exchange=${selOption.exchange}&token=c96t0k2ad3ibs388bpdg`,
+          `https://finnhub.io/api/v1/crypto/symbol?exchange=${selOption.exchange}&token=c9i5r6qad3i9bpe27lm0`,
           { signal }
         ).then((res) => handleResponse(res));
 

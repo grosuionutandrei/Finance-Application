@@ -39409,7 +39409,22 @@
     },
     {
       "userId": 3,
-      "item": "BINANCE:ETHUSDT",
+      "item": "MSFT",
+      "id": 12
+    },
+    {
+      "userId": 3,
+      "item": "TSLA",
+      "id": 13
+    },
+    {
+      "userId": 3,
+      "item": "ELON-USD",
+      "id": 14
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:BICOUSDT",
       "id": 15
     }
   ]
