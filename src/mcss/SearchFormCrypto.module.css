@@ -1,7 +1,7 @@
 .form_container_style {
   margin-top: 20px;
   width: 960px;
-  height: fit-content;
+  height: 70px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -35,13 +35,14 @@
 }
 
 .button_enabled_right {
-  padding: 5px 5px;
+  padding: 3px 10px 3px 10px;
   text-align: center;
   font-size: larger;
   font-weight: 400;
   color: #f17300ff;
   margin-left: 60px;
   border-radius: 10%;
+  border: 1px solid #054a91ff;
 }
 
 .button_enabled_right:hover {

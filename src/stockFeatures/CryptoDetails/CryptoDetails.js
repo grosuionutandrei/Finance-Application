@@ -36,7 +36,7 @@ export function CryptoDetails({ keye }) {
       {!error.serverError && (
         <CryptoGraph title={keye} cryptoData={cryptoData} />
       )}
-      <CryptoInfo />
+      <CryptoInfo data={cryptoData} />
     </div>
   );
 }

@@ -83,29 +83,29 @@ export function CurrentValue({ title }) {
 
           <p title={`Change ${current?.d}`}>
             Change:
-            <span className={colorCurrent}>{current?.d.toFixed(2)}</span>
+            <span className={colorCurrent}>{current?.d}</span>
           </p>
 
           <p title={`Percent Price ${current?.dp}`}>
             PreviousChange:
-            <span className={colorPercent}>{current?.dp.toFixed(2)}</span>
+            <span className={colorPercent}>{current?.dp}</span>
           </p>
           <p title={`Current Price ${current?.c}`}>
             CurrentPrice:
-            <span className={colorCurrent}>{current?.c.toFixed(2)}</span>
+            <span className={colorCurrent}>{current?.c}</span>
           </p>
           <p title={`Previous Closing Price ${current?.pc}`}>
             PreviousClosingPrice:
-            <span className={colorPrevious}>{current?.pc.toFixed(2)}</span>
+            <span className={colorPrevious}>{current?.pc}</span>
           </p>
 
           <p title={`Lowest Price ${current?.l}`}>
             Lowest Price:
-            <span className="bg-red-500">{current?.l.toFixed(2)}</span>
+            <span className="bg-red-500">{current?.l}</span>
           </p>
           <p title={`Highest Price ${current?.h}`}>
             HighestPrice:
-            <span className="bg-lime-500">{current?.h.toFixed(2)}</span>
+            <span className="bg-lime-500">{current?.h}</span>
           </p>
           <p>{convertEpochToLocale(current.t)}</p>
         </article>

@@ -25,6 +25,9 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
 
   // when submit is pressed retrieve data
   const [getData, setData] = useState(false);
+
+  // sow/hide form
+  const [showForm, setShowForm] = useState(false);
   // if the page is closed
   const abortFetch = new AbortController();
 
@@ -135,53 +138,90 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
     if (isDateEqual(form.startDate, form.endDate)) {
       setAreDatesEqual(true);
     }
+    setShowForm(false);
   }
+
+  const enableForm = () => {
+    setShowForm(true);
+  };
+  const disableForm = () => {
+    setShowForm(false);
+    setForm({
+      startDate: '',
+      endDate: '',
+      timeFrame: initialTimeFrame,
+    });
+    setInputErrors({
+      startDate: '',
+      endDate: '',
+      timeFrame: '',
+    });
+  };
 
   return (
     <div className={style.graph_date}>
-      <form className={style.form_container} onSubmit={getCrypto}>
-        <label htmlFor="start" className="text-blue-700 text-sm  ">
-          Start date:
-          <input
-            className={formStyle.search_input_start}
-            type="date"
-            id="start"
-            name="startDate"
-            value={form.startDate}
-            onChange={setFormValues}
-          ></input>
-        </label>
-
-        <label htmlFor="end" className="text-blue-700 text-sm font-semibold">
-          End date:
-          <input
-            className={formStyle.search_input_end}
-            type="date"
-            id="end"
-            name="endDate"
-            value={form.endDate}
-            onChange={setFormValues}
-          ></input>
-        </label>
-
-        <label
-          className="text-blue-700 text-sm font-semibold"
-          htmlFor="timeFrames"
-        >
-          Time Frame:
-          <select
-            className={formStyle.exchange_input}
-            id="timeFrame"
-            name="timeFrame"
-            value={form.timeFrame}
-            onChange={setFormValues}
+      {!showForm && (
+        <div className={style.details_show__form}>
+          <button
+            className={formStyle.button_enabled_right}
+            onClick={enableForm}
           >
-            {timeFramesOptions()}
-          </select>
-        </label>
+            Search
+          </button>
+        </div>
+      )}
+      {showForm && (
+        <form className={style.form_container} onSubmit={getCrypto}>
+          <label htmlFor="start" className="text-blue-700 text-sm  ">
+            Start date:
+            <input
+              className={formStyle.search_input_start}
+              type="date"
+              id="start"
+              name="startDate"
+              value={form.startDate}
+              onChange={setFormValues}
+            ></input>
+          </label>
 
-        <button className={formStyle.button_enabled_right}>Search</button>
-      </form>
+          <label htmlFor="end" className="text-blue-700 text-sm font-semibold">
+            End date:
+            <input
+              className={formStyle.search_input_end}
+              type="date"
+              id="end"
+              name="endDate"
+              value={form.endDate}
+              onChange={setFormValues}
+            ></input>
+          </label>
+
+          <label
+            className="text-blue-700 text-sm font-semibold"
+            htmlFor="timeFrames"
+          >
+            Time Frame:
+            <select
+              className={formStyle.exchange_input}
+              id="timeFrame"
+              name="timeFrame"
+              value={form.timeFrame}
+              onChange={setFormValues}
+            >
+              {timeFramesOptions()}
+            </select>
+          </label>
+
+          <button className={formStyle.button_enabled_right}>Search</button>
+          <button
+            className={formStyle.button_enabled_right}
+            onClick={disableForm}
+          >
+            Cancel
+          </button>
+        </form>
+      )}
+
       {inputErrors.startDate && (
         <p className={formStyle.error}>{inputErrors.startDate}</p>
       )}

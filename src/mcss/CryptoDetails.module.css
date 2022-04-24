@@ -2,7 +2,6 @@
   display: grid;
   width: 960px;
   height: 90vh;
-  background-color: bisque;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
@@ -11,7 +10,13 @@
     'date graph'
     'unfollow graph'
     'delete data';
+  background-color: #81a4cdff;
   border: 1px solid black;
+  color: #f0c4ab;
+  font-family: Arial sans-serif;
+  font-size: larger;
+  font-weight: 500;
+  padding: 0.5rem;
 }
 
 .current_value {
@@ -21,50 +26,63 @@
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  background-color: antiquewhite;
 }
 .end_date {
   grid-area: unfollow;
   height: fit-content;
-  background-color: aqua;
 }
 .end_date_form {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 }
 .end_date_form > label {
   width: auto;
-  margin-right: 3px;
 }
 .remove {
   grid-area: delete;
-  background-color: blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .graph_date {
   grid-area: form;
-  background-color: blueviolet;
+  width: calc(960px / 1.5);
+  height: 72px;
+  background-color: #81a4cdff;
 }
 .crypto_graph {
   grid-area: graph;
-
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;
   align-items: center;
+  background-color: #dbe4eeff;
 }
 .crypto_info {
   grid-area: data;
-  background-color: chartreuse;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .form_container {
-  width: calc(960px / 1.5);
   height: fit-content;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  background-color: #81a4cdff;
+}
+.details_show__form {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  height: 72px;
+}
+.details_show__form > button {
+  margin-left: 0px;
 }
