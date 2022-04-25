@@ -48,16 +48,15 @@ export function filterCrypto(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
-  const items = toFilter.map((elem) => elem.item);
+  const items = [...toFilter];
   const crypto = [];
   for (let i = 0; i < conditional.length; i++) {
     for (let j = 0; j < items.length; j++) {
-      if (items[j].includes(conditional[i])) {
+      if (items[j].item.includes(conditional[i])) {
         crypto.push(items[j]);
       }
     }
   }
-
   return crypto;
 }
 
@@ -74,7 +73,6 @@ export function filterStocks(conditional, toFilter) {
     }
     stocks.push(item);
   }
-
   return stocks;
 }
 

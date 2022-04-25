@@ -75,7 +75,6 @@ export function CurrentValue({ title }) {
       {current?.o === 0 && <p>No available data</p>}
       {current?.o !== 0 && (
         <article className={style.current_value}>
-          <p title={`Stock Symbol`}>{title}</p>
           <p title={`Open ${current?.o}`}>
             Open:
             <span className="bg-violet-600">{current?.o.toFixed(2)}</span>

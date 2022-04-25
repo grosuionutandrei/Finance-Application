@@ -3,11 +3,15 @@ import { Loading } from '../../stockComponents/Loading';
 
 export const CryptoInfo = ({ data }) => {
   if (!data) {
-    return <Loading />;
+    return (
+      <div className={style.crypto_info}>
+        <Loading />
+      </div>
+    );
   }
-  let average = data.o.reduce((item, sum) => sum + item, 0) / data.o.length;
-  let maximum = Math.max(...data.o);
-  let minimum = Math.min(...data.o);
+  let average = data.c.reduce((item, sum) => sum + item, 0) / data.c.length;
+  let maximum = Math.max(...data.h);
+  let minimum = Math.min(...data.l);
   return (
     <div className={style.crypto_info}>
       <p>{`Average ${average}`}</p>

@@ -5,19 +5,21 @@ import { CryptoDetails } from './CryptoDetails';
 import { StockDetails } from './StocksDetails';
 export function Details() {
   const { symbolCrypto } = useParams();
-  const paramsType = useRef(isCrypto(symbolCrypto, exchanges));
-  console.log(paramsType);
+  const symbol = () => {
+    const splitedQuerry = symbolCrypto.split('=');
+    return splitedQuerry[1];
+  };
+  const paramsType = useRef(isCrypto(symbol(), exchanges));
+
   return (
     <>
       {paramsType.current && (
         <>
-          <CryptoDetails keye={symbolCrypto} />
-          <p>isCrypto</p>
+          <CryptoDetails keye={symbol()} />
         </>
       )}
 
-      {!paramsType.current && <StockDetails keye={symbolCrypto} />}
-      <p> {symbolCrypto} </p>
+      {!paramsType.current && <StockDetails keye={symbol()} />}
     </>
   );
 }

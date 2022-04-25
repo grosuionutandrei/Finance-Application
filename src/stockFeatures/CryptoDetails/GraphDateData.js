@@ -53,7 +53,6 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
           )}&token=${finApiKey}`,
           { signal }
         ).then((res) => handleResponse(res, getData.current));
-        console.log(data);
         retrievedData(data);
         setForm({
           ...form,
@@ -132,7 +131,6 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
 
       return;
     }
-    console.log('ublasblblaub');
     setData(true);
 
     if (isDateEqual(form.startDate, form.endDate)) {
@@ -221,16 +219,17 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
           </button>
         </form>
       )}
-
-      {inputErrors.startDate && (
-        <p className={formStyle.error}>{inputErrors.startDate}</p>
-      )}
-      {inputErrors.endDate && (
-        <p className={formStyle.error}>{inputErrors.endDate}</p>
-      )}
-      {inputErrors.timeFrame && (
-        <p className={formStyle.error}>{inputErrors.timeFrame}</p>
-      )}
+      <div className={style.error}>
+        {inputErrors.startDate && (
+          <p className={formStyle.error}>{inputErrors.startDate}</p>
+        )}
+        {inputErrors.endDate && (
+          <p className={formStyle.error}>{inputErrors.endDate}</p>
+        )}
+        {inputErrors.timeFrame && (
+          <p className={formStyle.error}>{inputErrors.timeFrame}</p>
+        )}
+      </div>
     </div>
   );
 }

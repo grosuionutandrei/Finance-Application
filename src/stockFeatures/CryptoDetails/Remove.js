@@ -9,7 +9,7 @@ export function Remove({ title }) {
     console.log('to implement remove');
   };
   const buttonStyle = {
-    'margin-left': '0px',
+    marginLeft: '0px',
   };
   return (
     <div className={style.remove}>

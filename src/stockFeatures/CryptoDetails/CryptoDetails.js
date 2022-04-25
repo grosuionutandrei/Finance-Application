@@ -7,6 +7,7 @@ import { CryptoGraph } from './CryptoGraph';
 import { CryptoInfo } from './CryptoInfo';
 import { useState } from 'react';
 import { InitialCrypto } from './InitialCryptoData';
+import { Title } from './Title';
 export function CryptoDetails({ keye }) {
   const [cryptoData, setCryptoData] = useState(null);
   const [error, setError] = useState({
@@ -20,11 +21,11 @@ export function CryptoDetails({ keye }) {
   const retrieveError = (data) => {
     setError(data);
   };
-  console.log(cryptoData);
+
   return (
     <div className={style.details_main_container}>
       <CurrentValue title={keye} />
-      <EndDate />
+      <Title title={keye} />
       <Remove />
       <ChangeDateForm title={keye} retrieveCryptoData={getCryptoCandleData} />
       <InitialCrypto

@@ -13,7 +13,7 @@ import style from '../../mcss/TrackingData.module.css';
 import { ChartDetails } from './ChartDetails';
 import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
-
+import { Link } from 'react-router-dom';
 export function TrackedItems() {
   const { user, token, logout, setJwtError } = useAuthContext();
   const exchanges = [
@@ -98,7 +98,7 @@ export function TrackedItems() {
       for (const item of crypto) {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/crypto/candle?symbol=${item}&resolution=M&from=${fromDate}&to=${toDate}&token=c9i5r6qad3i9bpe27lm0`
+            `https://finnhub.io/api/v1/crypto/candle?symbol=${item.item}&resolution=M&from=${fromDate}&to=${toDate}&token=c9i5r6qad3i9bpe27lm0`
           ).then((res) => handleResponse(res));
           dataArr.push(data);
         } catch (error) {
@@ -195,17 +195,18 @@ export function TrackedItems() {
       setDeleteItem(true);
     }
   }
-
   function renderCryptoTracked() {
     const renderData = [];
     for (let i = 0; i < crypto.length; i++) {
       renderData.push(
-        <article key={crypto[i]} className={style.track_elem}>
-          <p data-title="title">{crypto[i]}</p>
+        <article key={crypto[i].id} className={style.track_elem}>
+          <Link to={`/trackedItems/${crypto[i].id}=${crypto[i].item}`}>
+            {crypto[i].item}
+          </Link>
           <button
             data-button="removeFromTrackList"
             onClick={removeItem}
-            value={crypto[i]}
+            value={crypto[i].item}
           >
             Remove
           </button>

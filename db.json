@@ -39424,8 +39424,13 @@
     },
     {
       "userId": 3,
-      "item": "BINANCE:BICOUSDT",
+      "item": "BINANCE:BTCUSDT",
       "id": 15
+    },
+    {
+      "userId": 3,
+      "item": "BINANCE:DOGEUSDT",
+      "id": 16
     }
   ]
 }

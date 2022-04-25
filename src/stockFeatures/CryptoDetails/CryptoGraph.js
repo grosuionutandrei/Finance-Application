@@ -1,13 +1,6 @@
 import style from '../../mcss/CryptoDetails.module.css';
-import { timeFrames, convertEpochToDate } from '../../stockComponents/Date';
-import formStyle from '../../mcss/SearchFormCrypto.module.css';
+import { convertEpochToDate } from '../../stockComponents/Date';
 import React, { useState, useEffect } from 'react';
-import {
-  dateToEpoch,
-  isDateInFuture,
-  isDateEqual,
-} from '../../stockComponents/Date';
-import { handleResponse } from '../HomePage/HomePage';
 import { LoadingCrypto } from './LoadingCrypto';
 import { ChartDetails } from '../TrackedItems/ChartDetails';
 
@@ -36,7 +29,11 @@ export const CryptoGraph = ({ title, cryptoData }) => {
   }, [cryptoData]);
 
   if (!cryptoData) {
-    return <LoadingCrypto title={title} />;
+    return (
+      <div className={style.crypto_graph}>
+        <LoadingCrypto title={title} />
+      </div>
+    );
   }
 
   return (

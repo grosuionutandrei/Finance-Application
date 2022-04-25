@@ -2,10 +2,11 @@ import style from '../../mcss/CryptoDetails.module.css';
 import styles from '../../mcss/SearchFormCrypto.module.css';
 export function EndDate() {
   const buttonStyle = {
-    'margin-left': '0px',
+    marginLeft: '0px',
   };
   const setUnfollowDate = (event) => {
     event.preventDefault();
+    console.log('to implement unfollow');
   };
   return (
     <div className={style.end_date}>

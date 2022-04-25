@@ -5,10 +5,11 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
-    'date form'
+    'title form'
+    '. error'
     'date graph'
     'date graph'
-    'unfollow graph'
+    'date graph'
     'delete data';
   background-color: #81a4cdff;
   border: 1px solid black;
@@ -21,17 +22,20 @@
 
 .current_value {
   grid-area: date;
-  height: fit-content;
+  height: 60vh;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 }
-.end_date {
-  grid-area: unfollow;
-  height: fit-content;
+.title {
+  grid-area: title;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
-.end_date_form {
+/* .end_date_form {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -39,22 +43,33 @@
 }
 .end_date_form > label {
   width: auto;
+} */
+.error {
+  grid-area: error;
+  height: 5vh;
+  background-color: antiquewhite;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
 }
 .remove {
   grid-area: delete;
+  height: 10vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .graph_date {
   grid-area: form;
   width: calc(960px / 1.5);
-  height: 72px;
+  height: 10vh;
   background-color: #81a4cdff;
 }
 .crypto_graph {
   grid-area: graph;
+  height: 60vh;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;
@@ -63,6 +78,7 @@
 }
 .crypto_info {
   grid-area: data;
+  height: 5vh;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -70,7 +86,6 @@
 }
 
 .form_container {
-  height: fit-content;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -81,7 +96,7 @@
   flex-flow: row;
   justify-content: center;
   align-items: center;
-  height: 72px;
+  height: 10vh;
 }
 .details_show__form > button {
   margin-left: 0px;
