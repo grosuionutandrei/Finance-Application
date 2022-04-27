@@ -1,6 +1,4 @@
 import style from '../../mcss/CryptoDetails.module.css';
-import { CurrentValue } from './CryptoDetailsCurrentValue';
-import { EndDate } from './EndDate';
 import { Remove } from './Remove';
 import { ChangeDateForm } from '../CryptoDetails/GraphDateData';
 import { CryptoGraph } from './CryptoGraph';
@@ -8,7 +6,7 @@ import { CryptoInfo } from './CryptoInfo';
 import { useState } from 'react';
 import { InitialCrypto } from './InitialCryptoData';
 import { Title } from './Title';
-export function CryptoDetails({ keye }) {
+export function CryptoDetails({ keye, Id }) {
   const [cryptoData, setCryptoData] = useState(null);
   const [error, setError] = useState({
     serverError: '',
@@ -24,9 +22,9 @@ export function CryptoDetails({ keye }) {
 
   return (
     <div className={style.details_main_container}>
-      <CurrentValue title={keye} />
+      {/* <CurrentValue title={keye} /> */}
       <Title title={keye} />
-      <Remove />
+      <Remove title={keye} Id={Id} />
       <ChangeDateForm title={keye} retrieveCryptoData={getCryptoCandleData} />
       <InitialCrypto
         cryptoData={setCryptoData}

@@ -1,13 +1,54 @@
 import style from '../../mcss/CryptoDetails.module.css';
-import React, { useEffect } from 'react';
-import { handleResponse } from '../HomePage/HomePage';
-import { useAuthContext } from '../../features/Auth/Auth.context';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router';
 import styles from '../../mcss/SearchFormCrypto.module.css';
+import {
+  getLocalStorageItems,
+  saveToLocalStorage,
+} from '../../stockComponents/Helpers';
+import { useAuthContext } from '../../features/Auth/Auth.context';
 
-export function Remove({ title }) {
-  const removeCrypto = () => {
-    console.log('to implement remove');
+export function Remove({ title, Id }) {
+  const { token, logout, setJwtError } = useAuthContext();
+  const navigate = useNavigate();
+  const toTrackedList = '/trackedItems';
+
+  const removeFromLocal = () => {
+    const localStorage = getLocalStorageItems('trackedItems');
+    const removedData = localStorage.filter((item) => item !== title);
+    saveToLocalStorage('trackedItems', removedData);
+    console.log(localStorage, title);
   };
+
+  const removeFromDb = async () => {
+    const deleteItem = await fetch(`http://localhost:3005/trackedList/${Id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ title, Id }),
+
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+
+    if (deleteItem === 'jwt expired') {
+      setJwtError('Your token has expired');
+      logout();
+      return;
+    }
+  };
+
+  const removeCrypto = (event) => {
+    const response = window.confirm(
+      `Are you sure that you want to delete ${event.target.value}`
+    );
+    if (response) {
+      removeFromLocal();
+      removeFromDb();
+      navigate(toTrackedList);
+    }
+  };
+
   const buttonStyle = {
     marginLeft: '0px',
   };

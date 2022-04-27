@@ -7,6 +7,7 @@ import {
   VictoryCandlestick,
   VictoryTooltip,
   VictoryBar,
+  VictoryLabel,
 } from 'victory';
 import { convertEpochToDate } from '../../stockComponents/Date';
 import style from '../../mcss/Details.module.css';
@@ -231,7 +232,7 @@ export function CryptoDetailsLarge({
 
 export function BarChart({ color, data }) {
   return (
-    <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+    <VictoryChart theme={VictoryTheme.material} domainPadding={15}>
       <VictoryBar
         style={{
           data: {

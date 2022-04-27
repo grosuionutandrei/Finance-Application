@@ -3,12 +3,26 @@ import { convertEpochToDate } from '../../stockComponents/Date';
 import React, { useState, useEffect } from 'react';
 import { LoadingCrypto } from './LoadingCrypto';
 import { ChartDetails } from '../TrackedItems/ChartDetails';
+import { BarChart } from '../Crypto/CryptoDetails';
 
 export const CryptoGraph = ({ title, cryptoData }) => {
   const [cryptoGraphData, setCryptoGraphData] = useState(null);
+  const [currentDayData, setCurrentDayData] = useState([]);
+  const [colorBar, setColorBar] = useState('');
 
   useEffect(() => {
     if (cryptoData) {
+      if (cryptoData.c.length <= 1) {
+        setCurrentDayData([
+          ['open', cryptoData.o],
+          ['close', cryptoData.c],
+          ['high', cryptoData.h],
+          ['low', cryptoData.l],
+        ]);
+        setColorBar(cryptoData.c < cryptoData.o ? 'red' : 'green');
+        return;
+      }
+
       function dataForGraph() {
         const data = [];
         for (let i = 0; i < cryptoData.o.length; i++) {
@@ -35,10 +49,17 @@ export const CryptoGraph = ({ title, cryptoData }) => {
       </div>
     );
   }
+  if (cryptoData.c.length > 1) {
+    return (
+      <div className={style.crypto_graph}>
+        <ChartDetails data={cryptoGraphData} />
+      </div>
+    );
+  }
 
   return (
     <div className={style.crypto_graph}>
-      <ChartDetails data={cryptoGraphData} />
+      <BarChart data={currentDayData} color={colorBar} />
     </div>
   );
 };

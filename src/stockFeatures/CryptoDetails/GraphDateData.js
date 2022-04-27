@@ -39,6 +39,13 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
   // check if dates are equal , that means data for one day
   const [areDatesEqual, setAreDatesEqual] = useState(null);
 
+  // style for the error
+
+  const errorStyle = {
+    marginTop: '0px',
+    padding: '0px 0px',
+  };
+
   useEffect(() => {
     let abrt = false;
 
@@ -221,13 +228,19 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
       )}
       <div className={style.error}>
         {inputErrors.startDate && (
-          <p className={formStyle.error}>{inputErrors.startDate}</p>
+          <p style={errorStyle} className={formStyle.error}>
+            {inputErrors.startDate}
+          </p>
         )}
         {inputErrors.endDate && (
-          <p className={formStyle.error}>{inputErrors.endDate}</p>
+          <p style={errorStyle} className={formStyle.error}>
+            {inputErrors.endDate}
+          </p>
         )}
         {inputErrors.timeFrame && (
-          <p className={formStyle.error}>{inputErrors.timeFrame}</p>
+          <p style={errorStyle} className={formStyle.error}>
+            {inputErrors.timeFrame}
+          </p>
         )}
       </div>
     </div>

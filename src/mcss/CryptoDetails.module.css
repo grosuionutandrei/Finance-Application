@@ -1,23 +1,23 @@
 .details_main_container {
   display: grid;
   width: 960px;
-  height: 90vh;
+  height: 82vh;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
-    'title form'
-    '. error'
-    'date graph'
-    'date graph'
-    'date graph'
-    'delete data';
+    'form form'
+    'error error'
+    'title title'
+    'graph graph'
+    'graph graph'
+    'graph graph'
+    'data delete';
   background-color: #81a4cdff;
   border: 1px solid black;
-  color: #f0c4ab;
+  color: #f17300ff;
   font-family: Arial sans-serif;
   font-size: larger;
   font-weight: 500;
-  padding: 0.5rem;
 }
 
 .current_value {
@@ -30,6 +30,7 @@
 }
 .title {
   grid-area: title;
+  height: 7vh;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -46,8 +47,7 @@
 } */
 .error {
   grid-area: error;
-  height: 5vh;
-  background-color: antiquewhite;
+  height: 4vh;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 .remove {
   grid-area: delete;
-  height: 10vh;
+  height: 7vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,30 +63,31 @@
 }
 .graph_date {
   grid-area: form;
-  width: calc(960px / 1.5);
-  height: 10vh;
+
+  height: 7vh;
   background-color: #81a4cdff;
 }
 .crypto_graph {
   grid-area: graph;
-  height: 60vh;
+  height: 50vh;
   display: flex;
   flex-flow: column wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: #dbe4eeff;
 }
 .crypto_info {
   grid-area: data;
-  height: 5vh;
+  height: 7vh;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .form_container {
   display: flex;
+  height: 7vh;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
@@ -96,7 +97,7 @@
   flex-flow: row;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 7vh;
 }
 .details_show__form > button {
   margin-left: 0px;

@@ -9,13 +9,17 @@ export function Details() {
     const splitedQuerry = symbolCrypto.split('=');
     return splitedQuerry[1];
   };
+  const cryptoId = () => {
+    const splitedQuerry = symbolCrypto.split('=');
+    return splitedQuerry[0];
+  };
   const paramsType = useRef(isCrypto(symbol(), exchanges));
 
   return (
     <>
       {paramsType.current && (
         <>
-          <CryptoDetails keye={symbol()} />
+          <CryptoDetails keye={symbol()} Id={cryptoId()} />
         </>
       )}
 
