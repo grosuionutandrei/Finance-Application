@@ -39414,13 +39414,8 @@
     },
     {
       "userId": 3,
-      "item": "TSLA",
-      "id": 13
-    },
-    {
-      "userId": 3,
-      "item": "ELON-USD",
-      "id": 14
+      "item": "BINANCE:BTCUSDT",
+      "id": 15
     }
   ]
 }

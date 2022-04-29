@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
 import { deleteFromTrackedList } from '../../stockComponents/Helpers';
@@ -41,7 +42,10 @@ export function TrackedStocksDetails({
     } else {
       renderDetails.push(
         <article key={stocks[i]} className={styles.trending_details}>
-          <p title={`Stock Symbol`}>{stocks[i]}</p>
+          <Link to={`/trackedItems/${stocks[i].id}=${stocks[i].item}`}>
+            <p title={`Stock Symbol`}>{stocks[i].item}</p>
+          </Link>
+
           <p title={`Open ${data[i]?.o}`}>
             O:
             <span className="bg-violet-600">{data[i]?.o.toFixed(2)}</span>

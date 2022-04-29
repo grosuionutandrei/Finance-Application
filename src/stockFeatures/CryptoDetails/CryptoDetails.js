@@ -22,7 +22,6 @@ export function CryptoDetails({ keye, Id }) {
 
   return (
     <div className={style.details_main_container}>
-      {/* <CurrentValue title={keye} /> */}
       <Title title={keye} />
       <Remove title={keye} Id={Id} />
       <ChangeDateForm title={keye} retrieveCryptoData={getCryptoCandleData} />

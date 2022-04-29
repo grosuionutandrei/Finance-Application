@@ -23,7 +23,7 @@ export function Details() {
         </>
       )}
 
-      {!paramsType.current && <StockDetails keye={symbol()} />}
+      {!paramsType.current && <StockDetails keye={symbol()} Id={cryptoId()} />}
     </>
   );
 }

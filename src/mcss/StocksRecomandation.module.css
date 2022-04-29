@@ -1,0 +1,66 @@
+.highChart_levels__container {
+  list-style: none;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.highChart_levels__level {
+  height: 28px;
+  width: auto;
+}
+.highChart_levels__level > span {
+  display: inline-block;
+  width: 30px;
+}
+
+.highChart_levels__level > p {
+  display: inline-block;
+  width: 250px;
+  border-bottom: 2px solid gray;
+  box-shadow: 1px 1px 2px gray;
+}
+
+/* values style */
+.highChart_values {
+  position: absolute;
+  left: 40px;
+  bottom: -122px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+.highChart_values__container {
+  list-style: none;
+  display: flex;
+  width: 40px;
+  margin-left: 10px;
+  height: fit-content;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.highChart_values__hold {
+  background-color: #de8e21;
+  border: 1px solid #000;
+}
+.highChart_values__buy {
+  background-color: #5cd664;
+  border: 1px solid black;
+  text-align: center;
+}
+.highChart_values__strongBuy {
+  background-color: #33cc3d;
+  border: 1px solid black;
+}
+.highChart_values__sell {
+  background-color: #e74e4b;
+  border: 1px solid black;
+}
+.highChart_values__strongSell {
+  background-color: #e1221e;
+  border: 1px solid black;
+}

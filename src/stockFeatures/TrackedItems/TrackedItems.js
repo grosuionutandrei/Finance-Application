@@ -153,7 +153,7 @@ export function TrackedItems() {
       for (const item of stocks) {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${item}&token=c8p0kuaad3id3q613c3g`
+            `https://finnhub.io/api/v1/quote?symbol=${item.item}&token=c8p0kuaad3id3q613c3g`
           ).then((res) => handleResponse(res));
           stockTempData.push(data);
         } catch (error) {

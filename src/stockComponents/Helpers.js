@@ -64,14 +64,18 @@ export function filterStocks(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
-  const items = toFilter.map((elem) => elem.item);
-
+  const items = [...toFilter];
+  console.log(conditional);
   const stocks = [];
-  for (const item of items) {
-    if (conditional.includes(item)) {
-      continue;
+
+  for (let i = 0; i < conditional.length; i++) {
+    for (let j = 0; j < items.length; j++) {
+      if (conditional[i].item.includes(items[j].item)) {
+        console.log(items[j].item);
+        continue;
+      }
+      stocks.push(items[j]);
     }
-    stocks.push(item);
   }
   return stocks;
 }
