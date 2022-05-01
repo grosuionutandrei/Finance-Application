@@ -144,3 +144,54 @@ export async function saveTrackedItemsAtLogout(user, token, trackedItems) {
     },
   });
 }
+
+// data attribute is lower case, object props are camelCase, txis will fix the issue by transforming them into camelCase
+function fixAttributeValue(val) {
+  let temp;
+
+  switch (val) {
+    case 'strongsell':
+      temp = 'strongSell';
+      break;
+    case 'strongbuy':
+      temp = 'strongBuy';
+      break;
+    default:
+      temp = val;
+      break;
+  }
+  return temp;
+}
+
+export const getDataAttributeValue = (data) => {
+  let val;
+  const dataKeys = ['hold', 'buy', 'sell', 'strongsell', 'strongbuy'];
+  dataKeys.forEach((item) => {
+    if (data[item]) {
+      val = data[item];
+    }
+  });
+  val = fixAttributeValue(val);
+  console.log(val);
+  return val;
+};
+
+const maximum = (data) => {
+  return Math.max(...data);
+};
+
+const doSum = (data) => {
+  return data.reduce((item, sum) => (sum += item), 0);
+};
+
+export const findMax = (data) => {
+  let maximumNumbers = [];
+
+  data.forEach((item) => {
+    const values = Object.values(item);
+    const numbers = values.filter((item) => typeof item === 'number');
+    maximumNumbers.push(doSum(numbers));
+  });
+
+  return maximum(maximumNumbers);
+};

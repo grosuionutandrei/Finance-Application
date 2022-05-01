@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import style from '../../mcss/StocksRecomandation.module.css';
+import {
+  findMax,
+  getDataAttributeValue,
+  finApiKey,
+} from '../../stockComponents/Helpers';
+import { Tooltip } from './Tooltip';
+import { LoadingCrypto } from '../../stockFeatures/CryptoDetails/LoadingCrypto';
+export const StocksRecomandation = ({ title }) => {
+  const initialStyle = {
+    hold: 'highChart_values__hold',
+    buy: 'highChart_values__buy',
+    sell: 'highChart_values__sell',
+    strongBuy: 'highChart_values__strongBuy',
+    strongSell: 'highChart_values__strongSell',
+  };
 
-export const StocksRecomandation = () => {
+  const [styles, setStyles] = useState({
+    hold: 'highChart_values__hold',
+    buy: 'highChart_values__buy',
+    sell: 'highChart_values__sell',
+    strongBuy: 'highChart_values__strongBuy',
+    strongSell: 'highChart_values__strongSell',
+  });
+  const [tooltipData, setTooltipData] = useState({
+    value: '',
+    date: '',
+    recomandation: '',
+  });
+  const [showToolTip, setShowToolTip] = useState('tooltip_none');
+
   // data from server for sell
+  const [dataServer, setDataServer] = useState('');
   const data = [
     {
       sell: 0,
       strongSell: 2,
       buy: 8,
       strongBuy: 0,
-      hold: 2,
+      hold: 1,
+      date: '2021-2-2',
     },
     {
       sell: 3,
@@ -25,10 +55,100 @@ export const StocksRecomandation = () => {
       strongBuy: 0,
       hold: 1,
     },
+    {
+      sell: 5,
+      strongSell: 6,
+      buy: 0,
+      strongBuy: 0,
+      hold: 1,
+    },
+    {
+      sell: 0,
+      strongSell: 6,
+      buy: 0,
+      strongBuy: 0,
+      hold: 0,
+    },
+    {
+      sell: 5,
+      strongSell: 6,
+      buy: 0,
+      strongBuy: 0,
+      hold: 1,
+    },
+    {
+      sell: 5,
+      strongSell: 6,
+      buy: 0,
+      strongBuy: 0,
+      hold: 1,
+    },
+    {
+      sell: 5,
+      strongSell: 6,
+      buy: 0,
+      strongBuy: 0,
+      hold: 1,
+    },
   ];
 
+  // get recomandation data from finhub server
+
+  useEffect(() => {
+    let execute = false;
+
+    async function getData() {
+      const data = await fetch(
+        `https://finnhub.io/api/v1/stock/recommendation?symbol=${title}&token=${finApiKey}`
+      ).then((res) => res.json());
+
+      console.log(data);
+      setDataServer(data);
+    }
+
+    if (!execute) {
+      getData();
+    }
+
+    return () => {
+      execute = true;
+    };
+  }, [title]);
+
+  if (!dataServer) {
+    return <LoadingCrypto title={title} />;
+  }
+
+  //   change style on hover
+  const changeStyle = (event) => {
+    const val = event.target.dataset;
+    const temp = { ...styles };
+    const id = event.target.value;
+    const value = getDataAttributeValue(val);
+    setTooltipData({
+      ...tooltipData,
+      value: dataServer[id][value],
+      date: dataServer[id].period,
+      recomandation: value,
+    });
+
+    for (const item in temp) {
+      if (item !== getDataAttributeValue(val)) {
+        temp[item] = 'blur';
+      }
+    }
+    setStyles(temp);
+    setShowToolTip('tooltip_container');
+  };
+
+  //   reverse style on mouse leave
+  const reverseStyle = (event) => {
+    setStyles(initialStyle);
+    setShowToolTip('tooltip_none');
+  };
+
   // put maximum , from data received;
-  const maxVote = 12;
+  const maxVote = findMax(dataServer);
   // show onlly even ones;
   const arr = [];
   const legend = (max) => {
@@ -43,64 +163,92 @@ export const StocksRecomandation = () => {
   };
 
   legend(maxVote);
-  console.log(arr);
-  //   if (arr.length === 0) {
 
-  //     return <p>alddewlnf</p>;
-  //   }
+  // width of the background
+
+  const WIDTH_PARAGRAF = Math.round(52 * dataServer.length);
+  const WIDTH_PIXELS = Math.round(WIDTH_PARAGRAF / dataServer.length / 2);
   const renderParagrfs = () => {
     return arr.map((item) => (
       <li key={item} className={style.highChart_levels__level}>
         <span>{item}</span>
-        <p></p>
+        <p style={{ width: WIDTH_PARAGRAF }}></p>
       </li>
     ));
   };
 
   const renderVotes = () => {
-    return data.map((item) => (
-      <ul className={style.highChart_values__container}>
+    return dataServer.reverse().map((item, index) => (
+      <ul
+        id={index}
+        key={index}
+        className={style.highChart_values__container}
+        style={{ width: `${WIDTH_PIXELS}px` }}
+        onMouseOver={changeStyle}
+        onMouseOut={reverseStyle}
+      >
         {item.hold > 0 && (
           <li
-            style={{ height: `${item.hold * 14}px` }}
-            className={style.highChart_values__hold}
+            data-hold="hold"
+            value={index}
+            style={{
+              height: `${item.hold * 7}px`,
+              width: `${WIDTH_PIXELS}px`,
+            }}
+            className={style[styles.hold]}
           >
-            <p
-              style={{ textAlign: 'center', lineHeight: `${item.hold * 14}px` }}
-            >
-              {item.hold}
-            </p>
+            {item.hold}
           </li>
         )}
 
         {item.buy > 0 && (
           <li
-            style={{ height: `${item.buy * 14}px` }}
-            className={style.highChart_values__buy}
+            data-buy="buy"
+            value={index}
+            style={{
+              height: `${item.buy * 7}px`,
+              width: `${WIDTH_PIXELS}px`,
+            }}
+            className={style[styles.buy]}
           >
             {item.buy}
           </li>
         )}
         {item.strongBuy > 0 && (
           <li
-            style={{ height: `${item.strongBuy * 14}px` }}
-            className={style.highChart_values__strongBuy}
+            data-strongbuy="strongBuy"
+            value={index}
+            style={{
+              height: `${item.strongBuy * 7}px`,
+              width: `${WIDTH_PIXELS}px`,
+            }}
+            className={style[styles.strongBuy]}
           >
             {item.strongBuy}
           </li>
         )}
         {item.sell > 0 && (
           <li
-            style={{ height: `${item.sell * 14}px` }}
-            className={style.highChart_values__sell}
+            data-sell="sell"
+            value={index}
+            style={{
+              height: `${item.sell * 7}px`,
+              width: `${WIDTH_PIXELS}px`,
+            }}
+            className={style[styles.sell]}
           >
             {item.sell}
           </li>
         )}
-        {item.strongSell && (
+        {item.strongSell > 0 && (
           <li
-            style={{ height: `${item.strongSell * 14}px` }}
-            className={style.highChart_values__strongSell}
+            data-strongsell="strongSell"
+            value={index}
+            style={{
+              height: `${item.strongSell * 7}px`,
+              width: `${WIDTH_PIXELS}px`,
+            }}
+            className={style[styles.strongSell]}
           >
             {item.strongSell}
           </li>
@@ -112,6 +260,13 @@ export const StocksRecomandation = () => {
   return (
     <div style={{ position: 'relative' }}>
       <ol className={style.highChart_levels__container}>{renderParagrfs()}</ol>
+      <Tooltip
+        type={showToolTip}
+        recomandation={tooltipData.recomandation}
+        title={title}
+        value={tooltipData.value}
+        date={tooltipData.date}
+      />
       <div className={style.highChart_values} style={{ height: '300px' }}>
         {renderVotes()}
       </div>

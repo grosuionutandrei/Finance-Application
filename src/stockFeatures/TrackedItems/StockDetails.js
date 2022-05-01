@@ -41,7 +41,7 @@ export function TrackedStocksDetails({
       continue;
     } else {
       renderDetails.push(
-        <article key={stocks[i]} className={styles.trending_details}>
+        <article key={stocks[i].id} className={styles.trending_details}>
           <Link to={`/trackedItems/${stocks[i].id}=${stocks[i].item}`}>
             <p title={`Stock Symbol`}>{stocks[i].item}</p>
           </Link>

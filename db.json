@@ -39414,6 +39414,11 @@
     },
     {
       "userId": 3,
+      "item": "AAPL",
+      "id": 14
+    },
+    {
+      "userId": 3,
       "item": "BINANCE:BTCUSDT",
       "id": 15
     }

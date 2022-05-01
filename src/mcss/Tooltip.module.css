@@ -1,0 +1,24 @@
+.tooltip_container {
+  width: 7rem;
+  height: 5rem;
+  position: absolute;
+  top: -70px;
+  left: 100px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #dbe4eeff;
+  border: 1px solid #054a91ff;
+  color: orange;
+  border-radius: 14%;
+  /* border: 1px solid #054a91ff; */
+}
+
+.tooltip_none {
+  display: none;
+}

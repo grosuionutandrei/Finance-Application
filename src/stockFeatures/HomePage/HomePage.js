@@ -3,7 +3,7 @@ import { Autocomplete } from './Autocomplete';
 import styles from '../../mcss/Autocomplete.module.css';
 import { StocksDetails } from './Stocksdetails';
 import { Trending } from '../TrendingStocks/TrendingStocks';
-
+import { finApiKey } from '../../stockComponents/Helpers';
 export function HomePage() {
   const [query, setQuery] = useState('');
   const [regions, setRegions] = useState(null);
@@ -47,7 +47,7 @@ export function HomePage() {
       async function getAutoCompleteData() {
         try {
           const sugestions = await fetch(
-            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=c9i5r6qad3i9bpe27lm0`
+            `https://finnhub.io/api/v1/search?q=${e.target.value.toUpperCase()}&token=${finApiKey}`
           ).then((res) => handleResponse(res));
 
           if (sugestions.count === 0) {
@@ -90,7 +90,7 @@ export function HomePage() {
   async function getSearchedData() {
     try {
       const data = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${query}&token=c9i5r6qad3i9bpe27lm0`
+        `https://finnhub.io/api/v1/quote?symbol=${query}&token=${finApiKey}`
       ).then((res) => handleResponse(res));
       if (data.d === null) {
         setErrors({ ...errors, noDetails: 'No data for your search.' });

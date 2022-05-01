@@ -7,7 +7,7 @@ export function StockDetails({ keye, Id }) {
     <>
       <p>stocks</p>
       <StocksCurrent keye={keye} Id={Id} />
-      <StocksRecomandation />
+      <StocksRecomandation title={keye} />
     </>
   );
 }

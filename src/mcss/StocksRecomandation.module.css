@@ -7,7 +7,7 @@
 }
 
 .highChart_levels__level {
-  height: 28px;
+  height: 14px;
   width: auto;
 }
 .highChart_levels__level > span {
@@ -25,42 +25,69 @@
 /* values style */
 .highChart_values {
   position: absolute;
-  left: 40px;
-  bottom: -122px;
+  left: 14px;
+  width: 250px;
+  bottom: -4px;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   justify-content: space-evenly;
   align-items: stretch;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: small;
+  transform: rotate(180deg);
 }
 .highChart_values__container {
   list-style: none;
   display: flex;
-  width: 40px;
-  margin-left: 10px;
   height: fit-content;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  transform: rotate(180deg);
 }
 
 .highChart_values__hold {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
   background-color: #de8e21;
-  border: 1px solid #000;
 }
 .highChart_values__buy {
   background-color: #5cd664;
-  border: 1px solid black;
-  text-align: center;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
 }
 .highChart_values__strongBuy {
   background-color: #33cc3d;
-  border: 1px solid black;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
 }
 .highChart_values__sell {
   background-color: #e74e4b;
-  border: 1px solid black;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
 }
 .highChart_values__strongSell {
   background-color: #e1221e;
-  border: 1px solid black;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+.blur {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #81a4cdff;
+  opacity: 0.5;
+  /* color: #f17300ff; */
 }
