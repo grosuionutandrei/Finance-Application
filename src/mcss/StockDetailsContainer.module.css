@@ -1,0 +1,27 @@
+.stock_details__container {
+  display: grid;
+  grid-template-areas:
+    'current'
+    'form'
+    'candle'
+    'recomandation'
+    'remove';
+}
+.stock_details__current {
+  grid-area: current;
+}
+
+.stock_details__form {
+  grid-area: form;
+}
+
+.stock_details__candle {
+  grid-area: candle;
+}
+
+.stock_details__recomandation {
+  grid-area: recomandation;
+}
+.stock_details__remove {
+  grid-area: remove;
+}

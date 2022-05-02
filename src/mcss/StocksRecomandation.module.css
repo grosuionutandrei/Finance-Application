@@ -7,7 +7,7 @@
 }
 
 .highChart_levels__level {
-  height: 14px;
+  height: 28px;
   width: auto;
 }
 .highChart_levels__level > span {
@@ -27,7 +27,7 @@
   position: absolute;
   left: 14px;
   width: 250px;
-  bottom: -4px;
+  bottom: -14px;
   display: flex;
   flex-flow: row;
   justify-content: space-evenly;
@@ -90,4 +90,12 @@
   background-color: #81a4cdff;
   opacity: 0.5;
   /* color: #f17300ff; */
+}
+
+.recomandation_date {
+  margin-top: 3px;
+  text-align: center;
+  pointer-events: none;
+  color: #de8e21;
+  z-index: 100;
 }

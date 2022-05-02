@@ -7,6 +7,7 @@ import {
 } from '../../stockComponents/Helpers';
 import { Tooltip } from './Tooltip';
 import { LoadingCrypto } from '../../stockFeatures/CryptoDetails/LoadingCrypto';
+import { RecomandationDate } from '../../stockComponents/RecomandationDate';
 export const StocksRecomandation = ({ title }) => {
   const initialStyle = {
     hold: 'highChart_values__hold',
@@ -32,68 +33,8 @@ export const StocksRecomandation = ({ title }) => {
 
   // data from server for sell
   const [dataServer, setDataServer] = useState('');
-  const data = [
-    {
-      sell: 0,
-      strongSell: 2,
-      buy: 8,
-      strongBuy: 0,
-      hold: 1,
-      date: '2021-2-2',
-    },
-    {
-      sell: 3,
-      strongSell: 2,
-      buy: 0,
-      strongBuy: 0,
-      hold: 7,
-    },
-    {
-      sell: 5,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 1,
-    },
-    {
-      sell: 5,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 1,
-    },
-    {
-      sell: 0,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 0,
-    },
-    {
-      sell: 5,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 1,
-    },
-    {
-      sell: 5,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 1,
-    },
-    {
-      sell: 5,
-      strongSell: 6,
-      buy: 0,
-      strongBuy: 0,
-      hold: 1,
-    },
-  ];
 
   // get recomandation data from finhub server
-
   useEffect(() => {
     let execute = false;
 
@@ -101,8 +42,6 @@ export const StocksRecomandation = ({ title }) => {
       const data = await fetch(
         `https://finnhub.io/api/v1/stock/recommendation?symbol=${title}&token=${finApiKey}`
       ).then((res) => res.json());
-
-      console.log(data);
       setDataServer(data);
     }
 
@@ -124,6 +63,9 @@ export const StocksRecomandation = ({ title }) => {
     const val = event.target.dataset;
     const temp = { ...styles };
     const id = event.target.value;
+    if (id === undefined) {
+      return;
+    }
     const value = getDataAttributeValue(val);
     setTooltipData({
       ...tooltipData,
@@ -156,7 +98,7 @@ export const StocksRecomandation = ({ title }) => {
       arr.push(max);
       return;
     }
-    if (max % 2 === 0) {
+    if (max % 4 === 0) {
       arr.push(max);
     }
     return legend(max - 1);
@@ -253,6 +195,7 @@ export const StocksRecomandation = ({ title }) => {
             {item.strongSell}
           </li>
         )}
+        <RecomandationDate date={item.period} width={WIDTH_PIXELS} />
       </ul>
     ));
   };

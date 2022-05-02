@@ -172,7 +172,6 @@ export const getDataAttributeValue = (data) => {
     }
   });
   val = fixAttributeValue(val);
-  console.log(val);
   return val;
 };
 
