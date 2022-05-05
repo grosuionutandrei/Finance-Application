@@ -29,7 +29,7 @@ export function Trending() {
         const data = await fetch(`https://yfapi.net/v1/finance/trending/US`, {
           signal,
           headers: {
-            'x-api-key': 'z8C7ctfvZY4yf4K9rTOjr9LUpxNElFDa8zKB2Jeo',
+            'x-api-key': 'vLAFjicfsT4MngN5PCz8q41doHVyqyfzFcO45hjd',
           },
         }).then((res) => handleResponse(res));
 
@@ -68,8 +68,8 @@ export function Trending() {
         getTrendDetails(results[0]);
       });
     };
-    // getData();
 
+    // getData();
     return () => {
       abortController.abort();
     };
@@ -197,7 +197,7 @@ export function Trending() {
   return (
     <div className={styles.trending_container}>
       {serverError.serverError && <p>{serverError.serverError}</p>}
-      <h3>Top 15 trending</h3>
+      <h2>Top trending</h2>
       {renderDetails}
     </div>
   );

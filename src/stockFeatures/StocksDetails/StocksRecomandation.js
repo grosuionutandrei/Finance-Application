@@ -8,7 +8,7 @@ import {
 import { Tooltip } from './Tooltip';
 import { LoadingCrypto } from '../../stockFeatures/CryptoDetails/LoadingCrypto';
 import { RecomandationDate } from '../../stockComponents/RecomandationDate';
-export const StocksRecomandation = ({ title }) => {
+export const StocksRecomandation = ({ title, className }) => {
   const initialStyle = {
     hold: 'highChart_values__hold',
     buy: 'highChart_values__buy',
@@ -201,7 +201,7 @@ export const StocksRecomandation = ({ title }) => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative' }} className={className}>
       <ol className={style.highChart_levels__container}>{renderParagrfs()}</ol>
       <Tooltip
         type={showToolTip}

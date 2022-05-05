@@ -5,7 +5,7 @@ import { LoadingCrypto } from './LoadingCrypto';
 import { ChartDetails } from '../TrackedItems/ChartDetails';
 import { BarChart } from '../Crypto/CryptoDetails';
 
-export const CryptoGraph = ({ title, cryptoData }) => {
+export const CryptoGraph = ({ title, cryptoData, viewStyle }) => {
   const [cryptoGraphData, setCryptoGraphData] = useState(null);
   const [currentDayData, setCurrentDayData] = useState([]);
   const [colorBar, setColorBar] = useState('');
@@ -44,21 +44,22 @@ export const CryptoGraph = ({ title, cryptoData }) => {
 
   if (!cryptoData) {
     return (
-      <div className={style.crypto_graph}>
+      <div className={style[viewStyle]}>
         <LoadingCrypto title={title} />
       </div>
     );
   }
+
   if (cryptoData.c.length > 1) {
     return (
-      <div className={style.crypto_graph}>
+      <div className={style[viewStyle]}>
         <ChartDetails data={cryptoGraphData} />
       </div>
     );
   }
 
   return (
-    <div className={style.crypto_graph}>
+    <div className={style[viewStyle]}>
       <BarChart data={currentDayData} color={colorBar} />
     </div>
   );

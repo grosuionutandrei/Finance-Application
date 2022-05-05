@@ -194,3 +194,11 @@ export const findMax = (data) => {
 
   return maximum(maximumNumbers);
 };
+
+export const checkForValidData = (data) => {
+  if (data === null) {
+    return false;
+  }
+  console.log(data.s === 'no_data');
+  return data.s === 'no_data';
+};

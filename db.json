@@ -39421,6 +39421,16 @@
       "userId": 3,
       "item": "BINANCE:BTCUSDT",
       "id": 15
+    },
+    {
+      "userId": 3,
+      "item": "CHGG",
+      "id": 16
+    },
+    {
+      "userId": 3,
+      "item": "ABNB",
+      "id": 17
     }
   ]
 }

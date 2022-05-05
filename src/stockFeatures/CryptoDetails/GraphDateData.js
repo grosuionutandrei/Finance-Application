@@ -10,7 +10,7 @@ import {
 import { handleResponse } from '../HomePage/HomePage';
 import { finApiKey } from '../../stockComponents/Helpers';
 
-export function ChangeDateForm({ title, retrieveCryptoData }) {
+export function ChangeDateForm({ title, retrieveCryptoData, retrieveError }) {
   const initialTimeFrame = 'D';
   const [form, setForm] = useState({
     startDate: '',
@@ -30,6 +30,10 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
   const [showForm, setShowForm] = useState(false);
   // if the page is closed
   const abortFetch = new AbortController();
+
+  const setServerError = (serverError, noData) => {
+    retrieveError(serverError, noData);
+  };
 
   // data for the graph from the server
   const retrievedData = (data) => {
@@ -60,6 +64,15 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
           )}&token=${finApiKey}`,
           { signal }
         ).then((res) => handleResponse(res, getData.current));
+        if (data.s === 'no_data') {
+          setServerError('', 'No data for selected period try another');
+          setForm({
+            startDate: '',
+            endDate: '',
+            timeFrame: initialTimeFrame,
+          });
+          return;
+        }
         retrievedData(data);
         setForm({
           ...form,
@@ -69,6 +82,7 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
         });
       } catch (error) {
         console.log(error);
+        setServerError('A server error has occured try again later', '');
       }
     }
     if (getData) {
@@ -148,6 +162,7 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
 
   const enableForm = () => {
     setShowForm(true);
+    setServerError('', '');
   };
   const disableForm = () => {
     setShowForm(false);
@@ -161,6 +176,7 @@ export function ChangeDateForm({ title, retrieveCryptoData }) {
       endDate: '',
       timeFrame: '',
     });
+    setServerError('', '');
   };
 
   return (

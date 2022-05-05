@@ -3,6 +3,7 @@
   grid-template-areas:
     'current'
     'form'
+    'error'
     'candle'
     'recomandation'
     'remove';
@@ -14,9 +15,18 @@
 .stock_details__form {
   grid-area: form;
 }
+.stock_details__error {
+  grid-area: error;
+}
 
 .stock_details__candle {
   grid-area: candle;
+  height: 50vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbe4eeff;
 }
 
 .stock_details__recomandation {

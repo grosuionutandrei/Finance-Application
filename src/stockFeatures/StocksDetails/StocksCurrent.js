@@ -42,7 +42,7 @@ export const StocksCurrent = ({ keye, Id }) => {
   return (
     <div>
       {error.serverError && <Error error={error.serverError} />}
-      <StockDetailsView data={stockData} />
+      <StockDetailsView data={stockData} title={keye} />
     </div>
   );
 };

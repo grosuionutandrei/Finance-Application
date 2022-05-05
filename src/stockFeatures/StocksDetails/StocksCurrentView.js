@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../mcss/Details.module.css';
 import { LoadingCrypto } from '../CryptoDetails/LoadingCrypto';
-export const StockDetailsView = ({ data }) => {
+export const StockDetailsView = ({ data, title }) => {
   if (!data) {
     return <LoadingCrypto title={data} />;
   }
@@ -10,6 +10,7 @@ export const StockDetailsView = ({ data }) => {
   let colorPercent = data.d > 0 ? 'bg-lime-500' : 'bg-red-500';
   return (
     <article className={styles.trending_details}>
+      <p>{title}</p>
       <p title={`Open ${data?.o}`}>
         O:
         <span className="bg-violet-600">{data?.o.toFixed(2)}</span>
