@@ -39378,59 +39378,19 @@
   "trackedItems": [],
   "trackedList": [
     {
-      "userId": 4,
-      "item": "MSFT",
-      "id": 3
-    },
-    {
-      "userId": 4,
-      "item": "ADP",
-      "id": 4
-    },
-    {
-      "userId": 4,
-      "item": "HPQ",
-      "id": 5
-    },
-    {
-      "userId": 4,
-      "item": "COST",
-      "id": 9
-    },
-    {
-      "userId": 4,
-      "item": "MNTS",
-      "id": 10
-    },
-    {
-      "userId": 4,
-      "item": "BINANCE:BTCUSDP",
-      "id": 11
+      "userId": 3,
+      "item": "BINANCE:BTCUSDT",
+      "id": 2
     },
     {
       "userId": 3,
-      "item": "MSFT",
-      "id": 12
+      "item": "BINANCE:ETHUSDT",
+      "id": 3
     },
     {
       "userId": 3,
       "item": "AAPL",
-      "id": 14
-    },
-    {
-      "userId": 3,
-      "item": "BINANCE:BTCUSDT",
-      "id": 15
-    },
-    {
-      "userId": 3,
-      "item": "CHGG",
-      "id": 16
-    },
-    {
-      "userId": 3,
-      "item": "ABNB",
-      "id": 17
+      "id": 4
     }
   ]
 }

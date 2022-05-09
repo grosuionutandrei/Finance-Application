@@ -3,6 +3,7 @@ import { finApiKey } from '../../stockComponents/Helpers';
 import { handleResponse } from '../HomePage/HomePage';
 import { StockDetailsView } from './StocksCurrentView';
 import { Error } from '../../stockComponents/Error';
+import style from '../../mcss/StockDetailsContainer.module.css';
 export const StocksCurrent = ({ keye, Id }) => {
   const [stockData, setStockData] = useState(null);
   const [error, setError] = useState({
@@ -40,7 +41,7 @@ export const StocksCurrent = ({ keye, Id }) => {
   }, [keye]);
 
   return (
-    <div>
+    <div className={style.stock_details__current}>
       {error.serverError && <Error error={error.serverError} />}
       <StockDetailsView data={stockData} title={keye} />
     </div>

@@ -16,6 +16,18 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.tracked_items_crypto__link {
+  border-radius: 10%;
+  border: 1px solid #81a4cdff;
+  background-color: #81a4cdff;
+  padding: 5px 5px;
+  color: #f17300ff;
+  font-family: sans-serif;
+}
+.tracked_items_crypto__link:hover {
+  background-color: #054a91ff;
+}
 [data-button='removeFromTrackList'] {
   cursor: pointer;
   background: #b9465b;

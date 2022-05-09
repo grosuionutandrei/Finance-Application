@@ -30,11 +30,12 @@ export function CryptoDetails({ keye, Id }) {
   return (
     <div className={style.details_main_container}>
       <Title title={keye} />
-      <Remove title={keye} Id={Id} />
+      <Remove title={keye} Id={Id} viewStyle={'remove'} />
       <ChangeDateForm
         title={keye}
         retrieveCryptoData={getCryptoCandleData}
         retrieveError={retrieveError}
+        viewName={'graph_date'}
       />
       <InitialCrypto
         cryptoData={setCryptoData}
@@ -62,7 +63,7 @@ export function CryptoDetails({ keye, Id }) {
           viewStyle={'crypto_graph'}
         />
       )}
-      <CryptoInfo data={cryptoData} />
+      <CryptoInfo data={cryptoData} viewStyle={'crypto_info'} />
     </div>
   );
 }

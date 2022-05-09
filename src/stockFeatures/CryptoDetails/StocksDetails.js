@@ -5,6 +5,9 @@ import style from '../../mcss/StockDetailsContainer.module.css';
 import { ChangeDateForm } from './GraphDateData';
 import { CryptoGraph } from './CryptoGraph';
 import { Error } from '../../stockComponents/Error';
+import { InitialCrypto } from './InitialCryptoData';
+import { CryptoInfo } from './CryptoInfo';
+import { Remove } from './Remove';
 export function StockDetails({ keye, Id }) {
   const [stocksData, setStocksData] = useState('');
   const [error, setError] = useState({
@@ -27,11 +30,7 @@ export function StockDetails({ keye, Id }) {
 
   return (
     <article className={style.stock_details__container}>
-      <StocksCurrent
-        keye={keye}
-        Id={Id}
-        className={style.stock_details__current}
-      />
+      <StocksCurrent keye={keye} Id={Id} />
       <StocksRecomandation
         title={keye}
         className={style.stock_details__recomandation}
@@ -40,28 +39,39 @@ export function StockDetails({ keye, Id }) {
         title={keye}
         retrieveCryptoData={getStocksCandleData}
         retrieveError={retrieveError}
+        viewName={'stock_details__form'}
+      />
+      <InitialCrypto
+        cryptoData={setStocksData}
+        setError={retrieveError}
+        title={keye}
       />
       {error.serverError && (
         <Error
           error={error.serverError}
           style={errorStyle}
-          className={style.error}
+          className={style.stock_details__error}
         />
       )}
       {error.noData && (
         <Error
           error={error.noData}
           style={errorStyle}
-          className={style.error}
+          className={style.stock_details__error}
         />
       )}
       {(!error.serverError || !error.noData) && (
-        <CryptoGraph
-          title={keye}
-          cryptoData={stocksData}
-          viewStyle={'stock_details__candle'}
-        />
+        <>
+          <CryptoGraph
+            title={keye}
+            cryptoData={stocksData}
+            viewStyle={'stock_details__candle'}
+          />
+
+          <CryptoInfo data={stocksData} viewStyle={'stock_details__info'} />
+        </>
       )}
+      <Remove title={keye} Id={Id} viewStyle={'stock_details__remove'} />
     </article>
   );
 }

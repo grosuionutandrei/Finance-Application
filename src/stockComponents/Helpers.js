@@ -64,20 +64,19 @@ export function filterStocks(conditional, toFilter) {
   if (!toFilter) {
     return null;
   }
+  if (conditional.length === 0) {
+    return toFilter;
+  }
   const items = [...toFilter];
-  console.log(conditional);
-  const stocks = [];
 
   for (let i = 0; i < conditional.length; i++) {
     for (let j = 0; j < items.length; j++) {
       if (conditional[i].item.includes(items[j].item)) {
-        console.log(items[j].item);
-        continue;
+        items.splice(j, 1);
       }
-      stocks.push(items[j]);
     }
   }
-  return stocks;
+  return items;
 }
 
 export function getItemsForLocal(data) {
@@ -201,4 +200,13 @@ export const checkForValidData = (data) => {
   }
   console.log(data.s === 'no_data');
   return data.s === 'no_data';
+};
+export const currentStyle = (style, style1, className) => {
+  let actual;
+  if (style[className] === undefined) {
+    actual = style1;
+  } else {
+    actual = style;
+  }
+  return actual;
 };

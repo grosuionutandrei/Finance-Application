@@ -1,35 +1,36 @@
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../../features/Auth/Auth.context';
+import style from '../../mcss/TrackingData.module.css';
+// import { useAuthContext } from '../../features/Auth/Auth.context';
 import styles from '../../mcss/Details.module.css';
-import { deleteFromTrackedList } from '../../stockComponents/Helpers';
+// import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 export function TrackedStocksDetails({
   data,
   stocks,
-  setDeleteItem,
+  // setDeleteItem,
   trackedItems,
   setTrackedItems,
 }) {
-  const { user, token, setJwtError, logout } = useAuthContext();
+  // const { user, token, setJwtError, logout } = useAuthContext();
 
-  async function removeItem(e) {
-    const response = window.confirm(
-      `Are you sure that you want to delete ${e.target.value}`
-    );
-    if (response) {
-      deleteFromTrackedList(
-        e.target.value,
-        trackedItems,
-        user,
-        token,
-        logout,
-        setJwtError
-      );
-      setTrackedItems(
-        trackedItems.filter((elem) => elem.item !== e.target.value)
-      );
-      setDeleteItem(true);
-    }
-  }
+  // async function removeItem(e) {
+  //   const response = window.confirm(
+  //     `Are you sure that you want to delete ${e.target.value}`
+  //   );
+  //   if (response) {
+  //     deleteFromTrackedList(
+  //       e.target.value,
+  //       trackedItems,
+  //       user,
+  //       token,
+  //       logout,
+  //       setJwtError
+  //     );
+  //     setTrackedItems(
+  //       trackedItems.filter((elem) => elem.item !== e.target.value)
+  //     );
+  //     setDeleteItem(true);
+  //   }
+  // }
 
   const renderDetails = [];
   for (let i = 0; i < data.length; i++) {
@@ -42,20 +43,20 @@ export function TrackedStocksDetails({
     } else {
       renderDetails.push(
         <article key={stocks[i].id} className={styles.trending_details}>
-          <Link to={`/trackedItems/${stocks[i].id}=${stocks[i].item}`}>
+          <Link
+            to={`/trackedItems/${stocks[i].id}=${stocks[i].item}`}
+            className={style.tracked_items_crypto__link}
+          >
             <p title={`Stock Symbol`}>{stocks[i].item}</p>
           </Link>
-
           <p title={`Open ${data[i]?.o}`}>
             O:
             <span className="bg-violet-600">{data[i]?.o.toFixed(2)}</span>
           </p>
-
           <p title={`Change ${data[i]?.d}`}>
             C:
             <span className={colorCurrent}>{data[i]?.d.toFixed(2)}</span>
           </p>
-
           <p title={`Percent Price ${data[i]?.dp}`}>
             PC:
             <span className={colorPercent}>{data[i]?.dp.toFixed(2)}</span>
@@ -77,14 +78,6 @@ export function TrackedStocksDetails({
             HP:
             <span className="bg-lime-500">{data[i].h.toFixed(2)}</span>
           </p>
-
-          <button
-            data-button="removeFromTrackList"
-            onClick={removeItem}
-            value={stocks[i]}
-          >
-            Remove
-          </button>
         </article>
       );
     }

@@ -1,10 +1,13 @@
 import style from '../../mcss/CryptoDetails.module.css';
+import style1 from '../../mcss/StockDetailsContainer.module.css';
 import { Loading } from '../../stockComponents/Loading';
+import { currentStyle } from '../../stockComponents/Helpers';
 
-export const CryptoInfo = ({ data }) => {
+export const CryptoInfo = ({ data, viewStyle }) => {
+  let actualStyle = currentStyle(style, style1, viewStyle);
   if (!data) {
     return (
-      <div className={style.crypto_info}>
+      <div className={actualStyle[viewStyle]}>
         <Loading />
       </div>
     );
@@ -13,7 +16,7 @@ export const CryptoInfo = ({ data }) => {
   let maximum = Math.max(...data.h);
   let minimum = Math.min(...data.l);
   return (
-    <div className={style.crypto_info}>
+    <div className={actualStyle[viewStyle]}>
       <p>{`Average ${average}`}</p>
       <p>{`Maximum ${maximum}`}</p>
       <p>{`Minimum ${minimum}`}</p>

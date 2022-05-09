@@ -12,7 +12,7 @@ import {
 import style from '../../mcss/TrackingData.module.css';
 import { ChartDetails } from './ChartDetails';
 import { TrackedStocksDetails } from '../TrackedItems/StockDetails';
-import { deleteFromTrackedList } from '../../stockComponents/Helpers';
+// import { deleteFromTrackedList } from '../../stockComponents/Helpers';
 import { Link } from 'react-router-dom';
 export function TrackedItems() {
   const { user, token, logout, setJwtError } = useAuthContext();
@@ -43,16 +43,13 @@ export function TrackedItems() {
   const fromDate = lastYearEpoch();
   const toDate = thisYearEpoch();
   const [fetchError, setFetchError] = useState('');
-  const [deleteItem, setDeleteItem] = useState(false);
+  // const [deleteItem, setDeleteItem] = useState(false);
   const [trackedItems, setTrackedItems] = useState(null);
   const [serverError, setServerError] = useState({
     serverError: '',
   });
-  const [noTrackedItems, setNoTrackedItems] = useState('jlglugyuvkgtv');
 
   useEffect(() => {
-    console.log(trackedItems);
-    console.log(deleteItem);
     async function getItems() {
       try {
         const data = await fetch(
@@ -74,8 +71,10 @@ export function TrackedItems() {
         });
       }
     }
-    getItems();
-  }, [deleteItem]);
+    if (!trackedItems) {
+      getItems();
+    }
+  }, [trackedItems]);
 
   useEffect(() => {
     setFetchError('');
@@ -84,10 +83,10 @@ export function TrackedItems() {
       const stocks = filterStocks(crypto, trackedItems);
       setStocks(stocks);
       setCrypto(crypto);
-      setDeleteItem(false);
-      setNoTrackedItems('');
+      // setDeleteItem(false);
+      // setNoTrackedItems('');
     }
-  }, [trackedItems, deleteItem]);
+  }, [trackedItems]);
 
   useEffect(() => {
     if (!crypto) {
@@ -176,40 +175,36 @@ export function TrackedItems() {
     return <p>No items in your list !!!</p>;
   }
 
-  async function removeItem(e) {
-    const response = window.confirm(
-      `Are you sure that you want to delete ${e.target.value}`
-    );
-    if (response) {
-      let deleted = deleteFromTrackedList(
-        e.target.value,
-        trackedItems,
-        user,
-        token,
-        logout,
-        setJwtError
-      );
-      setTrackedItems(
-        trackedItems.filter((elem) => elem.item !== e.target.value)
-      );
-      setDeleteItem(true);
-    }
-  }
+  // async function removeItem(e) {
+  //   const response = window.confirm(
+  //     `Are you sure that you want to delete ${e.target.value}`
+  //   );
+  //   if (response) {
+  //     let deleted = deleteFromTrackedList(
+  //       e.target.value,
+  //       trackedItems,
+  //       user,
+  //       token,
+  //       logout,
+  //       setJwtError
+  //     );
+  //     setTrackedItems(
+  //       trackedItems.filter((elem) => elem.item !== e.target.value)
+  //     );
+  //     setDeleteItem(true);
+  //   }
+  // }
   function renderCryptoTracked() {
     const renderData = [];
     for (let i = 0; i < crypto.length; i++) {
       renderData.push(
         <article key={crypto[i].id} className={style.track_elem}>
-          <Link to={`/trackedItems/${crypto[i].id}=${crypto[i].item}`}>
+          <Link
+            to={`/trackedItems/${crypto[i].id}=${crypto[i].item}`}
+            className={style.tracked_items_crypto__link}
+          >
             {crypto[i].item}
           </Link>
-          <button
-            data-button="removeFromTrackList"
-            onClick={removeItem}
-            value={crypto[i].item}
-          >
-            Remove
-          </button>
           <ChartDetails data={cryptoDataGraph[i]} />
         </article>
       );
@@ -219,7 +214,6 @@ export function TrackedItems() {
 
   return (
     <>
-      {noTrackedItems && <p>{noTrackedItems}</p>}
       <div className={style.tracked_list}>
         {fetchError && (
           <p className="bg-red-200 text-red-600 bold p-2">{fetchError}</p>
@@ -229,7 +223,7 @@ export function TrackedItems() {
           <TrackedStocksDetails
             data={stockData}
             stocks={stocks}
-            setDeleteItem={(value) => setDeleteItem(value)}
+            // setDeleteItem={(value) => setDeleteItem(value)}
             trackedItems={trackedItems}
             setTrackedItems={(value) => setTrackedItems(value)}
           />

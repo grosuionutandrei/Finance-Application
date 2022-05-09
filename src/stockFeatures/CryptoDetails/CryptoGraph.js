@@ -1,15 +1,17 @@
 import style from '../../mcss/CryptoDetails.module.css';
+import style1 from '../../mcss/StockDetailsContainer.module.css';
 import { convertEpochToDate } from '../../stockComponents/Date';
 import React, { useState, useEffect } from 'react';
 import { LoadingCrypto } from './LoadingCrypto';
 import { ChartDetails } from '../TrackedItems/ChartDetails';
 import { BarChart } from '../Crypto/CryptoDetails';
+import { currentStyle } from '../../stockComponents/Helpers';
 
 export const CryptoGraph = ({ title, cryptoData, viewStyle }) => {
   const [cryptoGraphData, setCryptoGraphData] = useState(null);
   const [currentDayData, setCurrentDayData] = useState([]);
   const [colorBar, setColorBar] = useState('');
-
+  let actualStyle = currentStyle(style, style1, viewStyle);
   useEffect(() => {
     if (cryptoData) {
       if (cryptoData.c.length <= 1) {
@@ -44,7 +46,7 @@ export const CryptoGraph = ({ title, cryptoData, viewStyle }) => {
 
   if (!cryptoData) {
     return (
-      <div className={style[viewStyle]}>
+      <div className={actualStyle[viewStyle]}>
         <LoadingCrypto title={title} />
       </div>
     );
@@ -52,14 +54,14 @@ export const CryptoGraph = ({ title, cryptoData, viewStyle }) => {
 
   if (cryptoData.c.length > 1) {
     return (
-      <div className={style[viewStyle]}>
+      <div className={actualStyle[viewStyle]}>
         <ChartDetails data={cryptoGraphData} />
       </div>
     );
   }
 
   return (
-    <div className={style[viewStyle]}>
+    <div className={actualStyle[viewStyle]}>
       <BarChart data={currentDayData} color={colorBar} />
     </div>
   );

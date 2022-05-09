@@ -24,7 +24,7 @@
 /* values style */
 .highChart_values {
   position: absolute;
-  left: 14px;
+  margin-left: 29px;
   width: 250px;
   bottom: -14px;
   display: flex;

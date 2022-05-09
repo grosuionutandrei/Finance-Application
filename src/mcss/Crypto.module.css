@@ -44,7 +44,16 @@
 .li_elem:hover {
   background-color: #054a91ff;
 }
-
+.hover {
+  overflow: hidden;
+  text-overflow: '';
+}
+.hover:hover {
+  border-radius: 5%;
+  border: 1px solid black;
+  background-color: #054a91ff;
+  cursor: pointer;
+}
 @media only screen and (max-width: 967px) {
   .crypto_container {
     width: 600px;

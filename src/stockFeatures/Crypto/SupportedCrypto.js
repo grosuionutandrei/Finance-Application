@@ -4,6 +4,7 @@ import styles from '../../mcss/Crypto.module.css';
 import { handleResponse } from '../HomePage/HomePage';
 import { Pagination } from '../Crypto/Pagination';
 import { CryptoDetailsSmall } from './CryptoDetails';
+import { BackgroundCoverPage } from '../../stockComponents/Background/BackgroundCoverPage';
 export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   const initialExchange = 'BINANCE';
   const [selOption, setSelOption] = useState({
@@ -24,6 +25,9 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   });
 
   const [candleClass, setCandleClass] = useState('');
+
+  // used to render the dwtails window page
+  const [showDetailsWindow, setShowDetailsWindow] = useState(false);
 
   // get the suported crypto data;
   useEffect(() => {
@@ -48,6 +52,12 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
       abortController.abort();
     };
   }, [selOption]);
+
+  useEffect(() => {
+    if (showDetailsWindow) {
+      document.body.style.overflow = 'hidden';
+    }
+  }, [showDetailsWindow]);
 
   // Aceasta metoda aduce candle data de la server pentru toate elementele din suported crypto ,
   // din cauza limitarii la 60 de requesturi pe secunda trebuie sa renunt la idee,
@@ -87,6 +97,13 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
   if (!crypto || !candleData) {
     return <Loading />;
   }
+  const renderDetails = (e) => {
+    setShowDetailsWindow(true);
+    console.log(e.target.dataset.value);
+  };
+  const closeBackground = (value) => {
+    setShowDetailsWindow(value);
+  };
 
   function handleInputChange(e) {
     setSelOption({ ...selOption, [e.target.name]: e.target.value });
@@ -109,7 +126,14 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
       <div key={elem.description} className={styles.individual_crypto}>
         <p>Description: {elem.description}</p>
         <p>Display symbol: {elem.displaySymbol}</p>
-        <p>Symbol: {elem.symbol}</p>
+        <p
+          onClick={renderDetails}
+          className={styles.hover}
+          title={`${elem.symbol}`}
+          data-value={`${elem.symbol}`}
+        >
+          Symbol: {elem.symbol}
+        </p>
         <div
           className={styles[candleClass]}
           onClick={() => setCandleClass('candleAllScren')}
@@ -150,6 +174,9 @@ export function SupportedCrypto({ exchanges, setAutocompleteData }) {
           paginate={paginate}
         />
       </article>
+      {showDetailsWindow && (
+        <BackgroundCoverPage setShowWindow={closeBackground} />
+      )}
     </>
   );
 }

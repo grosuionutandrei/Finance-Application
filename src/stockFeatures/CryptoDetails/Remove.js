@@ -1,17 +1,20 @@
 import style from '../../mcss/CryptoDetails.module.css';
+import style1 from '../../mcss/StockDetailsContainer.module.css';
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import styles from '../../mcss/SearchFormCrypto.module.css';
 import {
+  currentStyle,
   getLocalStorageItems,
   saveToLocalStorage,
 } from '../../stockComponents/Helpers';
 import { useAuthContext } from '../../features/Auth/Auth.context';
 
-export function Remove({ title, Id }) {
+export function Remove({ title, Id, viewStyle }) {
   const { token, logout, setJwtError } = useAuthContext();
   const navigate = useNavigate();
   const toTrackedList = '/trackedItems';
+  let actualStyle = currentStyle(style, style1, viewStyle);
 
   const removeFromLocal = () => {
     const localStorage = getLocalStorageItems('trackedItems');
@@ -53,7 +56,7 @@ export function Remove({ title, Id }) {
     marginLeft: '0px',
   };
   return (
-    <div className={style.remove}>
+    <div className={actualStyle[viewStyle]}>
       <button
         style={buttonStyle}
         className={styles.button_enabled_right}

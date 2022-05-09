@@ -1,4 +1,5 @@
 import style from '../../mcss/CryptoDetails.module.css';
+import style1 from '../../mcss/StockDetailsContainer.module.css';
 import { timeFrames } from '../../stockComponents/Date';
 import formStyle from '../../mcss/SearchFormCrypto.module.css';
 import { useState, useEffect, useRef } from 'react';
@@ -8,9 +9,14 @@ import {
   isDateEqual,
 } from '../../stockComponents/Date';
 import { handleResponse } from '../HomePage/HomePage';
-import { finApiKey } from '../../stockComponents/Helpers';
+import { currentStyle, finApiKey } from '../../stockComponents/Helpers';
 
-export function ChangeDateForm({ title, retrieveCryptoData, retrieveError }) {
+export function ChangeDateForm({
+  title,
+  retrieveCryptoData,
+  retrieveError,
+  viewName,
+}) {
   const initialTimeFrame = 'D';
   const [form, setForm] = useState({
     startDate: '',
@@ -30,6 +36,9 @@ export function ChangeDateForm({ title, retrieveCryptoData, retrieveError }) {
   const [showForm, setShowForm] = useState(false);
   // if the page is closed
   const abortFetch = new AbortController();
+
+  // select style depending on data type(crypto, stocks)
+  let actual = currentStyle(style, style1, viewName);
 
   const setServerError = (serverError, noData) => {
     retrieveError(serverError, noData);
@@ -180,7 +189,7 @@ export function ChangeDateForm({ title, retrieveCryptoData, retrieveError }) {
   };
 
   return (
-    <div className={style.graph_date}>
+    <div className={actual[viewName]}>
       {!showForm && (
         <div className={style.details_show__form}>
           <button

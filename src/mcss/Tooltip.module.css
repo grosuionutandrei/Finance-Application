@@ -3,7 +3,7 @@
   height: 5rem;
   position: absolute;
   top: -70px;
-  left: 100px;
+  margin-left: 50px;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
