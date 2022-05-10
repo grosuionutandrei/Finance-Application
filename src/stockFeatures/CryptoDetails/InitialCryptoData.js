@@ -4,12 +4,15 @@ import { lastYearEpoch, thisYearEpoch } from '../../stockComponents/Date';
 import { handleResponse } from '../HomePage/HomePage';
 
 // used to retrieve initial data from the server, monthly for the previous year
-export const InitialCrypto = ({ cryptoData, setError, title }) => {
+export const InitialCrypto = ({ cryptoData, retrieveError, title }) => {
   const executeFetch = useRef(true);
   const fromDate = lastYearEpoch();
   const toDate = thisYearEpoch();
   const setInitialData = (data) => {
     cryptoData(data);
+  };
+  const setServerError = (serverError, noData) => {
+    retrieveError(serverError, noData);
   };
 
   useEffect(() => {
@@ -18,12 +21,16 @@ export const InitialCrypto = ({ cryptoData, setError, title }) => {
       async function getInitialData() {
         try {
           const data = await fetch(
-            `https://finnhub.io/api/v1/crypto/candle?symbol=${title}&resolution=M&from=${fromDate}&to=${toDate}&token=${finApiKey}`
+            `https://finnhub.io/api/v1/crypto/candle?symbol=${title.toUpperCase()}&resolution=M&from=${fromDate}&to=${toDate}&token=${finApiKey}`
           ).then((res) => handleResponse(res));
+          if (data.s === 'no_data') {
+            setServerError('', 'No data for selected period try another');
+            return;
+          }
           setInitialData(data);
         } catch (error) {
           console.log(error);
-          setError('A server error has occured try again later');
+          retrieveError('A server error has occured try again later', '');
         }
       }
 

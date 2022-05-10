@@ -98,3 +98,6 @@
   color: #de8e21;
   z-index: 100;
 }
+.title {
+  transform: rotate(90deg);
+}

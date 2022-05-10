@@ -12,9 +12,10 @@ export const CryptoInfo = ({ data, viewStyle }) => {
       </div>
     );
   }
-  let average = data.c.reduce((item, sum) => sum + item, 0) / data.c.length;
-  let maximum = Math.max(...data.h);
-  let minimum = Math.min(...data.l);
+  let averageCalc = data.c.reduce((item, sum) => sum + item, 0) / data.c.length;
+  let average = isNaN(averageCalc) ? 0 : averageCalc;
+  let maximum = data.h.length > 0 ? Math.max(...data.h) : 0;
+  let minimum = data.l.length > 0 ? Math.min(...data.l) : 0;
   return (
     <div className={actualStyle[viewStyle]}>
       <p>{`Average ${average}`}</p>

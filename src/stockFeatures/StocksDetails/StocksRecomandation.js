@@ -201,7 +201,7 @@ export const StocksRecomandation = ({ title, className }) => {
   };
 
   return (
-    <div style={{ position: 'relative' }} className={className}>
+    <aside style={{ position: 'relative' }} className={className}>
       <ol className={style.highChart_levels__container}>{renderParagrfs()}</ol>
       <Tooltip
         type={showToolTip}
@@ -213,6 +213,6 @@ export const StocksRecomandation = ({ title, className }) => {
       <div className={style.highChart_values} style={{ height: '300px' }}>
         {renderVotes()}
       </div>
-    </div>
+    </aside>
   );
 };

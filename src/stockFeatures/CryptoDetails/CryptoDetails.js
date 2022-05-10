@@ -39,7 +39,7 @@ export function CryptoDetails({ keye, Id }) {
       />
       <InitialCrypto
         cryptoData={setCryptoData}
-        setError={retrieveError}
+        retrieveError={retrieveError}
         title={keye}
       />
       {error.serverError && (

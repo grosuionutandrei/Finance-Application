@@ -15,6 +15,14 @@
       "lastName": "aaa",
       "profilePhoto": "https://splicedpersonality.files.wordpress.com/2017/09/img_3418.jpg?w=600&h=408",
       "id": 4
+    },
+    {
+      "email": "ionut@yahoo.com",
+      "password": "$2a$10$2A2/bcmhbwdb1iB4V73..u4t.zfwg8Ag1xSRITahE6jHKbAr4kPm6",
+      "firstName": "Ionut",
+      "lastName": "Grs",
+      "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLQMEGR7ATeqhlmDIdUxgW7ifxVzScZ8ghw&usqp=CAU",
+      "id": 5
     }
   ],
   "movies": [
@@ -39391,6 +39399,31 @@
       "userId": 3,
       "item": "AAPL",
       "id": 4
+    },
+    {
+      "userId": 3,
+      "item": "TSLA",
+      "id": 5
+    },
+    {
+      "userId": 3,
+      "item": "SOFI",
+      "id": 6
+    },
+    {
+      "userId": 3,
+      "item": "MSFT",
+      "id": 7
+    },
+    {
+      "userId": 5,
+      "item": "BINANCE:BTCUSDT",
+      "id": 8
+    },
+    {
+      "userId": 5,
+      "item": "AAPL",
+      "id": 9
     }
   ]
 }

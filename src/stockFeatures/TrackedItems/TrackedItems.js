@@ -43,7 +43,6 @@ export function TrackedItems() {
   const fromDate = lastYearEpoch();
   const toDate = thisYearEpoch();
   const [fetchError, setFetchError] = useState('');
-  // const [deleteItem, setDeleteItem] = useState(false);
   const [trackedItems, setTrackedItems] = useState(null);
   const [serverError, setServerError] = useState({
     serverError: '',
@@ -83,8 +82,6 @@ export function TrackedItems() {
       const stocks = filterStocks(crypto, trackedItems);
       setStocks(stocks);
       setCrypto(crypto);
-      // setDeleteItem(false);
-      // setNoTrackedItems('');
     }
   }, [trackedItems]);
 
@@ -174,26 +171,6 @@ export function TrackedItems() {
   if (trackedItems.length === 0) {
     return <p>No items in your list !!!</p>;
   }
-
-  // async function removeItem(e) {
-  //   const response = window.confirm(
-  //     `Are you sure that you want to delete ${e.target.value}`
-  //   );
-  //   if (response) {
-  //     let deleted = deleteFromTrackedList(
-  //       e.target.value,
-  //       trackedItems,
-  //       user,
-  //       token,
-  //       logout,
-  //       setJwtError
-  //     );
-  //     setTrackedItems(
-  //       trackedItems.filter((elem) => elem.item !== e.target.value)
-  //     );
-  //     setDeleteItem(true);
-  //   }
-  // }
   function renderCryptoTracked() {
     const renderData = [];
     for (let i = 0; i < crypto.length; i++) {

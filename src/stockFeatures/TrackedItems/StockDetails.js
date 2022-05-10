@@ -6,32 +6,9 @@ import styles from '../../mcss/Details.module.css';
 export function TrackedStocksDetails({
   data,
   stocks,
-  // setDeleteItem,
   trackedItems,
   setTrackedItems,
 }) {
-  // const { user, token, setJwtError, logout } = useAuthContext();
-
-  // async function removeItem(e) {
-  //   const response = window.confirm(
-  //     `Are you sure that you want to delete ${e.target.value}`
-  //   );
-  //   if (response) {
-  //     deleteFromTrackedList(
-  //       e.target.value,
-  //       trackedItems,
-  //       user,
-  //       token,
-  //       logout,
-  //       setJwtError
-  //     );
-  //     setTrackedItems(
-  //       trackedItems.filter((elem) => elem.item !== e.target.value)
-  //     );
-  //     setDeleteItem(true);
-  //   }
-  // }
-
   const renderDetails = [];
   for (let i = 0; i < data.length; i++) {
     let colorCurrent = data[i].c > data[i].pc ? 'bg-lime-500' : 'bg-red-500';
